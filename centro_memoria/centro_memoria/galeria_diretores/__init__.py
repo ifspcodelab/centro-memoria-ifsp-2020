@@ -1,0 +1,1 @@
+default_app_config = 'centro_memoria.galeria_diretores.apps.GaleriaDiretoresConfig'
