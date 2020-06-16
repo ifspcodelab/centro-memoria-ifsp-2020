@@ -1,18 +1,25 @@
 from django.contrib import admin
-from .models import Diretor, FotoDiretor
+from .models import Personalidade, FotoPersonalidade, Galeria
 
-class DiretorAdmin(admin.ModelAdmin):
+class GaleriaAdmin(admin.ModelAdmin):
 
-    list_display = ['nome', 'sobre', 'inicio_direcao', 'fim_direcao', 'criado_em', 'atualizado_em']
-    search_fields = ['nome', 'inicio_direcao', 'fim_direcao', 'criado_em', 'atualizado_em']
-    list_filter = ['nome', 'inicio_direcao', 'fim_direcao']
+    list_display = ['nome', 'descricao', 'criado_em', 'atualizado_em']
+    search_fields = ['nome', 'descricao', 'criado_em', 'atualizado_em']
+    list_filter = ['nome', 'descricao', 'criado_em', 'atualizado_em']
 
-class FotoDiretorAdmin(admin.ModelAdmin):
+class PersonalidadeAdmin(admin.ModelAdmin):
 
-    list_display = ['diretor', 'destaque', 'criado_em', 'atualizado_em']
-    search_fields = ['diretor', 'destaque', 'criado_em', 'atualizado_em']
-    list_filter = ['diretor', 'destaque']
+    list_display = ['nome', 'funcao', 'sobre', 'inicio_servico', 'fim_servico', 'criado_em', 'atualizado_em']
+    search_fields = ['nome', 'funcao', 'inicio_servico', 'fim_servico', 'criado_em', 'atualizado_em']
+    list_filter = ['nome', 'inicio_servico', 'fim_servico']
+
+class FotoPersonalidadeAdmin(admin.ModelAdmin):
+
+    list_display = ['personalidade', 'destaque', 'criado_em', 'atualizado_em']
+    search_fields = ['personalidade', 'destaque', 'criado_em', 'atualizado_em']
+    list_filter = ['personalidade', 'destaque']
 
 
-admin.site.register(Diretor, DiretorAdmin)
-admin.site.register(FotoDiretor, FotoDiretorAdmin)
+admin.site.register(Personalidade, PersonalidadeAdmin)
+admin.site.register(FotoPersonalidade, FotoPersonalidadeAdmin)
+admin.site.register(Galeria, GaleriaAdmin)

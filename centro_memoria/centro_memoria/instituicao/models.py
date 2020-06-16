@@ -17,6 +17,9 @@ class Instituicao(models.Model):
     email = models.CharField('E-mail', max_length=100)
     email_agendamento = models.CharField('E-mail para envio de Agendamento', max_length=100)
     telefone = models.CharField('Telefone', max_length=100)
+    patrono = models.TextField('Informações sobre Patrono')
+    atividade = models.TextField('Atividade')
+    policia_acervo = models.TextField('Políticas de Acervo')
 
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)

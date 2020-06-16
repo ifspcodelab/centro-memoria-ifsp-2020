@@ -42,8 +42,6 @@ class ItemAcervo(models.Model):
     data = models.DateField('Data do Item', blank=True, null=True)
     fundo = models.CharField('Fundo', blank=True, null=True, max_length=100)
     id_acervo = models.IntegerField('Identificador no Acervo', blank=True, null=True)
-    url_documentacao_externa = models.CharField('URL da documentação externa', 
-                                                blank=True, null=True, max_length=100)
 
     categorias = models.ManyToManyField(CategoriaAcervo)
 
