@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse
 from django.db import models
 
 class GaleriaManager(models.Manager):
@@ -10,7 +10,7 @@ class Galeria(models.Model):
     nome = models.CharField('Nome da Galeria', max_length=100)
     descricao = models.TextField('Descrição da Galeria')
 
-    image = models.ImageField(
+    imagem = models.ImageField(
         verbose_name='Imagem da Galeria'
     )
 
@@ -18,6 +18,9 @@ class Galeria(models.Model):
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
 
     objects = GaleriaManager()
+
+    def get_absolute_url(self):
+        return reverse('galeria:personalidades', args=[self.nome])
 
     def __str__(self):
         return self.nome
@@ -38,7 +41,7 @@ class Personalidade(models.Model):
     inicio_servico = models.DateField('Início dos serviços prestados')
     fim_servico = models.DateField('Fim dos serviços prestados')
 
-    galerias = models.ManyToManyField(Galeria)
+    galerias = models.ManyToManyField(Galeria, related_name='galerias')
 
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
@@ -66,7 +69,7 @@ class FotoPersonalidade(models.Model):
     )
 
     personalidade = models.ForeignKey(Personalidade, on_delete=models.PROTECT, 
-        verbose_name='Personalidade', related_name='fotos'
+        verbose_name='Personalidade', related_name='personalidade'
     )
 
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
@@ -75,7 +78,7 @@ class FotoPersonalidade(models.Model):
     objects = FotoPersonalidadeManager()
 
     def __str__(self):
-        return self.personalidade
+        return self.personalidade.__str__()
 
     class Meta:
         verbose_name = 'Foto da Personalidade'

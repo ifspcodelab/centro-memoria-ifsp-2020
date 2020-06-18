@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse
 from django.db import models
 
 class CategoriaAcervoManager(models.Manager):
@@ -10,7 +10,7 @@ class CategoriaAcervo(models.Model):
     nome = models.CharField('Nome da Categoria', max_length=100)
     descricao = models.TextField('Descrição da Categoria')
 
-    image = models.ImageField(
+    imagem = models.ImageField(
         verbose_name='Imagem da Categoria'
     )
 
@@ -22,6 +22,9 @@ class CategoriaAcervo(models.Model):
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
 
     objects = CategoriaAcervoManager()
+
+    def get_absolute_url(self):
+        return reverse('acervo:itens', args=[self.nome])
 
     def __str__(self):
         return self.nome
@@ -80,7 +83,7 @@ class FotoItemAcervo(models.Model):
     objects = FotoItemAcervoManager()
 
     def __str__(self):
-        return self.item_acervo
+        return self.item_acervo.__str__()
 
     class Meta:
         verbose_name = 'Foto do Item do Acervo'

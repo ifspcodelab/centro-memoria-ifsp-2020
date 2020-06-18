@@ -77,7 +77,7 @@ class Membro(models.Model):
     nome = models.CharField('Nome', max_length=100)
     funcao = models.CharField('Função', max_length=100)
 
-    image = models.ImageField(
+    imagem = models.ImageField(
         verbose_name='Foto do Membro da Equipe'
     )
 
