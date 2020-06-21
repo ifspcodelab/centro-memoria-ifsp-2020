@@ -281,6 +281,7 @@ footer .sub-rodape {
     background: #141414;
     color: #CBCBCB;
     margin-top: 60px;
+    margin-left: 0px;
     font-size: 13px;
 }
 
@@ -449,6 +450,16 @@ div.desc {
     text-align: center;
 }
 
+ul#ulId {
+    list-style: none;
+    display: inline-block;
+}
+
+li {
+    float: left;
+    margin-left: 100px;
+}
+
 .modal-header {
     background-color: green;
 }
@@ -478,6 +489,7 @@ div.desc {
 
 .modal-body {
     margin: center;
+    size: 100%;
     display: block;
     width: 70%;
     height: 70%;
