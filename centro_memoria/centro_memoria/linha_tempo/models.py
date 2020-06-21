@@ -44,7 +44,7 @@ class FotoEvento(models.Model):
     objects = FotoEventoManager()
 
     def __str__(self):
-        return self.evento
+        return self.evento.__str__()
 
     class Meta:
         verbose_name = 'Foto do Evento'

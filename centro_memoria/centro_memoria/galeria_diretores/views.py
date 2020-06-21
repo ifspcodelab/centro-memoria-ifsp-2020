@@ -3,7 +3,7 @@ from centro_memoria.instituicao.models import Instituicao
 from .models import Personalidade, Galeria, FotoPersonalidade
 
 def galerias(request):
-    instituicao = Instituicao.objects.all().order_by('-created_at')[0]
+    instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
     galerias = Galeria.objects.all()
     context = {
         'instituicao': instituicao,
@@ -12,10 +12,11 @@ def galerias(request):
     template_name = 'galeria_index.html'
     return render(request, template_name, context)
 
-def personalidades_galeria(request, galeria):
-    instituicao = Instituicao.objects.all().order_by('-created_at')[0]
-    personalidades = get_object_or_404(Personalidade, galeria=galeria)
-    fotos_personalidades_destaque = FotoPersonalidade.objects.filter(personalidade__in=personalidades, 
+def personalidades_galeria(request, nome_galeria):
+    instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
+    galeria = get_object_or_404(Galeria, nome=nome_galeria)
+    personalidades = Personalidade.objects.all().filter(galerias=galeria)
+    fotos_personalidades_destaque = FotoPersonalidade.objects.all().filter(personalidade__in=personalidades, 
                                                                     destaque=True)
     context = {
         'instituicao': instituicao,
@@ -26,9 +27,11 @@ def personalidades_galeria(request, galeria):
     template_name = 'personalidades_galeria.html'
     return render(request, template_name, context)
 
-def personalidade_detalhes(request, galeria, personalidade):
-    instituicao = Instituicao.objects.all().order_by('-created_at')[0]
-    fotos_personalidade = FotoPersonalidade.objects.filter(personalidade=personalidade)
+def personalidade_detalhes(request, nome_galeria, nome_personalidade):
+    instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
+    galeria = get_object_or_404(Galeria, nome=nome_galeria)
+    personalidade = get_object_or_404(Personalidade, nome=nome_personalidade)
+    fotos_personalidade = FotoPersonalidade.objects.all().filter(personalidade=personalidade)
     context = {
         'instituicao': instituicao,
         'galeria': galeria,

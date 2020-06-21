@@ -48,7 +48,7 @@ class FotoNoticia(models.Model):
     objects = FotoNoticiaManager()
 
     def __str__(self):
-        return self.noticia
+        return self.noticia.__str__()
 
     class Meta:
         verbose_name = 'Foto da Notícia'

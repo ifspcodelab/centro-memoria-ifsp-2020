@@ -43,7 +43,7 @@ class FotoGrupoPesquisa(models.Model):
     objects = FotoGrupoPesquisaManager()
 
     def __str__(self):
-        return self.grupo_pesquisa
+        return self.grupo_pesquisa.__str__()
 
     class Meta:
         verbose_name = 'Foto do Grupo de Pesquisa'
@@ -59,7 +59,7 @@ class Membro(models.Model):
     funcao = models.CharField('Função', max_length=100, blank=True, null=True)
     descricao = models.CharField('Descrição do Trabalho do Membro', max_length=255, blank=True, null=True)
 
-    image = models.ImageField(
+    imagem = models.ImageField(
         verbose_name='Foto do Membro do Grupo de Pesquisa', blank=True, null=True
     )
 
