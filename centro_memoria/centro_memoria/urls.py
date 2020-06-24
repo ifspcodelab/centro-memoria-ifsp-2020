@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('', include('centro_memoria.instituicao.urls', namespace='instituicao')),
     path('admin/', admin.site.urls),
     path('galeria/', include('centro_memoria.galeria_diretores.urls', namespace='galeria')),
     path('acervo/', include('centro_memoria.acervo.urls', namespace='acervo'))
