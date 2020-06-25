@@ -9,6 +9,8 @@ def agendamento(request):
         form = FormVisita(request.POST)
         if form.is_valid():
             context['is_valid'] = True
+            form.confirmarAgendamento()
+            form = FormVisita()
     else:
         form = FormVisita()
     context['form'] = form
