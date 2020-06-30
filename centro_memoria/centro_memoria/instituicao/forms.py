@@ -1,9 +1,12 @@
 from django import forms
 from django.core.mail import send_mail
 from django.conf import settings
+from localflavor.br.br_states import STATE_CHOICES
+from .utils import GeoAPI
 
 class FormVisita(forms.Form):
-    datas_visita =(
+
+    DATAS_VISITAS = (
         ('', 'Selecione'),
         ("01-07-2020", "01/07/2020"), 
         ("02-07-2020", "02/07/2020"), 
@@ -12,28 +15,34 @@ class FormVisita(forms.Form):
         ("05-07-2020", "05/07/2020"), 
     )
 
-    periodos =(
-        ("manhã", "Manhã (das 09h às 12h)"), 
-        ("tarde", "Tarde (das 14h às 17h)")
+    PERIODOS = (
+        ("Manhã", "Manhã (das 09h às 12h)"), 
+        ("Tarde", "Tarde (das 14h às 17h)")
     )
 
-    areas=(
+    AREAS = (
         ('Acervo','Acervo'),
         ('Biblioteca','Biblioteca'),
         ('Coleção','Coleção'),
         ('Museu','Museu'),
     )
 
+    ESTADOS = GeoAPI.getEstado()
+
+    CIDADES = (
+        ('', 'Selecione um Estado'),
+    )
+
     nome = forms.CharField(label='Nome do visitante ou do responsável*', max_length=50)
     instituicao = forms.CharField(required=False, label='Instituição', max_length=150)
-    estado = forms.ChoiceField(label='Estado*')
-    cidade = forms.ChoiceField(label='Cidade*')
+    estado = forms.ChoiceField(label='Estado*', choices=ESTADOS, widget=forms.Select(attrs={"onChange": 'getCidade()'}))
+    cidade = forms.ChoiceField(label='Cidade*', choices=CIDADES)
     email = forms.EmailField(label='Email para contato*')
     telefone = forms.CharField(label='Telefone para contato*', max_length=50)
-    data_visita = forms.ChoiceField(label='Data da visita*', choices=datas_visita)
-    periodo = forms.ChoiceField(label='Período*', choices=periodos)
+    data_visita = forms.ChoiceField(label='Data da visita*', choices=DATAS_VISITAS)
+    periodo = forms.ChoiceField(label='Período*', choices=PERIODOS)
     total_visitantes = forms.IntegerField(label='Total de visitantes*')
-    areas_visita = forms.MultipleChoiceField(label='Áreas a serem visitadas*', choices=areas, widget=forms.CheckboxSelectMultiple)
+    areas_visita = forms.MultipleChoiceField(label='Áreas a serem visitadas*', choices=AREAS, widget=forms.CheckboxSelectMultiple)
     motivo = forms.CharField(label='Motivo da visita*', widget=forms.Textarea)
     informacoes_adicionais = forms.CharField(required=False, label='Informações adicionais', widget=forms.Textarea)
 
@@ -56,10 +65,17 @@ class FormVisita(forms.Form):
         fail_silently=True)
 
 class FormFaleConosco(forms.Form):
+
+    ESTADOS = GeoAPI.getEstado()
+
+    CIDADES = (
+        ('', 'Selecione um Estado'),
+    )
+
     nome = forms.CharField(label='Nome do visitante ou do responsável*', max_length=50)
     email = forms.EmailField(label='Email para contato*')
-    estado = forms.CharField(label='Estado*', max_length=50)
-    cidade = forms.CharField(label='Cidade*', max_length=50)
+    estado = forms.ChoiceField(label='Estado*', choices=ESTADOS, widget=forms.Select(attrs={"onChange": 'getCidade()'}))
+    cidade = forms.ChoiceField(label='Cidade*', choices=CIDADES)
     mensagem = forms.CharField(label='Mensagem*', widget=forms.Textarea)
 
     def enviarMensagem(self):
