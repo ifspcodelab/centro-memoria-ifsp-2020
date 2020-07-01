@@ -7,7 +7,20 @@
     <meta content="CENTRO DE MEMÓRIA IFSP." name="description">
     <title> Centro de Memória IFSP </title>
     <link href="resources/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="resources/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
     <link href="resources/css/acervo.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="resources/css/docs.theme.min.css">
+
+
+
+    <script src="resources/vendors/jquery/jquery.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
 
     <link rel="shortcut icon" type="image/x-icon" href="resources/img/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,700,800" rel="stylesheet">
@@ -80,73 +93,22 @@
         <input class="form-control mr-sm-2" id="myInput" autocomplete="off" onkeyup="searchFunc()" type="text" placeholder="Busque um Artefato" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" onclick="searchFunc()" type="submit">Procurar</button>
     </form>
+    <div class="container">
+        <div class="row outras-imagens">
 
-    <div class="row">
-        <div class="column">
-            <img src="https://cdn.pixabay.com/photo/2017/05/12/15/16/hexagon-2307350_960_720.png" onclick="openModal();currentSlide(1)" class="hover-shadow">
 
-        </div>
-        <div class="column">
-            <img src="https://cdn.pixabay.com/photo/2017/05/12/15/16/hexagon-2307350_960_720.png" onclick="openModal();currentSlide(2)" class="hover-shadow">
-        </div>
-        <div class="column">
-            <img src="https://cdn.pixabay.com/photo/2017/05/12/15/16/hexagon-2307350_960_720.png" onclick="openModal();currentSlide(3)" class="hover-shadow">
-        </div>
-        <div class="column">
-            <img src="https://cdn.pixabay.com/photo/2017/05/12/15/16/hexagon-2307350_960_720.png" onclick="openModal();currentSlide(4)" class="hover-shadow">
-        </div>
-    </div>
-
-    <!-- The Modal/Lightbox -->
-    <div id="myModal" class="modal">
-        <span class="close cursor" onclick="closeModal()">&times;</span>
-        <div class="modal-content">
-
-            <div class="mySlides">
-                <div class="numbertext">1 / 4</div>
-                <img src="https://cdn.pixabay.com/photo/2017/05/12/15/16/hexagon-2307350_960_720.png" style="width:100%">
+            <div class="col-3">
+                <a data-fancybox="gallery" href="resources/img/ifsp.jpg"><img src="resources/img/ifsp.jpg"></a>
             </div>
 
-            <div class="mySlides">
-                <div class="numbertext">2 / 4</div>
-                <img src="https://cdn.pixabay.com/photo/2017/05/12/15/16/hexagon-2307350_960_720.png" style="width:100%">
+            <div class="col-3">
+                <a data-fancybox="gallery" href="resources/img/ifsp.jpg"><img src="resources/img/ifsp.jpg"></a>
+            </div>
+            <div class="col-3">
+                <a data-fancybox="gallery" href="resources/img/ifsp.jpg"><img src="resources/img/ifsp.jpg"></a>
             </div>
 
-            <div class="mySlides">
-                <div class="numbertext">3 / 4</div>
-                <img src="https://cdn.pixabay.com/photo/2017/05/12/15/16/hexagon-2307350_960_720.png" style="width:100%">
-            </div>
 
-            <div class="mySlides">
-                <div class="numbertext">4 / 4</div>
-                <img src="https://cdn.pixabay.com/photo/2017/05/12/15/16/hexagon-2307350_960_720.png" style="width:100%">
-            </div>
-
-            <!-- Next/previous controls -->
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-            <!-- Caption text -->
-            <div class="caption-container">
-                <p id="caption"></p>
-            </div>
-
-            <!-- Thumbnail image controls -->
-            <div class="column">
-                <img class="demo" src="https://cdn.pixabay.com/photo/2017/05/12/15/16/hexagon-2307350_960_720.png" onclick="currentSlide(1)" alt="Nature">
-            </div>
-
-            <div class="column">
-                <img class="demo" src="https://cdn.pixabay.com/photo/2017/05/12/15/16/hexagon-2307350_960_720.png" onclick="currentSlide(2)" alt="Snow">
-            </div>
-
-            <div class="column">
-                <img class="demo" src="https://cdn.pixabay.com/photo/2017/05/12/15/16/hexagon-2307350_960_720.png" onclick="currentSlide(3)" alt="Mountains">
-            </div>
-
-            <div class="column">
-                <img class="demo" src="https://cdn.pixabay.com/photo/2017/05/12/15/16/hexagon-2307350_960_720.png" onclick="currentSlide(4)" alt="Lights">
-            </div>
         </div>
     </div>
 
@@ -192,6 +154,9 @@
     <script src="resources/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src="resources/js/scripts.js"></script>
     <script src="resources/js/acervo.js"></script>
+    <script src="resources/vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="resources/vendors/sweet-alert/sweetalert2.all.min.js"></script>
+
 </body>
 
 </html>
