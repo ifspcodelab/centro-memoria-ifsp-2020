@@ -2,30 +2,15 @@ from django import forms
 from django.core.mail import send_mail
 from django.conf import settings
 from localflavor.br.br_states import STATE_CHOICES
-from .utils import GeoAPI
+from .utils import GeoAPI, GeradorDinamico
 
 class FormVisita(forms.Form):
 
-    DATAS_VISITAS = (
-        ('', 'Selecione'),
-        ("01-07-2020", "01/07/2020"), 
-        ("02-07-2020", "02/07/2020"), 
-        ("03-07-2020", "03/07/2020"), 
-        ("04-07-2020", "04/07/2020"), 
-        ("05-07-2020", "05/07/2020"), 
-    )
+    DATAS_VISITAS = GeradorDinamico.gerarDatasVisita()
 
-    PERIODOS = (
-        ("Manhã", "Manhã (das 09h às 12h)"), 
-        ("Tarde", "Tarde (das 14h às 17h)")
-    )
+    PERIODOS = GeradorDinamico.gerarPeriodoVisita()
 
-    AREAS = (
-        ('Acervo','Acervo'),
-        ('Biblioteca','Biblioteca'),
-        ('Coleção','Coleção'),
-        ('Museu','Museu'),
-    )
+    AREAS = GeradorDinamico.gerarAreasVisita()
 
     ESTADOS = GeoAPI.getEstado()
 
@@ -63,6 +48,7 @@ class FormVisita(forms.Form):
         'teste@gmail.com',
         ['teste@gmail.com'],
         fail_silently=True)
+
 
 class FormFaleConosco(forms.Form):
 
