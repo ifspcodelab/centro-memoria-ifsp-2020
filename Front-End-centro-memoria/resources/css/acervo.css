@@ -428,129 +428,159 @@ footer .links a {
     position: absolute;
 }
 
-div.gallery {
-    margin: 50px;
-    margin-top: 50px;
-    margin-left: 350px;
+.row>.column {
+    padding: 0 8px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+/* Create four equal columns that floats next to eachother */
+
+.column {
+    margin: 20px;
+    margin-top: 350px;
+    margin-left: 450px;
     margin-bottom: 200px;
-    border: 1px solid black;
     float: left;
-    width: 160px;
+    width: 15%;
     cursor: pointer;
 }
 
-div.gallery img {
-    width: 100%;
-    left: 50%;
-    top: 30%;
-    height: auto;
-}
 
-div.desc {
-    padding: 10px;
-    text-align: center;
-}
-
-ul#ulId {
-    list-style: none;
-    display: inline-block;
-}
-
-li {
-    float: left;
-    margin-left: 100px;
-}
-
-.modal-header {
-    background-color: green;
-}
+/* The Modal (background) */
 
 .modal {
     display: none;
-    /* Hidden by default */
     position: fixed;
-    /* Stay in place */
     z-index: 1;
-    /* Sit on top */
     padding-top: 100px;
-    /* Location of the box */
     left: 0;
     top: 0;
     width: 100%;
-    /* Full width */
     height: 100%;
-    /* Full height */
     overflow: auto;
-    /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0);
-    /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.9);
-    /* Black w/ opacity */
+    background-color: black;
 }
 
-.modal-body {
-    margin: center;
-    size: 100%;
-    display: block;
-    width: 70%;
-    height: 70%;
-    max-width: 500px;
-}
 
-.modal-body>p {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    color: black;
-    padding: 10px 0;
-    height: 150px;
-}
-
-.modal-body>p {
-    animation-name: zoom;
-    animation-duration: 0.6s;
-}
+/* Modal Content */
 
 .modal-content {
-    margin-top: 200px;
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    margin-top: 210px;
+    padding: 0;
+    width: 30%;
+    max-width: 1200px;
 }
 
-@keyframes zoom {
-    from {
-        transform: scale(10);
-    }
-    to {
-        transform: scale(100);
-    }
+
+/* Hide the slides by default */
+
+.mySlides {
+    display: none;
 }
 
-@media only screen and (max-width: 700px) {
-    .modal-body {
-        width: 100%;
-    }
+
+/* Next & previous buttons */
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -1250px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
 }
+
+
+/* Position the "next button" to the right */
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+
+/* On hover, add a black background color with a little bit see-through */
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+/* Number text (1/3 etc) */
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+
+/* Caption text */
+
+.caption-container {
+    text-align: center;
+    background-color: black;
+    padding: 2px 16px;
+    color: white;
+}
+
+
+/* tamanho da img no html*/
+
+img.demo {
+    opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+    opacity: 1;
+}
+
+img.hover-shadow {
+    transition: 0.3s;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+/* The Close Button */
 
 .close {
+    color: green;
     position: absolute;
-    top: 15px;
-    right: 35px;
-    color: black;
-    font-size: 40px;
+    top: 300px;
+    right: 600px;
+    font-size: 50px;
     font-weight: bold;
-    transition: 0.3s;
 }
 
 .close:hover,
 .close:focus {
-    color: #bbb;
+    color: green;
     text-decoration: none;
     cursor: pointer;
-}
-
-.gallery .desc {
-    font-weight: bold;
 }
 
 @media screen and (max-width: 600px) and (min-width: 0px) {
