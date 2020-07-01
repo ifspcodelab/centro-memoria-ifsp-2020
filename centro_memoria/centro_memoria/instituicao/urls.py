@@ -5,4 +5,5 @@ app_name = 'instituicao'
 
 urlpatterns = [
     path('agendamento/', views.agendamento, name='agendamento'),
+    path('faleconosco/', views.faleconosco, name='faleconosco')
 ]
