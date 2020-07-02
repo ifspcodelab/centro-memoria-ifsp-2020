@@ -1,24 +1,3 @@
-$(document).ready(function() {
-    $('.gallery').on('click', function() {
-        //alert('teste');
-        $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-        $('#modelId').modal('show');
-    });
-    window.onclick = function(event) {
-        if (event.target != ".gallery") {
-            $(".modal").hide();
-            //alert('teste');
-            $(".modal-backdrop.fade.show").hide();
-
-
-
-
-        }
-
-    }
-
-});
-
 function searchFunc() {
     var input, filter, ul, li, a, i;
     input = document.getElementById('myInput');
