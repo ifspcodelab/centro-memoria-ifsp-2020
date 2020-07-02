@@ -38,14 +38,12 @@ def categoria_detalhes(request, nome_categoria):
     template_name = 'itens_categoria.html'
     return render(request, template_name, context)
 
-def item_detalhes(request, nome_categoria, nome_item):
+def item_detalhes(request, nome_item):
     instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
-    categoria = get_object_or_404(CategoriaAcervo, nome=nome_categoria)
     item = get_object_or_404(ItemAcervo, nome=nome_item)
     fotos_item = FotoItemAcervo.objects.all().filter(item_acervo=item)
     context = {
         'instituicao': instituicao,
-        'categoria': categoria,
         'item': item,
         'fotos_item': fotos_item
     }
@@ -54,12 +52,15 @@ def item_detalhes(request, nome_categoria, nome_item):
 
 def acervo_pesquisa(request, parametro):
     instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
+    categorias_acervo = CategoriaAcervo.objects.all().filter(Q(nome__icontains=parametro) |
+                    Q(descricao__icontains=parametro))
     itens_acervo = ItemAcervo.objects.all().filter(Q(nome__icontains=parametro) |
                     Q(descricao__icontains=parametro) | Q(fundo__icontains=parametro) |
                     Q(data__icontains=parametro))
     fotos_itens_destaque = FotoItemAcervo.objects.all().filter(item_acervo__in=itens_acervo, destaque=True)
     context = {
         'instituicao': instituicao,
+        'categorias_acervo': categorias_acervo,
         'itens_acervo': itens_acervo,
         'fotos_itens_destaque': fotos_itens_destaque
     }
