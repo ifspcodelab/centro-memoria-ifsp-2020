@@ -9,7 +9,7 @@ def agendamento(request):
         form = FormVisita(request.POST)
         if form.is_valid():
             context['is_valid'] = True
-            form.confirmarAgendamento()
+            form.confirmarAgendamento(instituicao)
             form = FormVisita()
     else:
         form = FormVisita()
@@ -25,7 +25,7 @@ def faleconosco(request):
         form = FormFaleConosco(request.POST)
         if form.is_valid():
             context['is_valid'] = True
-            form.enviarMensagem()
+            form.enviarMensagem(instituicao)
             form = FormFaleConosco()
     else:
         form = FormFaleConosco()
