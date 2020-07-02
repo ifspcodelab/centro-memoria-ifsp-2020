@@ -13,23 +13,26 @@ body {
     height: 200px;
 }
 
+.col-3 {
+    margin: 30px;
+}
+
 .outras-imagens img {
-    margin-top: 400px;
-    margin-bottom: 100px;
-    margin-left: 50px;
     border: 0.3rem solid;
     border-color: #009D4C;
 }
 
 img {
-    display: block;
+    display: inline-block;
     width: 100%;
 }
 
+#demos .owl-carousel .item {
+    background: #009D4C !important;
+    padding: 0.3rem !important;
+}
+
 a {
-    margin-top: 300px;
-    margin-bottom: 100px;
-    margin-left: 50px;
     color: initial;
     text-decoration: none;
 }
@@ -89,8 +92,7 @@ h2 {
 }
 
 .texto p {
-    margin: 13px auto;
-    padding-right: 20px;
+    margin: 13px auto padding-right: 20px;
 }
 
 #home {
