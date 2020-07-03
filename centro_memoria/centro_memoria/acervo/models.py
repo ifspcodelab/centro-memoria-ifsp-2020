@@ -24,7 +24,7 @@ class CategoriaAcervo(models.Model):
     objects = CategoriaAcervoManager()
 
     def get_absolute_url(self):
-        return reverse('acervo:itens', args=[self.nome])
+        return reverse('acervo:categoria-detalhes', args=[self.nome])
 
     def __str__(self):
         return self.nome
@@ -52,6 +52,9 @@ class ItemAcervo(models.Model):
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
 
     objects = ItemAcervoManager()
+
+    def get_absolute_url(self):
+        return reverse('acervo:item-detalhes', args=[self.nome])
 
     def __str__(self):
         return self.nome

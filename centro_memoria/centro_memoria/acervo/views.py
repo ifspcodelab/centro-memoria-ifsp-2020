@@ -52,10 +52,10 @@ def item_detalhes(request, nome_item):
 
 def acervo_pesquisa(request, parametro):
     instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
-    categorias_acervo = CategoriaAcervo.objects.all().filter(Q(nome__icontains=parametro) |
-                    Q(descricao__icontains=parametro))
-    itens_acervo = ItemAcervo.objects.all().filter(Q(nome__icontains=parametro) |
-                    Q(descricao__icontains=parametro) | Q(fundo__icontains=parametro) |
+    categorias_acervo = CategoriaAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
+                    Q(descricao__unaccent__icontains=parametro))
+    itens_acervo = ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
+                    Q(descricao__unaccent__icontains=parametro) | Q(fundo__unaccent__icontains=parametro) |
                     Q(data__icontains=parametro))
     fotos_itens_destaque = FotoItemAcervo.objects.all().filter(item_acervo__in=itens_acervo, destaque=True)
     context = {
