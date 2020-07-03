@@ -1,16 +1,20 @@
-function searchFunc() {
-    var input, filter, ul, li, a, i;
-    input = document.getElementById('myInput');
-    filter = input.value.toUpperCase();
-    ul = document.getElementById('ulId');
-    li = ul.getElementsByTagName('li');
-
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName('a')[0];
-        if (a.innerHTML.toUpperCase().indexOf(filter) != -1) {
-            li[i].style.display = "block";
-        } else {
-            li[i].style.display = 'none';
-        }
+function contains(text_one, text_two) {
+    if (text_one.indexOf(text_two) != -1) {
+        return true;
     }
 }
+
+$("#myInput").keyup(function() {
+    var searchName = $("#myInput").val().toLowerCase();
+    $(".title").each(function() {
+        if (!contains($(this).text().toLowerCase(), searchName)) {
+            $(this).hide();
+        } else {
+            $(this).show();
+        }
+    });
+});
+
+var teste = document.querySelectorAll('.col-3');
+
+console.log(teste.length);

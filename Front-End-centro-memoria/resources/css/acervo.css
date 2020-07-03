@@ -22,9 +22,20 @@ body {
     border-color: #009D4C;
 }
 
+.post-excerpt {
+    margin: 10px;
+    text-align: justify;
+    display: block;
+}
+
 img {
     display: inline-block;
     width: 100%;
+}
+
+.form-inline {
+    margin-top: 20px;
+    margin-left: 500px;
 }
 
 #demos .owl-carousel .item {
@@ -92,7 +103,8 @@ h2 {
 }
 
 .texto p {
-    margin: 13px auto padding-right: 20px;
+    margin: 13px auto;
+    padding-right: 20px;
 }
 
 #home {
