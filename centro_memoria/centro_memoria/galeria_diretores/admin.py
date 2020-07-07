@@ -3,15 +3,15 @@ from .models import Personalidade, FotoPersonalidade, Galeria
 
 class GaleriaAdmin(admin.ModelAdmin):
 
-    list_display = ['nome', 'descricao', 'criado_em', 'atualizado_em']
-    search_fields = ['nome', 'descricao', 'criado_em', 'atualizado_em']
-    list_filter = ['nome', 'descricao', 'criado_em', 'atualizado_em']
+    list_display = ['nome', 'ativo', 'descricao', 'criado_em', 'atualizado_em']
+    search_fields = ['nome', 'ativo', 'descricao', 'criado_em', 'atualizado_em']
+    list_filter = ['nome', 'ativo', 'descricao', 'criado_em', 'atualizado_em']
 
 class PersonalidadeAdmin(admin.ModelAdmin):
 
-    list_display = ['nome', 'funcao', 'sobre', 'inicio_servico', 'fim_servico', 'criado_em', 'atualizado_em']
-    search_fields = ['nome', 'funcao', 'inicio_servico', 'fim_servico', 'criado_em', 'atualizado_em']
-    list_filter = ['nome', 'inicio_servico', 'fim_servico']
+    list_display = ['nome', 'ativo', 'funcao', 'sobre', 'inicio_servico', 'fim_servico', 'criado_em', 'atualizado_em']
+    search_fields = ['nome', 'ativo', 'funcao', 'inicio_servico', 'fim_servico', 'criado_em', 'atualizado_em']
+    list_filter = ['nome', 'ativo', 'inicio_servico', 'fim_servico']
 
 class FotoPersonalidadeAdmin(admin.ModelAdmin):
 

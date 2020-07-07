@@ -18,6 +18,9 @@ class CategoriaAcervo(models.Model):
         verbose_name='Categoria Pai', related_name='categorias_filhas'
     )
 
+    ativo = models.BooleanField('Registro ativo?', 
+        help_text='Este campo indica se este registro já está pronto para aparecer no site publicamente')
+
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
 
@@ -47,6 +50,9 @@ class ItemAcervo(models.Model):
     id_acervo = models.IntegerField('Identificador no Acervo', blank=True, null=True)
 
     categorias = models.ManyToManyField(CategoriaAcervo)
+
+    ativo = models.BooleanField('Registro ativo?', 
+        help_text='Este campo indica se este registro já está pronto para aparecer no site publicamente')
 
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)

@@ -3,9 +3,9 @@ from .models import Noticia, FotoNoticia
 
 class NoticiaAdmin(admin.ModelAdmin):
 
-    list_display = ['titulo', 'descricao', 'destaque', 'criado_em', 'atualizado_em']
-    search_fields = ['titulo', 'destaque', 'criado_em', 'atualizado_em']
-    list_filter = ['titulo', 'destaque']
+    list_display = ['titulo', 'ativo', 'descricao', 'destaque', 'criado_em', 'atualizado_em']
+    search_fields = ['titulo', 'ativo', 'destaque', 'criado_em', 'atualizado_em']
+    list_filter = ['titulo', 'ativo', 'destaque']
 
 class FotoNoticiaAdmin(admin.ModelAdmin):
 

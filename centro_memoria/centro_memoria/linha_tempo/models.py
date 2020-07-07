@@ -9,6 +9,9 @@ class Evento(models.Model):
     descricao = models.TextField('Descrição')
     data = models.DateField('Data do Evento')
 
+    ativo = models.BooleanField('Registro ativo?', 
+        help_text='Este campo indica se este registro já está pronto para aparecer no site publicamente')
+
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
 
