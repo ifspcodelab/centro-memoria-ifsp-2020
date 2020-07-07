@@ -14,7 +14,3 @@ $("#myInput").keyup(function() {
         }
     });
 });
-
-var teste = document.querySelectorAll('.col-3');
-
-console.log(teste.length);
