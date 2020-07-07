@@ -3,9 +3,9 @@ from .models import Evento, FotoEvento
 
 class EventoAdmin(admin.ModelAdmin):
 
-    list_display = ['titulo', 'descricao', 'data', 'criado_em', 'atualizado_em']
-    search_fields = ['titulo', 'data', 'criado_em', 'atualizado_em']
-    list_filter = ['titulo', 'data']
+    list_display = ['titulo', 'ativo', 'descricao', 'data', 'criado_em', 'atualizado_em']
+    search_fields = ['titulo', 'ativo', 'data', 'criado_em', 'atualizado_em']
+    list_filter = ['titulo', 'ativo', 'data']
 
 class FotoEventoAdmin(admin.ModelAdmin):
 

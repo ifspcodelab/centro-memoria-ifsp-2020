@@ -14,6 +14,9 @@ class Galeria(models.Model):
         verbose_name='Imagem da Galeria'
     )
 
+    ativo = models.BooleanField('Registro ativo?', 
+        help_text='Este campo indica se este registro já está pronto para aparecer no site publicamente')
+
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
 
@@ -42,6 +45,9 @@ class Personalidade(models.Model):
     fim_servico = models.DateField('Fim dos serviços prestados')
 
     galerias = models.ManyToManyField(Galeria, related_name='galerias')
+
+    ativo = models.BooleanField('Registro ativo?', 
+        help_text='Este campo indica se este registro já está pronto para aparecer no site publicamente')
 
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)

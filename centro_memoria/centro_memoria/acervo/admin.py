@@ -3,9 +3,9 @@ from .models import ItemAcervo, FotoItemAcervo, CategoriaAcervo
 
 class ItemAcervoAdmin(admin.ModelAdmin):
 
-    list_display = ['nome', 'descricao', 'data', 'fundo', 'id_acervo']
-    search_fields = ['nome', 'descricao', 'data', 'fundo', 'id_acervo']
-    list_filter = ['nome', 'data', 'fundo', 'id_acervo']
+    list_display = ['nome', 'ativo', 'descricao', 'data', 'fundo', 'id_acervo']
+    search_fields = ['nome', 'ativo', 'descricao', 'data', 'fundo', 'id_acervo']
+    list_filter = ['nome', 'ativo', 'data', 'fundo', 'id_acervo']
 
 
 class FotoItemAcervoAdmin(admin.ModelAdmin):
@@ -17,9 +17,9 @@ class FotoItemAcervoAdmin(admin.ModelAdmin):
 
 class CategoriaAcervoAdmin(admin.ModelAdmin):
 
-    list_display = ['nome', 'descricao', 'categoria_pai']
-    search_fields = ['nome', 'descricao', 'categoria_pai']
-    list_filter = ['nome', 'categoria_pai']
+    list_display = ['nome', 'ativo', 'descricao', 'categoria_pai']
+    search_fields = ['nome', 'ativo', 'descricao', 'categoria_pai']
+    list_filter = ['nome', 'ativo', 'categoria_pai']
 
 
 admin.site.register(ItemAcervo, ItemAcervoAdmin)
