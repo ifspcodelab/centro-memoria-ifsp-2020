@@ -54,6 +54,9 @@ class Personalidade(models.Model):
 
     objects = PersonalidadeManager()
 
+    def get_absolute_url(self):
+        return reverse('galeria:personalidade-detalhes', args=[self.nome])
+
     def __str__(self):
         return self.nome
 

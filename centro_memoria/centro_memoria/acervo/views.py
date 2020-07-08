@@ -6,7 +6,7 @@ from .forms import PesquisaForm
 
 def categorias_acervo(request):
     instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
-    categorias = CategoriaAcervo.objects.all().filter(categoria_pai__isnull=True)
+    categorias = CategoriaAcervo.objects.all().filter(categoria_pai__isnull=True, ativo=True)
     template_name = 'categorias_acervo.html'
     if request.method == 'POST':
         form = PesquisaForm(request.POST)
@@ -24,9 +24,9 @@ def categorias_acervo(request):
 
 def categoria_detalhes(request, nome_categoria):
     instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
-    categoria = get_object_or_404(CategoriaAcervo, nome=nome_categoria)
-    categorias_filhas = CategoriaAcervo.objects.all().filter(categoria_pai=categoria)
-    itens_acervo = ItemAcervo.objects.all().filter(categorias=categoria)
+    categoria = get_object_or_404(CategoriaAcervo, nome=nome_categoria, ativo=True)
+    categorias_filhas = CategoriaAcervo.objects.all().filter(categoria_pai=categoria, ativo=True)
+    itens_acervo = ItemAcervo.objects.all().filter(categorias=categoria, ativo=True)
     fotos_itens_destaque = FotoItemAcervo.objects.all().filter(item_acervo__in=itens_acervo, destaque=True)
     context = {
         'instituicao': instituicao,
@@ -40,7 +40,7 @@ def categoria_detalhes(request, nome_categoria):
 
 def item_detalhes(request, nome_item):
     instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
-    item = get_object_or_404(ItemAcervo, nome=nome_item)
+    item = get_object_or_404(ItemAcervo, nome=nome_item, ativo=True)
     fotos_item = FotoItemAcervo.objects.all().filter(item_acervo=item)
     context = {
         'instituicao': instituicao,
@@ -53,10 +53,10 @@ def item_detalhes(request, nome_item):
 def acervo_pesquisa(request, parametro):
     instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
     categorias_acervo = CategoriaAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
-                    Q(descricao__unaccent__icontains=parametro))
+                    Q(descricao__unaccent__icontains=parametro), ativo=True)
     itens_acervo = ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
                     Q(descricao__unaccent__icontains=parametro) | Q(fundo__unaccent__icontains=parametro) |
-                    Q(data__icontains=parametro))
+                    Q(data__icontains=parametro), ativo=True)
     fotos_itens_destaque = FotoItemAcervo.objects.all().filter(item_acervo__in=itens_acervo, destaque=True)
     context = {
         'instituicao': instituicao,
