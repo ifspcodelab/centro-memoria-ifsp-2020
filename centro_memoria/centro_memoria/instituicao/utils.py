@@ -20,36 +20,40 @@ class GeradorDinamico():
 
     @classmethod
     def gerarDatasVisita(cls):
-        instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
-        list_datas = instituicao.datas_visita.split(';')
-
+        instituicao = Instituicao.objects.all().order_by('-criado_em')
         choice_datas = (
             ('', 'Selecione'),
         )
+        
+        if instituicao:
+            list_datas = instituicao[0].datas_visita.split(';')
 
-        for data in list_datas:
-            choice_datas += ((data, data),)
+            for data in list_datas:
+                choice_datas += ((data, data),)
 
         return choice_datas
 
     @classmethod
     def gerarAreasVisita(cls):
-        instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
-        list_areas = instituicao.areas_visita.split(';')
+        instituicao = Instituicao.objects.all().order_by('-criado_em')
         choice_areas = ()
 
-        for area in list_areas:
-            choice_areas += ((area, area),)
+        if instituicao:
+            list_areas = instituicao[0].areas_visita.split(';')
+
+            for area in list_areas:
+                choice_areas += ((area, area),)
 
         return choice_areas
 
     @classmethod
     def gerarPeriodoVisita(cls):
-        instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
-        list_periodos = instituicao.periodos_visita.split(';')
+        instituicao = Instituicao.objects.all().order_by('-criado_em')
         choice_periodos = ()
 
-        for periodo in list_periodos:
-            choice_periodos += ((periodo, periodo),)
+        if instituicao:
+            list_periodos = instituicao[0].periodos_visita.split(';')
+            for periodo in list_periodos:
+                choice_periodos += ((periodo, periodo),)
 
         return choice_periodos

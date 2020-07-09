@@ -3,7 +3,7 @@ from .models import Instituicao
 from .forms import FormVisita, FormFaleConosco
 
 def agendamento(request):
-    instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
+    instituicao = Instituicao.objects.get()
     context = {}
     if request.method == 'POST':
         form = FormVisita(request.POST)
@@ -19,7 +19,7 @@ def agendamento(request):
     return render(request, template_name, context)
 
 def faleconosco(request):
-    instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
+    instituicao = Instituicao.objects.get()
     context = {}
     if request.method == 'POST':
         form = FormFaleConosco(request.POST)

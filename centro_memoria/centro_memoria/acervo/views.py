@@ -5,7 +5,7 @@ from django.db.models import Q
 from .forms import PesquisaForm
 
 def categorias_acervo(request):
-    instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
+    instituicao = Instituicao.objects.get()
     categorias = CategoriaAcervo.objects.all().filter(categoria_pai__isnull=True, ativo=True)
     template_name = 'categorias_acervo.html'
     if request.method == 'POST':
@@ -23,7 +23,7 @@ def categorias_acervo(request):
     return render(request, template_name, context)
 
 def categoria_detalhes(request, nome_categoria):
-    instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
+    instituicao = Instituicao.objects.get()
     categoria = get_object_or_404(CategoriaAcervo, nome=nome_categoria, ativo=True)
     categorias_filhas = CategoriaAcervo.objects.all().filter(categoria_pai=categoria, ativo=True)
     itens_acervo = ItemAcervo.objects.all().filter(categorias=categoria, ativo=True)
@@ -39,7 +39,7 @@ def categoria_detalhes(request, nome_categoria):
     return render(request, template_name, context)
 
 def item_detalhes(request, nome_item):
-    instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
+    instituicao = Instituicao.objects.get()
     item = get_object_or_404(ItemAcervo, nome=nome_item, ativo=True)
     fotos_item = FotoItemAcervo.objects.all().filter(item_acervo=item)
     context = {
@@ -51,7 +51,7 @@ def item_detalhes(request, nome_item):
     return render(request, template_name, context)
 
 def acervo_pesquisa(request, parametro):
-    instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
+    instituicao = Instituicao.objects.get()
     categorias_acervo = CategoriaAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
                     Q(descricao__unaccent__icontains=parametro), ativo=True)
     itens_acervo = ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |

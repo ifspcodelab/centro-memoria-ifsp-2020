@@ -3,7 +3,7 @@ from centro_memoria.instituicao.models import Instituicao
 from .models import Personalidade, Galeria, FotoPersonalidade
 
 def galerias(request):
-    instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
+    instituicao = Instituicao.objects.get()
     galerias = Galeria.objects.all().filter(ativo=True)
     context = {
         'instituicao': instituicao,
@@ -13,7 +13,7 @@ def galerias(request):
     return render(request, template_name, context)
 
 def personalidades_galeria(request, nome_galeria):
-    instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
+    instituicao = Instituicao.objects.get()
     galeria = get_object_or_404(Galeria, nome=nome_galeria, ativo=True)
     personalidades = Personalidade.objects.all().filter(galerias=galeria, ativo=True)
     fotos_personalidades_destaque = FotoPersonalidade.objects.all().filter(personalidade__in=personalidades, 
@@ -28,7 +28,7 @@ def personalidades_galeria(request, nome_galeria):
     return render(request, template_name, context)
 
 def personalidade_detalhes(request, nome_personalidade):
-    instituicao = Instituicao.objects.all().order_by('-criado_em')[0]
+    instituicao = Instituicao.objects.get()
     personalidade = get_object_or_404(Personalidade, nome=nome_personalidade, ativo=True)
     fotos_personalidade = FotoPersonalidade.objects.all().filter(personalidade=personalidade)
     context = {
