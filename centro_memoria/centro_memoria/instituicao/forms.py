@@ -6,6 +6,13 @@ from .utils import GeoAPI, GeradorDinamico
 from django.core.mail.backends.smtp import EmailBackend
 from django.conf import settings
 
+class PesquisaAvancadaForm(forms.Form):
+
+    parametro = forms.CharField(label='Pesquisar um item no Centro de Memória')
+
+    def save(self, commit=True):
+        return self.cleaned_data['parametro']
+
 class FormVisita(forms.Form):
 
     DATAS_VISITAS = GeradorDinamico.gerarDatasVisita()
