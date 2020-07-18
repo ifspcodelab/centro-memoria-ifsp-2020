@@ -33,6 +33,23 @@ img {
     padding: 0.3rem !important;
 }
 
+#demos h3{
+	display: flex;
+    font-family: 'Spectral';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 2.3125rem;
+    text-align: center;
+    align-items: center;
+    color: #818479;
+    flex-direction: column;
+    text-transform: uppercase;
+    padding-bottom: 0rem;
+	margin-bottom: 0rem;
+    margin-top: 0rem;
+}
+
 a {
     color: initial;
     text-decoration: none;
@@ -259,7 +276,7 @@ section {
     display: inline-block;
     float: left;
     width: 100%;
-    padding: 350px 0 30px;
+    padding: 320px 0 30px;
 }
 
 section .titulo {

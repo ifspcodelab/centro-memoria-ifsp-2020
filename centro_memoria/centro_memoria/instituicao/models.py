@@ -1,4 +1,11 @@
 from django.db import models
+from django.core.exceptions import ValidationError
+
+def validate_only_one_instance(obj):
+    model = obj.__class__
+    if (model.objects.count() > 0 and
+            obj.id != model.objects.get().id):
+        raise ValidationError("Apenas um registro de '%s' pode ser criado." % model._meta.verbose_name.title())
 
 class InstituicaoManager(models.Manager):
 
@@ -32,6 +39,9 @@ class Instituicao(models.Model):
 
     def __str__(self):
         return self.nome
+
+    def clean(self):
+        validate_only_one_instance(self)
 
     class Meta:
         verbose_name = 'Instituição e Site'
