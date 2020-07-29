@@ -14,7 +14,7 @@ def galerias(request):
 
 def personalidades_galeria(request, nome_galeria):
     instituicao = Instituicao.objects.get()
-    galeria = get_object_or_404(Galeria, nome=nome_galeria, ativo=True)
+    galeria = get_object_or_404(Galeria, nome__iexact=nome_galeria, ativo=True)
     personalidades = Personalidade.objects.all().filter(galerias=galeria, ativo=True)
     fotos_personalidades_destaque = FotoPersonalidade.objects.all().filter(personalidade__in=personalidades, 
                                                                     destaque=True)
@@ -29,7 +29,7 @@ def personalidades_galeria(request, nome_galeria):
 
 def personalidade_detalhes(request, nome_personalidade):
     instituicao = Instituicao.objects.get()
-    personalidade = get_object_or_404(Personalidade, nome=nome_personalidade, ativo=True)
+    personalidade = get_object_or_404(Personalidade, nome__iexact=nome_personalidade, ativo=True)
     fotos_personalidade = FotoPersonalidade.objects.all().filter(personalidade=personalidade)
     context = {
         'instituicao': instituicao,

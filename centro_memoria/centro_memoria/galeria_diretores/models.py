@@ -23,7 +23,7 @@ class Galeria(models.Model):
     objects = GaleriaManager()
 
     def get_absolute_url(self):
-        return reverse('galeria:personalidades', args=[self.nome])
+        return reverse('galeria:personalidades', args=[str(self.nome).lower()])
 
     def __str__(self):
         return self.nome
@@ -55,7 +55,7 @@ class Personalidade(models.Model):
     objects = PersonalidadeManager()
 
     def get_absolute_url(self):
-        return reverse('galeria:personalidade-detalhes', args=[self.nome])
+        return reverse('galeria:personalidade-detalhes', args=[str(self.nome).lower()])
 
     def __str__(self):
         return self.nome

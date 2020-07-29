@@ -12,7 +12,7 @@ def categorias_acervo(request):
         form = PesquisaForm(request.POST)
         if form.is_valid():
             pesquisa = form.save()
-            return redirect('acervo:pesquisa', parametro=pesquisa)
+            return redirect('acervo:pesquisa', parametro=pesquisa.lower())
     else:
         form = PesquisaForm()
     context = {
@@ -24,7 +24,7 @@ def categorias_acervo(request):
 
 def categoria_detalhes(request, nome_categoria):
     instituicao = Instituicao.objects.get()
-    categoria = get_object_or_404(CategoriaAcervo, nome=nome_categoria, ativo=True)
+    categoria = get_object_or_404(CategoriaAcervo, nome__iexact=nome_categoria, ativo=True)
     categorias_filhas = CategoriaAcervo.objects.all().filter(categoria_pai=categoria, ativo=True)
     itens_acervo = ItemAcervo.objects.all().filter(categorias=categoria, ativo=True)
     fotos_itens_destaque = FotoItemAcervo.objects.all().filter(item_acervo__in=itens_acervo, destaque=True)
@@ -40,7 +40,7 @@ def categoria_detalhes(request, nome_categoria):
 
 def item_detalhes(request, nome_item):
     instituicao = Instituicao.objects.get()
-    item = get_object_or_404(ItemAcervo, nome=nome_item, ativo=True)
+    item = get_object_or_404(ItemAcervo, nome__iexact=nome_item, ativo=True)
     fotos_item = FotoItemAcervo.objects.all().filter(item_acervo=item)
     context = {
         'instituicao': instituicao,
