@@ -137,25 +137,6 @@ h2 {
     -webkit-box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.05) !important;
 }
 
-.links a {
-    margin-left: 40px;
-    border-bottom: solid 1px #ddd;
-    padding-bottom: 2px;
-}
-
-.links a i {
-    margin-left: -17px;
-    text-decoration: none;
-}
-
-.links a:hover {
-    border-bottom-width: 2px;
-}
-
-input:active,
-textarea:active {
-    border-color: #00B1EB;
-}
 
 header {
     width: 100%;
@@ -190,7 +171,7 @@ header .top {
 }
 
 header .bottom {
-    line-height: 80px;
+    line-height: 45px;
     border-top: solid 1px #eee;
 }
 
@@ -208,32 +189,6 @@ header .logo:hover {
     transform: scale(1.02);
 }
 
-header nav a {
-    display: inline-block;
-    margin-left: 25px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    color: #FFF;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin: 0;
-}
-
-header nav a:hover {
-    font-weight: bold;
-    color: #FFF;
-    background: #818479;
-    -moz-transform: scale(1.03);
-    -webkit-transform: scale(1.03);
-    -o-transform: scale(1.03);
-    -ms-transform: scale(1.03);
-    transform: scale(1.03);
-}
-
-header nav .bt-itens {
-    display: none;
-}
 
 header .redes-sociais img {
     width: 50px;
@@ -302,46 +257,10 @@ footer .sub-rodape {
     font-size: 13px;
 }
 
-footer .apoiado {
-    color: #fff;
-    font-weight: bolder;
-    text-align: center;
-}
-
-footer .apoiado .iut {
-    float: none;
-    display: inline-block;
-    width: 50px;
-}
-
 footer h4 {
     margin-bottom: 20px;
 }
 
-footer .nav-rodape a {
-    display: inline-block;
-    color: #fff;
-    position: relative;
-    margin-left: 20px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-}
-
-footer .nav-rodape a:after {
-    content: '';
-    position: absolute;
-    left: -12px;
-    top: 7px;
-    width: 5px;
-    height: 5px;
-    border-radius: 100%;
-    background: #eee;
-}
-
-footer .links a {
-    color: #fff !important;
-}
 
 .faico {
     list-style: none;
@@ -375,56 +294,8 @@ footer .links a {
     color: #FFF;
 }
 
-@media screen and (max-width: 1199px) and (min-width: 992px) {
-    section .titulo {
-        margin-bottom: 30px;
-    }
-    section .titulo:before {
-        margin-left: -200px;
-        width: 400px;
-        bottom: -15px;
-    }
-    section#a-empresa .img-sobre {
-        margin-top: 20px;
-    }
-}
-
-@media screen and (max-width: 991px) and (min-width: 768px) {
-    section#solucoes .icones .item {
-        border-right: 0;
-    }
-    .img-sobre {
-        margin-top: 20px;
-    }
-    .nav-rodape a {
-        width: 100%;
-        display: inline-block;
-    }
-}
-
 @media screen and (max-width: 767px) and (min-width: 100px) {
-    .img-sobre {
-        margin-top: 20px;
-    }
-    .sub-titulo {
-        text-align: justify !important;
-        padding: 0 !important;
-    }
-    section#solucoes .icones .item {
-        border: none;
-        border-bottom: solid 1px #eee;
-        padding-bottom: 20px;
-        margin-bottom: 20px;
-    }
-    section#solucoes .icones .item:last-child {
-        border: none;
-    }
-    section#solucoes .icones .item .icone {
-        margin-left: 0;
-    }
-    section#solucoes .icones .item .txt {
-        width: 88%;
-    }
+    
     footer {
         text-align: center;
     }

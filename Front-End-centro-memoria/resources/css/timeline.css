@@ -373,15 +373,11 @@ footer .links a {
         width: 400px;
         bottom: -15px;
     }
-    section#a-empresa .img-sobre {
-        margin-top: 20px;
-    }
+    
 }
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
-    section#solucoes .icones .item {
-        border-right: 0;
-    }
+    
     .img-sobre {
         margin-top: 20px;
     }
@@ -399,21 +395,7 @@ footer .links a {
         text-align: justify !important;
         padding: 0 !important;
     }
-    section#solucoes .icones .item {
-        border: none;
-        border-bottom: solid 1px #eee;
-        padding-bottom: 20px;
-        margin-bottom: 20px;
-    }
-    section#solucoes .icones .item:last-child {
-        border: none;
-    }
-    section#solucoes .icones .item .icone {
-        margin-left: 0;
-    }
-    section#solucoes .icones .item .txt {
-        width: 88%;
-    }
+    
     footer {
         text-align: center;
     }
@@ -457,8 +439,7 @@ footer .links a {
 
 .timeline {
     position: relative;
-    margin: 50px auto;
-    padding: 40px 0;
+    
     width: 1000px;
     box-sizing: border-box;
 }
@@ -472,14 +453,10 @@ footer .links a {
     background: #c5c5c5;
 }
 
-.timeline h1 {
+.timeline h2 {
     position: relative;
-    font-family: 'Spectral';
     text-align: center;
-    padding: 12px 10px 2px 10px;
-    margin: -100px 10px auto;
     box-sizing: border-box;
-    background-color: #EDEDEA;
     font-size: xx-large;
 }
 
