@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col esquerda">
+                <h2>GALERIA </h2>
+                <div class="texto">
+                    <div class="card-columns">
+                        {% for galeria in galerias %}
+                        <div class="card" style="width: 18rem;">
+                          <a href="{{ galeria.get_absolute_url }}">
+                              <img class="card-img-top" src="{{ galeria.imagem.url }}" alt="{{ galeria.nome }}">
+                              <div class="card-body">
+                                <p class="card-text">{{ galeria.nome }}: {{ galeria.descricao|linebreaks }}</p>
+                              </div>
+                          </a>
+                        </div>
+                        {% endfor %}
+                    </div>	
+                </div> 
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

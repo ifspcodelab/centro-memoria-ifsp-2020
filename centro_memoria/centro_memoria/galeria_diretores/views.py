@@ -9,7 +9,7 @@ def galerias(request):
         'instituicao': instituicao,
         'galerias': galerias
     }
-    template_name = 'galeria_index.html'
+    template_name = 'galerias.html'
     return render(request, template_name, context)
 
 def personalidades_galeria(request, nome_galeria):

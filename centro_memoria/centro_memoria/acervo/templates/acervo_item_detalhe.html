@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col esquerda">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'acervo:acervo' %}">Acervo</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ item.nome }}</li>
+                  </ol>
+                </nav>
+                <img class="img-fluid rounded imagem-item-detalhe" src="{{ foto_destaque.imagem.url }}" alt="{{ item.nome }}" align="left">
+                <div class="texto-noticia text-justify">
+                    <p>{{ item.descricao|linebreaks }} 
+                        Fundo: {{ item.fundo }}
+                        <br>
+                        Data: {{ item.data }}
+                        </p>                       
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

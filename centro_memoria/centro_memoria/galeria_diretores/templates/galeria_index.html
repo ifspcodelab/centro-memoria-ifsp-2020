@@ -1,0 +1,26 @@
+<!doctype html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Centro de Memória" />
+    <title>Centro de Memória</title>
+</head>
+<body>
+    <div>
+        <h1>{{ instituicao.nome }}</h1>
+    </div>
+    {% for galeria in galerias %}
+    <div>
+        <a href="{{ galeria.get_absolute_url }}">
+            <figure>
+                <img width="600" height="600" 
+                    src="{{ galeria.imagem.url }}" alt="{{ galeria.nome }}" />
+                <figcaption>{{ galeria.nome }}: {{ galeria.descricao|linebreaks }}</figcaption>
+            </figure>
+        </a>
+    </div>
+    {% endfor %}
+</body>
+</html>

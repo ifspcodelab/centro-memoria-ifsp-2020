@@ -1,0 +1,46 @@
+<!doctype html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Centro de Memória" />
+    <title>Centro de Memória</title>
+</head>
+<body>
+    <div>
+        <h1>{{ instituicao.nome }}</h1>
+    </div>
+    <h2>Resultado da Pesquisa</h2>
+    {% for categoria in categorias_acervo %}
+        <div>
+            <a href="{{ categoria.get_absolute_url }}"><h1>{{ categoria.nome }}</h1></a>
+        </div>
+    {% endfor %}
+    {% for item in itens_acervo %}
+        <div>
+            <a href="{{ item.get_absolute_url }}"><h1>{{ item.nome }}</h1></a>
+        </div>
+    {% endfor %}
+    {% for galeria in galerias %}
+        <div>
+            <a href=""><h1>{{ galeria.nome }}</h1></a>
+        </div>
+    {% endfor %}
+    {% for personalidade in personalidades %}
+        <div>
+            <a href=""><h1>{{ personalidade.nome }}</h1></a>
+        </div>
+    {% endfor %}
+    {% for evento in eventos %}
+        <div>
+            <a href=""><h1>{{ evento.titulo }}</h1></a>
+        </div>
+    {% endfor %}
+    {% for noticia in noticias %}
+        <div>
+            <a href=""><h1>{{ noticia.titulo }}</h1></a>
+        </div>
+    {% endfor %}
+</body>
+</html>

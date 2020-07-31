@@ -1,0 +1,33 @@
+<!doctype html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Centro de Memória" />
+    <title>Centro de Memória</title>
+</head>
+<body>
+    <div>
+        <h1>{{ instituicao.nome }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <fieldset>
+                {{ form.non_field_errors }}
+
+                {% for field in form %}
+                <div class="pure-control-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+                {% endfor %}
+
+                <div class="pure-controls">
+                    <button type="submit" class="pure-button pure-button-primary">Pesquisar</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>
