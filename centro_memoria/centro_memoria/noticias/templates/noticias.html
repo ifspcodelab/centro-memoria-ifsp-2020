@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+<link href="{% static 'css/noticia.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col esquerda">
+                <h2>NOTÍCIAS </h2>
+                <div class="texto">
+                    {% for noticia in noticias %}
+                    <div class="card mb-3" style="max-width: 100%;">
+                      <div class="row no-gutters">
+                        <div class="col-md-4">
+                            {% for foto in fotos_noticias_destaque %}
+                            {% if foto.noticia == noticia %}
+                            <img class="card-img-top imagem-noticia" src="{{ foto.imagem.url }}" alt="{{ noticia.titulo }}">
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body">
+                            <h5 class="card-title"><b>{{ noticia.titulo }}</b></h5>
+                            <p class="card-text">{{ noticia.descricao|linebreaks }}</p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <a href="{{ noticia.get_absolute_url }}" class="btn btn-success">Leia mais</a>
+                                </small>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}     
+                </div> 
+            </div> 
+        </div>
+    </div>
+</section>
+{% endblock %}

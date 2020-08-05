@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse
 from django.db import models
 
 class NoticiaManager(models.Manager):
@@ -20,6 +20,9 @@ class Noticia(models.Model):
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
 
     objects = NoticiaManager()
+
+    def get_absolute_url(self):
+        return reverse('noticias:noticia_detalhes', args=[str(self.titulo).lower()])
 
     def __str__(self):
         return self.titulo

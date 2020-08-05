@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+{% load static %}
+{% block style %}
+<link href="{% static 'css/acervo-principal.css' %}" rel="stylesheet">
+<link href="{% static 'css/acervo-item-detalhe.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
 <section>

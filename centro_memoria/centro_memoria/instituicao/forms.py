@@ -67,14 +67,14 @@ class FormFaleConosco(forms.Form):
     ESTADOS = GeoAPI.getEstado()
 
     CIDADES = (
-        ('', 'Selecione um Estado'),
+        ('', 'Cidade'),
     )
 
-    nome = forms.CharField(label='Nome do visitante ou do responsável*', max_length=50)
-    email = forms.EmailField(label='Email para contato*')
-    estado = forms.ChoiceField(label='Estado*', choices=ESTADOS, widget=forms.Select(attrs={"onChange": 'getCidade()'}))
-    cidade = forms.CharField(label='Cidade*', widget=forms.Select(choices=CIDADES))
-    mensagem = forms.CharField(label='Mensagem*', widget=forms.Textarea)
+    nome = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Nome*'}), max_length=50)
+    email = forms.EmailField(label='', widget=forms.TextInput(attrs={'placeholder': 'E-mail*'}))
+    estado = forms.ChoiceField(label='', choices=ESTADOS, widget=forms.Select(attrs={"onChange": 'getCidade()', 'placeholder': 'Estado*'}))
+    cidade = forms.CharField(label='', widget=forms.Select(choices=CIDADES, attrs={'placeholder': 'Cidade*'}))
+    mensagem = forms.CharField(label='', widget=forms.Textarea(attrs={'placeholder': 'Mensagem*'}))
 
     def enviarMensagem(self, instituicao):
         # e-mail para o cliente

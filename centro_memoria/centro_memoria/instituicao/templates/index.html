@@ -1,33 +1,86 @@
-<!doctype html>
+{% extends "base.html" %}
 {% load static %}
-<html lang="pt-br">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Centro de Memória" />
-    <title>Centro de Memória</title>
-</head>
-<body>
-    <div>
-        <h1>{{ instituicao.nome }}</h1>
-        <form method="post">
-            {% csrf_token %}
-            <fieldset>
-                {{ form.non_field_errors }}
+{% block style %}
+<link href="{% static 'css/contato.css' %}" rel="stylesheet">
+{% endblock %}
 
-                {% for field in form %}
-                <div class="pure-control-group">
-                    {{ field.label_tag }}
-                    {{ field }}
-                    {{ field.errors }}
+{% block content %}
+<section>
+    <div class="container">
+
+        <div class="row">
+            <div class="col esquerda">
+
+                <h2>{{ instituicao.nome }}</h2>
+
+                <div class="texto">
+                    <p class="text-justify">
+                        {{ instituicao.sobre|linebreaks }}</p>
+                    <img src="{{ foto_instituicao.imagem.url }}" class="rounded mx-auto d-block" alt="{{ instituicao.nome }}">
+
+                </div>
+
+                <h2>Patrono Prof. Benedito Ananias da Silva </h2>
+
+                <div class="texto">
+                    <p class="text-justify">
+                        {{ instituicao.patrono|linebreaks }} </p>
+
+                </div>
+
+                <h2>Atividades </h2>
+
+                <div class="texto">
+                    <p class="text-justify">
+                        {{ instituicao.atividade|linebreaks }}
+                    </p>
+
+                </div>
+
+                <h2>Políticas do Acervo </h2>
+
+                <div class="texto">
+                    <p class="text-justify">
+                        {{ instituicao.policia_acervo|linebreaks }}
+                    </p>
+
+                </div>
+
+                <h2>NOSSA EQUIPE </h2>
+
+                <div class="row">
+                    {% for membro in membros %}
+                    <div class="col-sm-3">
+                        <div class="texto">
+                            <div class="text-center">
+                                <img src="{{ membro.imagem.url }}" class="avatar img-circle img-thumbnail" alt="{{ membro.nome }}">
+                                <h6>{{ membro.nome }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-3 shadow texto text-center">
+                <h3>Últimas Noticias</h3>
+
+
+                {% for noticia in noticias %}
+                <div class="card mb-3">
+                    {% for foto in fotos_noticias_destaque %}
+                    {% if foto.noticia == noticia %}
+                    <img class="card-img-top" src="{{ foto.imagem.url }}" alt="{{ noticia.titulo }}">
+                    {% endif %}
+                    {% endfor %}
+                    <div class="card-body">
+                        <p class="card-text">{{ noticia.titulo }}</p>
+                        <a href="{{ noticia.get_absolute_url }}" class="btn btn-success">Leia mais</a>
+                    </div>
                 </div>
                 {% endfor %}
 
-                <div class="pure-controls">
-                    <button type="submit" class="pure-button pure-button-primary">Pesquisar</button>
-                </div>
-            </fieldset>
-        </form>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</section>
+{% endblock %}

@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from .models import Instituicao
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Instituicao, Membro, FotoInstituicao
 from centro_memoria.acervo.models import CategoriaAcervo, ItemAcervo, FotoItemAcervo
 from centro_memoria.galeria_diretores.models import Personalidade, Galeria, FotoPersonalidade
 from centro_memoria.noticias.models import Noticia, FotoNoticia
@@ -40,18 +40,22 @@ def faleconosco(request):
     return render(request, template_name, context)
 
 def index(request):
-    instituicao = Instituicao.objects.get()
+    instituicao = get_object_or_404(Instituicao)
+    foto_instituicao = FotoInstituicao.objects.all().filter(posicao='I')
+    if len(foto_instituicao) > 0:
+        foto_instituicao = foto_instituicao[0]
+    membros = Membro.objects.all().filter(instituicao=instituicao)
+    noticias = Noticia.objects.all().filter(ativo=True, destaque=True).order_by('-criado_em')
+    if len(noticias) > 0:
+        noticias = noticias[:5]
+    fotos_noticias_destaque = FotoNoticia.objects.all().filter(noticia__in=noticias, destaque=True)
     template_name = 'index.html'
-    if request.method == 'POST':
-        form = PesquisaAvancadaForm(request.POST)
-        if form.is_valid():
-            pesquisa = form.save()
-            return redirect('instituicao:pesquisa', parametro=pesquisa.lower())
-    else:
-        form = PesquisaAvancadaForm()
     context = {
         'instituicao': instituicao,
-        'form': form
+        'foto_instituicao': foto_instituicao,
+        'membros': membros,
+        'noticias': noticias,
+        'fotos_noticias_destaque': fotos_noticias_destaque
     }
     return render(request, template_name, context)
 

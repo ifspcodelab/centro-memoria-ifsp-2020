@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<link rel="stylesheet" href="{% static 'vendors/owlcarousel/assets/owl.carousel.min.css' %}">
+<link rel="stylesheet" href="{% static 'vendors/owlcarousel/assets/owl.theme.default.min.css' %}">
+<link href="{% static 'css/galeria.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/docs.theme.min.css' %}">
+{% endblock %}
+
+{% block content %}
+<section id="demos">
+		
+    <h3>{{ galeria.nome }}</h3>
+    
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="owl-carousel owl-theme">
+        {% for personalidade in personalidades %}
+        <a href="{% url 'galeria:personalidade-detalhes' nome_galeria=galeria.nome nome_personalidade=personalidade.nome %}" class="click">
+            <div class="item">
+                {% for foto in fotos_personalidades_destaque %}
+                {% if foto.personalidade == personalidade %}
+                <img src="{{ foto.imagem.url }}" alt="{{ personalidade.nome }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    <hr>
+    {% block personalidade_info %}
+    {% endblock %}  
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/galeria.js' %}"></script>
+<!-- javascript -->
+<script src="{% static 'vendors/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendors/owlcarousel/owl.carousel.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+{% endblock %}

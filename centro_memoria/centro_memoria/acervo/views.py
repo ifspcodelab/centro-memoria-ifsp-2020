@@ -2,9 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from centro_memoria.instituicao.models import Instituicao
 from .models import ItemAcervo, CategoriaAcervo, FotoItemAcervo
 from django.db.models import Q
-from .forms import PesquisaForm
+from .forms import PesquisaForm, PesquisaAvancadaForm
 
 def acervo(request):
+    instituicao = get_object_or_404(Instituicao)
     categorias = CategoriaAcervo.objects.all().filter(categoria_pai__isnull=True, ativo=True)
     template_name = 'acervo.html'
     if request.method == 'POST':
@@ -14,13 +15,17 @@ def acervo(request):
             return redirect('acervo:pesquisa', parametro=pesquisa.lower())
     else:
         form = PesquisaForm()
+        formAvancado = PesquisaAvancadaForm()
     context = {
         'categorias': categorias,
-        'form': form
+        'form': form,
+        'formAvancado': formAvancado,
+        'instituicao': instituicao
     }
     return render(request, template_name, context)
 
 def acervo_categoria(request, nome_categoria):
+    instituicao = get_object_or_404(Instituicao)
     categoria = get_object_or_404(CategoriaAcervo, nome__iexact=nome_categoria, ativo=True)
     categorias_filhas = CategoriaAcervo.objects.all().filter(categoria_pai=categoria, ativo=True)
     itens_acervo = ItemAcervo.objects.all().filter(categorias=categoria, ativo=True)
@@ -29,19 +34,22 @@ def acervo_categoria(request, nome_categoria):
         'categoria': categoria,
         'categorias_filhas': categorias_filhas,
         'itens_acervo': itens_acervo,
-        'fotos_itens_destaque': fotos_itens_destaque
+        'fotos_itens_destaque': fotos_itens_destaque,
+        'instituicao': instituicao
     }
     template_name = 'acervo_categoria.html'
     return render(request, template_name, context)
 
 def item_detalhe(request, nome_item):
+    instituicao = get_object_or_404(Instituicao)
     item = get_object_or_404(ItemAcervo, nome__iexact=nome_item, ativo=True)
     foto_destaque = get_object_or_404(FotoItemAcervo, item_acervo=item, destaque=True)
     fotos_item = FotoItemAcervo.objects.all().filter(item_acervo=item)
     context = {
         'item': item,
         'foto_destaque': foto_destaque,
-        'fotos_item': fotos_item
+        'fotos_item': fotos_item,
+        'instituicao': instituicao
     }
     template_name = 'acervo_item_detalhe.html'
     return render(request, template_name, context)

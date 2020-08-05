@@ -23,7 +23,7 @@ class Galeria(models.Model):
     objects = GaleriaManager()
 
     def get_absolute_url(self):
-        return reverse('galeria:personalidades', args=[str(self.nome).lower()])
+        return reverse('galeria:galeria_detalhes', args=[str(self.nome).lower()])
 
     def __str__(self):
         return self.nome
@@ -53,9 +53,6 @@ class Personalidade(models.Model):
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
 
     objects = PersonalidadeManager()
-
-    def get_absolute_url(self):
-        return reverse('galeria:personalidade-detalhes', args=[str(self.nome).lower()])
 
     def __str__(self):
         return self.nome

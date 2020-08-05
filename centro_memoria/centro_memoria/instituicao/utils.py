@@ -9,7 +9,7 @@ class GeoAPI():
     def getEstado(cls):
             response = requests.get(cls.ENDPOINT_UF)
             estados_list = (
-                ('', 'Selecione'),
+                ('', 'Estado'),
             )
             json_estados = response.json()
             for uf in json_estados:

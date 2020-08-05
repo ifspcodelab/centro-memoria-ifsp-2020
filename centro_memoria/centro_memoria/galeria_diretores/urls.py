@@ -5,6 +5,6 @@ app_name = 'galeria'
 
 urlpatterns = [
     path('', views.galerias, name='galerias'),
-    path('<str:nome_galeria>/', views.personalidades_galeria, name='personalidades'),
-    path('personalidade/<str:nome_personalidade>/', views.personalidade_detalhes, name='personalidade-detalhes')
+    path('<str:nome_galeria>/', views.galeria_detalhes, name='galeria_detalhes'),
+    path('<str:nome_galeria>/<str:nome_personalidade>/', views.personalidade_detalhes, name='personalidade-detalhes')
 ]
