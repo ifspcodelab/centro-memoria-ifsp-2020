@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+<link href="{% static 'css/noticia.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2>{{ evento.nome }}</h2>
+                <hr>
+                {% for foto in foto_evento %}
+                {% if foto.evento == evento %}
+                <img class="img-fluid rounded imagem-cabecalho-noticia" src="{{ foto.imagem.url }}" alt="{{ evento.nome }}">
+                {% endif %}
+                {% endfor %}
+                <hr>
+                
+                <div class="texto-noticia text-justify">
+                    <p>{{ evento.texto|linebreaks }}</p>                                         
+                </div>             
+            </div>
+            
+            <div class="col-3 shadow texto text-center">
+                <h3>Outros Eventos</h3>
+                {% for evento in outros_eventos %}
+                <div class="card mb-3">
+                    {% for foto in fotos_outros_eventos %}
+                    {% if foto.evento == evento %}
+                    <img class="card-img-top" src="{{ foto.imagem.url }}" alt="{{ evento.nome }}">
+                    {% endif %}
+                    {% endfor %}
+                    <div class="card-body">
+                        <p class="card-text">{{ evento.nome }}</p>
+                        <a href="{{ evento.get_absolute_url }}" class="btn btn-success">Leia mais</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>      
+        </div>
+    </div>
+</section>
+{% endblock %}

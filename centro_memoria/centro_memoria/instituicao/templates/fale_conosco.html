@@ -12,12 +12,21 @@
             <div class="col esquerda">
                 <div class="timeline">
                     <h2>FALE CONOSCO</h2>
-                    <form action="#contato" class="pure-form pure-form-aligned" method="post">
+                    <form method="post">
                         {% csrf_token %}
                         <fieldset>
                             {% for field in form %}
-                            <div class="pure-control-group">
-                                {{ field.label_tag }}
+                                {% if field.name == 'nome' %}
+                                <div class="nome">
+                                {% elif field.name == 'email' %}
+                                <div class="email">
+                                {% elif field.name == 'sobrenome' %}
+                                <div class="sobrenome">
+                                {% elif field.name == 'mensagem' %}
+                                <div class="mensagem">
+                                {% else %}
+                                <div>
+                                {% endif %}
                                 {{ field }}
                                 {% if field.errors %}
                                 <ul class="errorlist">
@@ -26,11 +35,11 @@
                                     {% endfor %}
                                 </ul>
                                 {% endif %}
+                                <br>
                             </div>
                             {% endfor %}
-                            <div class="pure-controls">
-                                <button type="submit" class="pure-button pure-button-primary">Envia Mensagem</button>
-                            </div>
+                            <div class="botão">
+                                <button type="submit" class="btn btn-success">Enviar</button>
                         </fieldset>
                         </div>
                 </div>
@@ -45,27 +54,4 @@
                 </fieldset>
                 </div>
             </div>
-{% endblock %}
-
-{% block scripts %}
-<script>
-    function getCidade() {
-        let uf = document.getElementById('id_estado').value;
-        $.get("https://servicodados.ibge.gov.br/api/v1/localidades/estados/" + uf + "/municipios", function(data, status){
-            $("#id_cidade").empty();
-            $("#id_cidade").append(new Option('Selecione um Estado', ''));
-            let cidades_list = []
-            for (cidade of data){
-                cidades_list.push(cidade.nome)
-            }
-            for (cidade of cidades_list.sort(
-                function (a, b) {
-                    return a.localeCompare(b);
-                }
-            )){
-                $("#id_cidade").append(new Option(cidade, cidade));
-            }
-        });
-    }
-</script>
 {% endblock %}

@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('galeria/', include('centro_memoria.galeria_diretores.urls', namespace='galeria')),
     path('noticias/', include('centro_memoria.noticias.urls', namespace='noticias')),
+    path('eventos/', include('centro_memoria.eventos.urls', namespace='eventos')),
     path('acervo/', include('centro_memoria.acervo.urls', namespace='acervo'))
 ]
 

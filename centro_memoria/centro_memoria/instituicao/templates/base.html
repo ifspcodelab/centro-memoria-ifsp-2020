@@ -57,11 +57,11 @@
 						<li class="nav-item dropdown">
 						  <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SERVIÇO</a>
 						  <div class="dropdown-menu" aria-labelledby="dropdown10">
-							<a class="dropdown-item" href="#">VISITAS MEDIADAS</a>
+							<a class="dropdown-item" href="{% url 'instituicao:visitas' %}">VISITAS MEDIADAS</a>
 						  </div>
 						</li>
 						<li class="nav-item">
-						  <a class="nav-link" href="eventos.html">EVENTOS</a>
+						  <a class="nav-link" href="{% url 'eventos:eventos' %}">EVENTOS</a>
 						</li>
 						<li class="nav-item">
 						  <a class="nav-link" href="{% url 'noticias:noticias' %}">NOTÍCIAS</a>

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'centro_memoria.galeria_diretores',
     'centro_memoria.noticias',
     'centro_memoria.pesquisas',
+    'centro_memoria.eventos',
     'django.contrib.postgres'
 ]
 

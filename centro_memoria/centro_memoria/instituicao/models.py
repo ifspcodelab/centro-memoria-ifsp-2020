@@ -28,9 +28,7 @@ class Instituicao(models.Model):
     patrono = models.TextField('Informações sobre Patrono')
     atividade = models.TextField('Atividade')
     policia_acervo = models.TextField('Políticas de Acervo')
-    datas_visita = models.CharField('Datas de Visita (Separadas por vírgula)', max_length=255, help_text='Exemplo: 01/01/2020;02/01/2020;03/01/2020')
     periodos_visita = models.CharField('Período de Visita (Separados por vírgula)', max_length=255, help_text='Exemplo: Manhã (das 09h às 12h);Tarde (das 14h às 17h)')
-    areas_visita = models.CharField('Áreas de Visita (Separadas por vírgula)', max_length=255, help_text='Exemplo: Biblioteca;Laboratório;Museu') 
 
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)

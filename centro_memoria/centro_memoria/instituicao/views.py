@@ -3,7 +3,8 @@ from .models import Instituicao, Membro, FotoInstituicao
 from centro_memoria.acervo.models import CategoriaAcervo, ItemAcervo, FotoItemAcervo
 from centro_memoria.galeria_diretores.models import Personalidade, Galeria, FotoPersonalidade
 from centro_memoria.noticias.models import Noticia, FotoNoticia
-from centro_memoria.linha_tempo.models import Evento, FotoEvento
+from centro_memoria.eventos.models import Evento, FotoEvento
+from centro_memoria.linha_tempo.models import Acontecimento, FotoAcontecimento
 from django.db.models import Q
 from .forms import FormVisita, FormFaleConosco, PesquisaAvancadaForm
 
@@ -77,27 +78,33 @@ def pesquisa_avancada(request, parametro):
                     ativo=True)
     fotos_personalidades_destaque = FotoPersonalidade.objects.all().filter(personalidade__in=personalidades, destaque=True)
 
-    eventos = Evento.objects.all().filter(Q(titulo__unaccent__icontains=parametro) |
+    acontecimentos = Acontecimento.objects.all().filter(Q(titulo__unaccent__icontains=parametro) |
                     Q(descricao__unaccent__icontains=parametro) | Q(data__icontains=parametro),
                     ativo=True)
-    fotos_eventos_destaque = FotoEvento.objects.all().filter(evento__in=eventos, destaque=True)
+    fotos_acontecimentos_destaque = FotoEvento.objects.all().filter(acontecimento__in=acontecimentos, destaque=True)
 
     noticias = Noticia.objects.all().filter(Q(titulo__unaccent__icontains=parametro) |
                     Q(descricao__unaccent__icontains=parametro) | Q(corpo__unaccent__icontains=parametro),
                     ativo=True)
     fotos_noticias_destaque = FotoNoticia.objects.all().filter(noticia__in=noticias, destaque=True)
+
+    eventos = Evento.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
+                    Q(descricao__unaccent__icontains=parametro), ativo=True)
+    fotos_eventos_destaque = FotoEvento.objects.all().filter(evento__in=eventos, destaque=True)
     context = {
         'instituicao': instituicao,
         'categorias_acervo': categorias_acervo,
         'itens_acervo': itens_acervo,
         'galerias': galerias,
         'personalidades': personalidades,
-        'eventos': eventos,
+        'acontecimentos': acontecimentos,
         'noticias': noticias,
+        'eventos': eventos,
         'fotos_itens': fotos_itens_destaque,
         'fotos_personalidades': fotos_personalidades_destaque,
-        'fotos_eventos': fotos_eventos_destaque,
-        'fotos_noticias': fotos_noticias_destaque
+        'fotos_acontecimentos': fotos_acontecimentos_destaque,
+        'fotos_noticias': fotos_noticias_destaque,
+        'fotos_eventos': fotos_eventos_destaque
     }
     template_name = 'resultado_pesquisa.html'
     return render(request, template_name, context)
