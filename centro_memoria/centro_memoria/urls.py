@@ -24,6 +24,7 @@ urlpatterns = [
     path('galeria/', include('centro_memoria.galeria_diretores.urls', namespace='galeria')),
     path('noticias/', include('centro_memoria.noticias.urls', namespace='noticias')),
     path('eventos/', include('centro_memoria.eventos.urls', namespace='eventos')),
+    path('linha-tempo/', include('centro_memoria.linha_tempo.urls', namespace='linha_tempo')),
     path('acervo/', include('centro_memoria.acervo.urls', namespace='acervo'))
 ]
 

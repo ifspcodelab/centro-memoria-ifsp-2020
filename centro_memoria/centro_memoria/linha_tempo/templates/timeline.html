@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/timeline.css' %}">
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col esquerda">
+            <h2>Linha do Tempo IFSP</h2>
+                <div class="timeline">
+                    <ul>
+                        {% for data, lista in marcos.items %}
+                        {% for item in lista %}
+                        {% for acontecimento, foto in item.items %}  
+                            <li>
+                                <div class="conteudo">
+                                    {% if foto %}
+                                        <img src="{{ foto.imagem.url }}">
+                                        <p><i>{{ acontecimento.descricao|linebreaks }}</i></p>
+                                    {% else %}
+                                        <h3>{{ acontecimento.titulo }}</h3>
+                                        <p>{{ acontecimento.descricao|linebreaks }}</p>
+                                    {% endif %}
+                                </div>
+                        {% endfor %}
+                            {% if forloop.counter0 == 0 %}
+                                <div class="data">
+                                    <h4>{{ data|date:'F'|upper }} {{ data.year }}</h4>
+                                </div>
+                            {% endif %}
+                            </li>
+                        {% endfor %}
+                        {% endfor %}
+                        <div style="clear: both;">
+                        </div>						
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

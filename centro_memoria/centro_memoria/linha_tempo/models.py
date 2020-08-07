@@ -7,7 +7,7 @@ class Acontecimento(models.Model):
 
     titulo = models.CharField('Título', max_length=255)
     descricao = models.TextField('Descrição')
-    data = models.DateField('Data do Evento')
+    data = models.DateField('Data do acontecimento')
 
     ativo = models.BooleanField('Registro ativo?', 
         help_text='Este campo indica se este registro já está pronto para aparecer no site publicamente')
