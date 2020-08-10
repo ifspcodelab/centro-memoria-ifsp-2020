@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block style %}
-<link href="{% static 'css/acervo-principal.css' %}" rel="stylesheet">
-<link href="{% static 'css/acervo-item-detalhe.css' %}" rel="stylesheet">
+<link href="{% static '/css/acervo-resultado-busca.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -77,22 +76,6 @@
                                 <small> categoria 1 > categoria 2</small>
                             </a>
                             <p class="card-text">{{ item.descricao|linebreaks }} </p>   
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {% endfor %}
-                    {% for categoria in categorias_acervo %}
-                    <div class="card mb-3" style="max-width: 100%;">
-                      <div class="row no-gutters">
-                        <div class="col-md-8">
-                          <div class="card-body resultado-busca">
-                            <a href="{{ categoria.get_absolute_url }}" class="">
-                                {{ categoria.nome }}
-                                <br>
-                                <small>  categoria 1 > categoria 2</small>
-                            </a>
-                            <p class="card-text">{{ categoria.descricao|linebreaks }} </p>    
                           </div>
                         </div>
                       </div>

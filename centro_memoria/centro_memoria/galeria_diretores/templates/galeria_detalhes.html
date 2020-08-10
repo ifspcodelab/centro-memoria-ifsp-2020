@@ -10,14 +10,14 @@
 
 {% block content %}
 <section id="demos">
-		
-    <h3>{{ galeria.nome }}</h3>
-    
+
+  <h3>{{ galeria.nome }}</h3>
+
   <div class="row">
-    <div class="large-12 columns">
-      <div class="owl-carousel owl-theme">
-        {% for personalidade in personalidades %}
-        <a href="{% url 'galeria:personalidade-detalhes' nome_galeria=galeria.nome nome_personalidade=personalidade.nome %}" class="click">
+  <div class="large-12 columns">
+    <div class="owl-carousel owl-theme">
+      {% for personalidade in personalidades %}
+      <a id="{{ personalidade.pk }}" class="click">
             <div class="item">
                 {% for foto in fotos_personalidades_destaque %}
                 {% if foto.personalidade == personalidade %}
@@ -25,21 +25,51 @@
                 {% endif %}
                 {% endfor %}
             </div>
-        </a>
-        {% endfor %}
-      </div>
+      </a>
+      {% endfor %}
     </div>
-    <hr>
-    {% block personalidade_info %}
-    {% endblock %}  
+  </div>
+  <hr>
+  <div class="container">
+    {% for personalidade in personalidades %}
+    <div id="detalhe-{{ personalidade.pk }}" class="detalhes hide">				
+      <div class="row">
+        <div class="col-5">
+          {% for foto in fotos_personalidades_destaque %}
+          {% if foto.personalidade == personalidade %}
+          <img src="{{ foto.imagem.url }}" alt="{{ personalidade.nome }}">
+          {% endif %}
+          {% endfor %}
+        </div>
+        <div class="col-6">
+          <p class="text-justify">
+            {{ personalidade.nome }} - {{ personalidade.funcao }} <br>
+            {{ personalidade.inicio_servico }} - {{ personalidade.fim_servico }} <br>
+            {{ personalidade.sobre|linebreaks }}
+          </p>
+        </div>
+        </div>
+        <div class="row outras-imagens">
+          {% for foto in fotos_personalidade %}
+          {% if foto.personalidade == personalidade %}
+          <div class="col-3">
+           <!-- <img id="myImg" src="resources/img/ifsp.jpg"> -->
+            <a data-fancybox="gallery" href="{{ foto.imagem.url }}"><img src="{{ foto.imagem.url }}"></a>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
 </section>
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'js/galeria.js' %}"></script>
+<script defer src="{% static 'js/galeria.js' %}"></script>
 <!-- javascript -->
-<script src="{% static 'vendors/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'vendors/owlcarousel/owl.carousel.js' %}"></script>
-<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script defer src="{% static 'vendors/jquery/jquery.min.js' %}"></script>
+<script defer src="{% static 'vendors/owlcarousel/owl.carousel.js' %}"></script>
+<script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 {% endblock %}

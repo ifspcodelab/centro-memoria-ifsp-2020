@@ -56,17 +56,12 @@ def item_detalhe(request, nome_item):
 
 def acervo_pesquisa(request, parametro):
     instituicao = Instituicao.objects.get()
-    categorias_acervo = CategoriaAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
-                    Q(descricao__unaccent__icontains=parametro), ativo=True)
     itens_acervo = ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
                     Q(descricao__unaccent__icontains=parametro) | Q(fundo__unaccent__icontains=parametro) |
                     Q(data__icontains=parametro), ativo=True)
-    fotos_itens_destaque = FotoItemAcervo.objects.all().filter(item_acervo__in=itens_acervo, destaque=True)
     context = {
         'instituicao': instituicao,
-        'categorias_acervo': categorias_acervo,
         'itens_acervo': itens_acervo,
-        'fotos_itens_destaque': fotos_itens_destaque
     }
     template_name = 'acervo_resultado_busca.html'
     return render(request, template_name, context)
