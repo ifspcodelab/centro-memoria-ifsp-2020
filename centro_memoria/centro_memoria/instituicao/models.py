@@ -22,6 +22,8 @@ class Instituicao(models.Model):
     visao = models.TextField('Visão')
     endereco = models.CharField('Endereço', max_length=100)
     email = models.CharField('E-mail', max_length=100)
+    facebook = models.CharField('Link Facebook', max_length=255, null=True, blank=True)
+    instagram = models.CharField('Link Instagram', max_length=255, null=True, blank=True)
     email_agendamento = models.CharField('E-mail para envio de Agendamento', max_length=100)
     email_faleconosco = models.CharField('E-mail para envio de Fale Conosco', max_length=100)
     telefone = models.CharField('Telefone', max_length=100)
@@ -52,13 +54,6 @@ class FotoInstituicaoManager(models.Manager):
 
 class FotoInstituicao(models.Model):
 
-    POSICAO_CHOICES = (
-        ('R', 'Rodapé'),
-        ('I', 'Index'),
-    )
-
-    posicao = models.CharField('Posição', max_length=1, choices=POSICAO_CHOICES)
-
     imagem = models.ImageField(
         verbose_name='Imagem da Instituição'
     )
@@ -73,7 +68,7 @@ class FotoInstituicao(models.Model):
     objects = FotoInstituicaoManager()
 
     def __str__(self):
-        return self.posicao
+        return self.instituicao.__str__()
 
     class Meta:
         verbose_name = 'Foto da Instituição/Site'

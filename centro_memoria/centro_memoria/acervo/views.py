@@ -9,10 +9,17 @@ def acervo(request):
     categorias = CategoriaAcervo.objects.all().filter(categoria_pai__isnull=True, ativo=True)
     template_name = 'acervo.html'
     if request.method == 'POST':
-        form = PesquisaForm(request.POST)
-        if form.is_valid():
-            pesquisa = form.save()
-            return redirect('acervo:pesquisa', parametro=pesquisa.lower())
+        if 'simples' in request.POST:
+            form = PesquisaForm(request.POST)
+            if form.is_valid():
+                pesquisa = form.save()
+                return redirect('acervo:pesquisa', parametro=pesquisa.lower())
+        elif 'avancado' in request.POST:
+            form = PesquisaAvancadaForm(request.POST)
+            if form.is_valid():
+                pesquisa = form.save()
+                return redirect('acervo:pesquisa_avancada', categoria=pesquisa['categoria'].lower(),
+                                item=pesquisa['item'].lower(), desc=pesquisa['descricao'].lower(), data=pesquisa['data'])
     else:
         form = PesquisaForm()
         formAvancado = PesquisaAvancadaForm()
@@ -59,9 +66,63 @@ def acervo_pesquisa(request, parametro):
     itens_acervo = ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
                     Q(descricao__unaccent__icontains=parametro) | Q(fundo__unaccent__icontains=parametro) |
                     Q(data__icontains=parametro), ativo=True)
+    if request.method == 'POST':
+        if 'simples' in request.POST:
+            form = PesquisaForm(request.POST)
+            if form.is_valid():
+                pesquisa = form.save()
+                return redirect('acervo:pesquisa', parametro=pesquisa.lower())
+        elif 'avancado' in request.POST:
+            form = PesquisaAvancadaForm(request.POST)
+            if form.is_valid():
+                pesquisa = form.save()
+                return redirect('acervo:pesquisa_avancada', categoria=pesquisa['categoria'].lower(),
+                                item=pesquisa['item'].lower(), desc=pesquisa['descricao'].lower(), data=pesquisa['data'])
+    else:
+        form = PesquisaForm()
+        formAvancado = PesquisaAvancadaForm()
     context = {
         'instituicao': instituicao,
         'itens_acervo': itens_acervo,
+        'form': form,
+        'formAvancado': formAvancado
+    }
+    template_name = 'acervo_resultado_busca.html'
+    return render(request, template_name, context)
+
+def acervo_pesquisa_avancada(request, categoria, item, desc, data):
+    instituicao = Instituicao.objects.get()
+    itens_acervo = []
+    if categoria != 'none':
+        categoria = CategoriaAcervo.objects.all().filter(nome__unaccent__icontains=categoria, ativo=True)
+        if len(categoria) > 0:
+            itens_acervo = ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=item) |
+                            Q(descricao__unaccent__icontains=desc) | Q(fundo__unaccent__icontains=item) |
+                            Q(data__icontains=data) | Q(ativo=True), categorias=categoria[0], ativo=True)
+    else:
+        itens_acervo = ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=item) |
+                        Q(descricao__unaccent__icontains=desc) | Q(fundo__unaccent__icontains=item) |
+                        Q(data__icontains=data), ativo=True)
+    if request.method == 'POST':
+        if 'simples' in request.POST:
+            form = PesquisaForm(request.POST)
+            if form.is_valid():
+                pesquisa = form.save()
+                return redirect('acervo:pesquisa', parametro=pesquisa.lower())
+        elif 'avancado' in request.POST:
+            form = PesquisaAvancadaForm(request.POST)
+            if form.is_valid():
+                pesquisa = form.save()
+                return redirect('acervo:pesquisa_avancada', categoria=pesquisa['categoria'].lower(),
+                                item=pesquisa['item'].lower(), desc=pesquisa['descricao'].lower(), data=pesquisa['data'])
+    else:
+        form = PesquisaForm()
+        formAvancado = PesquisaAvancadaForm()
+    context = {
+        'instituicao': instituicao,
+        'itens_acervo': itens_acervo,
+        'form': form,
+        'formAvancado': formAvancado
     }
     template_name = 'acervo_resultado_busca.html'
     return render(request, template_name, context)

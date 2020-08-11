@@ -10,8 +10,8 @@ class InstituicaoAdmin(admin.ModelAdmin):
 
 class FotoInstituicaoAdmin(admin.ModelAdmin):
 
-    list_display = ['instituicao', 'posicao', 'criado_em', 'atualizado_em']
-    search_fields = ['instituicao', 'posicao', 'criado_em', 'atualizado_em']
+    list_display = ['instituicao', 'criado_em', 'atualizado_em']
+    search_fields = ['instituicao', 'criado_em', 'atualizado_em']
     list_filter = ['instituicao']
 
 

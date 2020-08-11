@@ -33,7 +33,7 @@ class FormVisita(forms.Form):
     estado = forms.ChoiceField(label='Estado', choices=ESTADOS, widget=forms.Select(attrs={"onChange": 'getCidade()'}))
     cidade = forms.CharField(label='Cidade', widget=forms.Select(choices=CIDADES))
     data_visita = forms.DateField(label='Data da visita', widget=DateInput)
-    instituicao = forms.CharField(required=False, label='Instituição', max_length=150,
+    instituicao = forms.CharField(label='Instituição', max_length=150,
                                 widget=forms.TextInput(attrs={'placeholder': 'Colégio Nossa Senhora das Graças'}))
     periodo = forms.ChoiceField(label='Período', choices=PERIODOS, widget=forms.RadioSelect)
     total_visitantes = forms.IntegerField(label='Total de visitantes')
@@ -53,7 +53,7 @@ class FormVisita(forms.Form):
         send_mail('Agendamento de Visita',
         'Novo agendamento de visita: ' + self.cleaned_data['nome'] + ' - ' + self.cleaned_data['instituicao'] + ' - ' + 
         self.cleaned_data['estado'] + ' - ' + self.cleaned_data['cidade'] + ' - ' + self.cleaned_data['email'] + ' - ' + 
-        self.cleaned_data['data_visita'] + ' - ' + self.cleaned_data['periodo'] + ' - ' +
+        str(self.cleaned_data['data_visita']) + ' - ' + self.cleaned_data['periodo'] + ' - ' +
         str(self.cleaned_data['total_visitantes']) + ' - ' + self.cleaned_data['motivo'],
         instituicao.email_agendamento,
         [instituicao.email_agendamento],
@@ -61,12 +61,6 @@ class FormVisita(forms.Form):
 
 
 class FormFaleConosco(forms.Form):
-
-    ESTADOS = GeoAPI.getEstado()
-
-    CIDADES = (
-        ('', 'Cidade'),
-    )
 
     nome = forms.CharField(label='', max_length=50,
                             widget=forms.TextInput(attrs={'placeholder': 'Nome', 'class': 'form-control'}))

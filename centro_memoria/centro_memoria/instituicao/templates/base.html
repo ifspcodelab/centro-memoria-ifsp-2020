@@ -28,9 +28,15 @@
                 </div>
 
                 <div class="col-sm-6 col-xs-6 text-center redes-sociais">
+                  <a href="mailto:{{ instituicao.email }}">
                     <img class="img-fluid" src="{% static 'img/img-email.png' %}" title="">
+                  </a>
+                  <a href="{{ instituicao.facebook }}" target="_blank">
                     <img class="img-fluid" src="{% static 'img/img-facebook.png' %}" title="">
+                  </a>
+                  <a href="{{ instituicao.instagram }}" target="_blank">
                     <img class="img-fluid" src="{% static 'img/img-instagram.png' %}" title="">
+                  </a>
                 </div>
             </div>
             <div class="row bottom">

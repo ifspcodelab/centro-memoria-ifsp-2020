@@ -42,7 +42,7 @@ def faleconosco(request):
 
 def index(request):
     instituicao = get_object_or_404(Instituicao)
-    foto_instituicao = FotoInstituicao.objects.all().filter(posicao='I')
+    foto_instituicao = FotoInstituicao.objects.all()
     if len(foto_instituicao) > 0:
         foto_instituicao = foto_instituicao[0]
     membros = Membro.objects.all().filter(instituicao=instituicao)
