@@ -12,8 +12,22 @@
             <div class="col esquerda">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'acervo:acervo' %}">Acervo</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ categoria.nome }}</li>
+                    <li class="breadcrumb-item">
+                      <a href="{% url 'acervo:acervo' %}">
+                        Acervo
+                      </a>
+                    </li>
+                    {% for crumb in breadcrumb %}
+                    <li class="breadcrumb-item active" aria-current="page">
+                      {% if forloop.last %}
+                        {{ crumb.nome }}
+                      {% else %}
+                        <a href="{{ crumb.get_absolute_url }}">
+                          {{ crumb.nome }}
+                        </a>
+                      {% endif %}
+                    </li>
+                    {% endfor %}
                   </ol>
                 </nav>   
                 <h2>{{ categoria.nome }}</h2>       
@@ -55,7 +69,7 @@
                             <p class="card-text">{{ item.descricao|linebreaks }}</p>
                             <p class="card-text">
                                 <small class="text-muted">
-                                    <a href="{{ item.get_absolute_url }}" class="btn btn-success">Acessar</a>
+                                    <a href="{% url 'acervo:item_detalhe' nome_categoria=categoria.nome|lower nome_item=item.nome|lower %}" class="btn btn-success">Acessar</a>
                                 </small>
                             </p>
                           </div>

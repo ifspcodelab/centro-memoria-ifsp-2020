@@ -4,6 +4,26 @@ from .models import ItemAcervo, CategoriaAcervo, FotoItemAcervo
 from django.db.models import Q
 from .forms import PesquisaForm, PesquisaAvancadaForm
 
+def generateBreadcrumb(categoria):
+    breadcrumb = [categoria]
+    i = 0
+    cat = categoria
+    while i == 0:
+        if cat.categoria_pai is not None:
+            cat_pai = CategoriaAcervo.objects.all().filter(pk=cat.categoria_pai.pk, ativo=True)[0]
+            breadcrumb.insert(0, cat_pai)
+            cat =  cat_pai
+            continue
+        i = 1
+    return breadcrumb
+
+def getCategoriasPai(itens_acervo):
+    categorias_pai = []
+    for item in itens_acervo:
+        categoria = CategoriaAcervo.objects.all().filter(pk__in=item.categorias.all(), ativo=True)[0]
+        categorias_pai.append(categoria)
+    return categorias_pai
+
 def acervo(request):
     instituicao = get_object_or_404(Instituicao)
     categorias = CategoriaAcervo.objects.all().filter(categoria_pai__isnull=True, ativo=True)
@@ -37,35 +57,52 @@ def acervo_categoria(request, nome_categoria):
     categorias_filhas = CategoriaAcervo.objects.all().filter(categoria_pai=categoria, ativo=True)
     itens_acervo = ItemAcervo.objects.all().filter(categorias=categoria, ativo=True)
     fotos_itens_destaque = FotoItemAcervo.objects.all().filter(item_acervo__in=itens_acervo, destaque=True)
+
+    breadcrumb = generateBreadcrumb(categoria)
+
     context = {
         'categoria': categoria,
         'categorias_filhas': categorias_filhas,
         'itens_acervo': itens_acervo,
         'fotos_itens_destaque': fotos_itens_destaque,
-        'instituicao': instituicao
+        'instituicao': instituicao,
+        'breadcrumb': breadcrumb
     }
     template_name = 'acervo_categoria.html'
     return render(request, template_name, context)
 
-def item_detalhe(request, nome_item):
+def item_detalhe(request, nome_categoria, nome_item):
     instituicao = get_object_or_404(Instituicao)
-    item = get_object_or_404(ItemAcervo, nome__iexact=nome_item, ativo=True)
+    categoria = get_object_or_404(CategoriaAcervo, nome__iexact=nome_categoria)
+    item = get_object_or_404(ItemAcervo, nome__iexact=nome_item, categorias=categoria, ativo=True)
     foto_destaque = get_object_or_404(FotoItemAcervo, item_acervo=item, destaque=True)
     fotos_item = FotoItemAcervo.objects.all().filter(item_acervo=item)
+
+    breadcrumb = generateBreadcrumb(categoria)
+
     context = {
         'item': item,
         'foto_destaque': foto_destaque,
         'fotos_item': fotos_item,
-        'instituicao': instituicao
+        'instituicao': instituicao,
+        'breadcrumb': breadcrumb
     }
     template_name = 'acervo_item_detalhe.html'
     return render(request, template_name, context)
 
 def acervo_pesquisa(request, parametro):
     instituicao = Instituicao.objects.get()
-    itens_acervo = ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
+    categorias = CategoriaAcervo.objects.all().filter(nome__unaccent__icontains=parametro, ativo=True)
+    itens_acervo = []
+    if len(categorias) > 0:
+        for cat in categorias:
+            itens_acervo += ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
                     Q(descricao__unaccent__icontains=parametro) | Q(fundo__unaccent__icontains=parametro) |
-                    Q(data__icontains=parametro), ativo=True)
+                    Q(data__icontains=parametro) | Q(categorias=cat), ativo=True)
+    else:
+        itens_acervo = ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
+                        Q(descricao__unaccent__icontains=parametro) | Q(fundo__unaccent__icontains=parametro) |
+                        Q(data__icontains=parametro), ativo=True)
     if request.method == 'POST':
         if 'simples' in request.POST:
             form = PesquisaForm(request.POST)
@@ -81,11 +118,20 @@ def acervo_pesquisa(request, parametro):
     else:
         form = PesquisaForm()
         formAvancado = PesquisaAvancadaForm()
+
+    categorias_pai = getCategoriasPai(itens_acervo)
+
+    breadcrumbs = []
+    for categoria in categorias_pai:
+        breadcrumbs.append(generateBreadcrumb(categoria))
+
     context = {
         'instituicao': instituicao,
         'itens_acervo': itens_acervo,
         'form': form,
-        'formAvancado': formAvancado
+        'formAvancado': formAvancado,
+        'categorias_pai': categorias_pai,
+        'breadcrumbs': breadcrumbs
     }
     template_name = 'acervo_resultado_busca.html'
     return render(request, template_name, context)
@@ -118,11 +164,20 @@ def acervo_pesquisa_avancada(request, categoria, item, desc, data):
     else:
         form = PesquisaForm()
         formAvancado = PesquisaAvancadaForm()
+
+    categorias_pai = getCategoriasPai(itens_acervo)
+
+    breadcrumbs = []
+    for categoria in categorias_pai:
+        breadcrumbs.append(generateBreadcrumb(categoria))
+
     context = {
         'instituicao': instituicao,
         'itens_acervo': itens_acervo,
         'form': form,
-        'formAvancado': formAvancado
+        'formAvancado': formAvancado,
+        'categorias_pai': categorias_pai,
+        'breadcrumbs': breadcrumbs
     }
     template_name = 'acervo_resultado_busca.html'
     return render(request, template_name, context)

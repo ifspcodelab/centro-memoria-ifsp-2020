@@ -77,10 +77,19 @@
                       <div class="row no-gutters">
                         <div class="col-md-8">
                           <div class="card-body resultado-busca">
-                            <a href="{{ item.get_absolute_url }}" class="">
+                            {% load index %}
+                            <a href="{% url 'acervo:item_detalhe' nome_categoria=categorias_pai|index:forloop.counter0|lower nome_item=item.nome|lower %}" class="">
                                 {{ item.nome }}
                                 <br>
-                                <small> categoria 1 > categoria 2</small>
+                                <small>
+                                  {% for crumb in breadcrumbs|index:forloop.counter0 %}
+                                    {% if forloop.last %}
+                                    {{ crumb.nome }}
+                                    {% else %}
+                                      {{ crumb.nome }} > 
+                                    {% endif %}
+                                  {% endfor %}
+                                </small>
                             </a>
                             <p class="card-text">{{ item.descricao|linebreaks }} </p>   
                           </div>
