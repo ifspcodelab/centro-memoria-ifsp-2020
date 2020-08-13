@@ -33,8 +33,8 @@ img {
     padding: 0.3rem !important;
 }
 
-#demos h3{
-	display: flex;
+#demos h3 {
+    display: flex;
     font-family: 'Spectral';
     font-style: normal;
     font-weight: bold;
@@ -46,7 +46,7 @@ img {
     flex-direction: column;
     text-transform: uppercase;
     padding-bottom: 0rem;
-	margin-bottom: 0rem;
+    margin-bottom: 0rem;
     margin-top: 0rem;
 }
 
@@ -340,6 +340,7 @@ footer .apoiado .iut {
 
 footer h4 {
     margin-bottom: 20px;
+    color: white;
 }
 
 footer .nav-rodape a {
