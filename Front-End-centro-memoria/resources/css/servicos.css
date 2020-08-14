@@ -36,38 +36,38 @@ h2 {
     text-transform: uppercase;
 }
 
-.timeline h3 {
+.timeline h3{
     padding-bottom: 5%;
     text-emphasis: none;
     color: #333;
     font-size: small;
 }
 
-div.dir {
+div.dir{
     display: relative;
     float: right;
     margin: auto;
     padding-right: 25%;
 }
 
-div.esq {
+div.esq{
     float: left;
     padding-right: 5%;
 }
 
-h4 {
+h4{
     font-size: medium;
     font-family: 'Open Sans', sans-serif;
     font-weight: bold;
 }
 
-h3 {
+h3{
     font-size: small;
     margin-top: 5px;
     padding-bottom: 2%;
 }
 
-input {
+input{
     margin-top: 0px;
     margin-bottom: 30px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
@@ -76,27 +76,55 @@ input {
     padding-left: 5px;
 }
 
-.nome input {
+select{
+    margin-top: 0px;
+    margin-bottom: 30px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 6%;
+    border-style: hidden;
+    padding-left: 5px;
+}
+
+#id_periodo {
+    padding: 0!important;
+    margin-bottom: 0!important;
+}
+
+#id_periodo li {
+    list-style-type: none;
+}
+
+#id_periodo li label {
+    padding-bottom: 0!important;
+    margin-bottom: 0!important;
+}
+
+#id_periodo li label input {
+    padding-bottom: 0!important;
+    margin-bottom: 0!important;
+}
+
+.nome input{
     width: 250px;
 }
 
-.email input {
+.email input{
     width: 250px;
 }
 
-.inst input {
+.inst input{
     width: 270px;
 }
 
-.total input {
+.total input{
     width: 100px;
 }
 
-.periodo input {
+.periodo input{
     box-shadow: unset;
 }
 
-textarea {
+textarea{
     margin-top: 0px;
     margin-bottom: 20px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
@@ -106,10 +134,9 @@ textarea {
     height: 250px;
 }
 
-.botao {
+.botao{
     margin-bottom: 30%;
 }
-
 .texto {
     padding: 0 3% 3%;
     color: #818479;
@@ -312,7 +339,7 @@ section {
     display: inline-block;
     float: left;
     width: 100%;
-    padding: 350px 0 30px;
+    padding: 350px 0 0;
 }
 
 section .titulo {
