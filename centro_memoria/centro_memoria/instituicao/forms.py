@@ -63,11 +63,11 @@ class FormVisita(forms.Form):
 class FormFaleConosco(forms.Form):
 
     nome = forms.CharField(label='', max_length=50,
-                            widget=forms.TextInput(attrs={'placeholder': 'Nome', 'class': 'form-control'}))
+                            widget=forms.TextInput(attrs={'placeholder': 'João'}))
     sobrenome = forms.CharField(label='', max_length=100,
-                                widget=forms.TextInput(attrs={'placeholder': 'Sobrenome', 'class': 'form-control'}))
-    email = forms.EmailField(label='', widget=forms.TextInput(attrs={'placeholder': 'E-mail', 'class': 'form-control form-control-lg'}))
-    mensagem = forms.CharField(label='', widget=forms.Textarea(attrs={'placeholder': 'Deixe aqui sua mensagem', 'class': 'mensagem', 'rows': '2', 'cols': '20'}))
+                                widget=forms.TextInput(attrs={'placeholder': 'Barbosa'}))
+    email = forms.EmailField(label='', widget=forms.TextInput(attrs={'placeholder': 'joao.barbosa@email.com'}))
+    mensagem = forms.CharField(label='', widget=forms.Textarea(attrs={'placeholder': 'Deixe aqui sua mensagem', 'id': 'exampleFormControlTextarea1', 'rows': '2'}))
 
     def enviarMensagem(self, instituicao):
         # e-mail para o cliente

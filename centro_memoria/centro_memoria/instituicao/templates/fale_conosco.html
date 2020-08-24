@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block style %}
-<link href="{% static 'css/contato.css' %}" rel="stylesheet">
+<link href="{% static 'css/contato2.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -10,20 +10,24 @@
 
         <div class="row">
             <div class="col esquerda">
-                <div class="timeline">
                     <h2>FALE CONOSCO</h2>
                     <form method="post">
                         {% csrf_token %}
                         <fieldset>
+                            <div class=esq>
                             {% for field in form %}
                                 {% if field.name == 'nome' %}
+                                <h4> Nome </h4>
                                 <div class="nome">
                                 {% elif field.name == 'email' %}
+                                <h4> E-mail </h4>
                                 <div class="email">
                                 {% elif field.name == 'sobrenome' %}
+                                <h4> Sobrenome</h4>
                                 <div class="sobrenome">
                                 {% elif field.name == 'mensagem' %}
                                 <div class="mensagem">
+                                <h4> Mensagem </h4>
                                 {% else %}
                                 <div>
                                 {% endif %}
@@ -35,13 +39,11 @@
                                     {% endfor %}
                                 </ul>
                                 {% endif %}
-                                <br>
                             </div>
                             {% endfor %}
-                            <div class="botão">
+                            <div class="botao">
                                 <button type="submit" class="btn btn-success">Enviar</button>
                         </fieldset>
-                        </div>
                 </div>
                 </form>
                 <fieldset>
