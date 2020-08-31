@@ -1,3 +1,4 @@
+'''
 import requests
 from .models import Instituicao
 
@@ -29,3 +30,4 @@ class GeradorDinamico():
                 choice_periodos += ((periodo, periodo),)
 
         return choice_periodos
+'''

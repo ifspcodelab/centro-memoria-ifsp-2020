@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from centro_memoria.instituicao.models import Instituicao
 from .models import ItemAcervo, CategoriaAcervo, FotoItemAcervo
 from django.db.models import Q
-from .forms import PesquisaForm, PesquisaAvancadaForm
+#from .forms import PesquisaForm, PesquisaAvancadaForm
 
 def generateBreadcrumb(categoria):
     breadcrumb = [categoria]
@@ -23,7 +23,7 @@ def getCategoriasPai(itens_acervo):
         categoria = CategoriaAcervo.objects.all().filter(pk__in=item.categorias.all(), ativo=True)[0]
         categorias_pai.append(categoria)
     return categorias_pai
-
+'''
 def acervo(request):
     instituicao = get_object_or_404(Instituicao)
     categorias = CategoriaAcervo.objects.all().filter(categoria_pai__isnull=True, ativo=True)
@@ -50,7 +50,7 @@ def acervo(request):
         'instituicao': instituicao
     }
     return render(request, template_name, context)
-
+'''
 def acervo_categoria(request, nome_categoria):
     instituicao = get_object_or_404(Instituicao)
     categoria = get_object_or_404(CategoriaAcervo, nome__iexact=nome_categoria, ativo=True)
@@ -89,7 +89,7 @@ def item_detalhe(request, nome_categoria, nome_item):
     }
     template_name = 'acervo_item_detalhe.html'
     return render(request, template_name, context)
-
+'''
 def acervo_pesquisa(request, parametro):
     instituicao = Instituicao.objects.get()
     categorias = CategoriaAcervo.objects.all().filter(nome__unaccent__icontains=parametro, ativo=True)
@@ -181,3 +181,4 @@ def acervo_pesquisa_avancada(request, categoria, item, desc, data):
     }
     template_name = 'acervo_resultado_busca.html'
     return render(request, template_name, context)
+'''
