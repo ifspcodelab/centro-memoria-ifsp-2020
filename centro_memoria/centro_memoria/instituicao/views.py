@@ -6,8 +6,8 @@ from centro_memoria.noticias.models import Noticia, FotoNoticia
 from centro_memoria.eventos.models import Evento, FotoEvento
 from centro_memoria.linha_tempo.models import Acontecimento, FotoAcontecimento
 from django.db.models import Q
-#from .forms import FormVisita, FormFaleConosco, PesquisaAvancadaForm
-'''
+from .forms import FormVisita, FormFaleConosco, PesquisaAvancadaForm
+
 def agendamento(request):
     instituicao = Instituicao.objects.get()
     context = {}
@@ -39,7 +39,7 @@ def faleconosco(request):
     context['instituicao'] = instituicao
     template_name = 'fale_conosco.html'
     return render(request, template_name, context)
-'''
+
 def index(request):
     instituicao = get_object_or_404(Instituicao)
     foto_instituicao = FotoInstituicao.objects.all()

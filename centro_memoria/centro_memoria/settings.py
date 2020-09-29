@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+import django_heroku
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -44,7 +46,9 @@ INSTALLED_APPS = [
     'centro_memoria.noticias',
     'centro_memoria.pesquisas',
     'centro_memoria.eventos',
-    'django.contrib.postgres'
+    'django.contrib.postgres', 
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -84,11 +88,11 @@ WSGI_APPLICATION = 'centro_memoria.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': ''
+        'NAME': 'd7gsa33pafipuq',
+        'USER': 'ydfdhnmmawylfv',
+        'PASSWORD': '4fe57d8f0a6554eb856b3b15ef1f1263f086cd5c49145dce3df7c80530118d46',
+        'HOST': 'ec2-23-23-242-234.compute-1.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
@@ -139,3 +143,14 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
+
+django_heroku.settings(locals())
+
+
+CLOUDINARY_STORAGE = {
+             'CLOUD_NAME': 'hyygsxumk',
+             'API_KEY': '743781412371152',
+             'API_SECRET': 'O3ll32U3VN5tMGyUQs03vGJN9CI'
+            }
+
+DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
