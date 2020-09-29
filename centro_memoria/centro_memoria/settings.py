@@ -87,12 +87,12 @@ WSGI_APPLICATION = 'centro_memoria.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd7gsa33pafipuq',
-        'USER': 'ydfdhnmmawylfv',
-        'PASSWORD': '4fe57d8f0a6554eb856b3b15ef1f1263f086cd5c49145dce3df7c80530118d46',
-        'HOST': 'ec2-23-23-242-234.compute-1.amazonaws.com',
-        'PORT': '5432'
+        'ENGINE': '',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': ''
     }
 }
 
@@ -148,9 +148,9 @@ django_heroku.settings(locals())
 
 
 CLOUDINARY_STORAGE = {
-             'CLOUD_NAME': 'hyygsxumk',
-             'API_KEY': '743781412371152',
-             'API_SECRET': 'O3ll32U3VN5tMGyUQs03vGJN9CI'
+             'CLOUD_NAME': '',
+             'API_KEY': '',
+             'API_SECRET': ''
             }
 
 DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
