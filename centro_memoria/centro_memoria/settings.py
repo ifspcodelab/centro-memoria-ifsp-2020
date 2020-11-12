@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'centro_memoria.noticias',
     'centro_memoria.pesquisas',
     'centro_memoria.eventos',
-    'django.contrib.postgres'
+    'django.contrib.postgres',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [
@@ -84,11 +85,11 @@ WSGI_APPLICATION = 'centro_memoria.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': ''
+        'NAME': 'centro_memoria_db',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 

@@ -25,7 +25,7 @@
                 </nav>
                 <img class="img-fluid rounded imagem-item-detalhe" src="{{ foto_destaque.imagem.url }}" alt="{{ item.nome }}" align="left">
                 <div class="texto-noticia text-justify">
-                    <p>{{ item.descricao|linebreaks }} 
+                    <p>{{ item.descricao|safe }} 
                         Fundo: {{ item.fundo }}
                         <br>
                         Data: {{ item.data }}

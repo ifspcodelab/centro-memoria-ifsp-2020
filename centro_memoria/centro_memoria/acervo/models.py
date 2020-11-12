@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.db import models
+from ckeditor.fields import RichTextField
 
 class CategoriaAcervoManager(models.Manager):
     pass
@@ -8,7 +9,7 @@ class CategoriaAcervoManager(models.Manager):
 class CategoriaAcervo(models.Model):
 
     nome = models.CharField('Nome da Categoria', max_length=100)
-    descricao = models.TextField('Descrição da Categoria')
+    descricao = RichTextField('Descrição da Categoria')
 
     imagem = models.ImageField(
         verbose_name='Imagem da Categoria'
@@ -44,7 +45,7 @@ class ItemAcervoManager(models.Manager):
 class ItemAcervo(models.Model):
 
     nome = models.CharField('Nome', max_length=100)
-    descricao = models.TextField('Descrição')
+    descricao = RichTextField('Descrição')
     data = models.DateField('Data do Item', blank=True, null=True)
     fundo = models.CharField('Fundo', blank=True, null=True, max_length=100)
     id_acervo = models.IntegerField('Identificador no Acervo', blank=True, null=True)

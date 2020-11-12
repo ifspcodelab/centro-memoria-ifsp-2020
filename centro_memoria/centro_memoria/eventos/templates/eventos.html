@@ -24,7 +24,7 @@
                         <div class="col-md-8">
                           <div class="card-body">
                             <h5 class="card-title"><b>{{ evento.nome }}</b></h5>
-                            <p class="card-text">{{ evento.descricao|linebreaks }}</p>
+                            <p class="card-text">{{ evento.descricao|safe }}</p>
                             <p class="card-text">
                                 <small class="text-muted">
                                     <a href="{{ evento.get_absolute_url }}" class="btn btn-success">Leia mais</a>

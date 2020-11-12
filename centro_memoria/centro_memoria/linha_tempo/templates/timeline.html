@@ -20,10 +20,10 @@
                                 <div class="conteudo">
                                     {% if foto %}
                                         <img src="{{ foto.imagem.url }}">
-                                        <p><i>{{ acontecimento.descricao|linebreaks }}</i></p>
+                                        <p><i>{{ acontecimento.descricao|safe }}</i></p>
                                     {% else %}
                                         <h3>{{ acontecimento.titulo }}</h3>
-                                        <p>{{ acontecimento.descricao|linebreaks }}</p>
+                                        <p>{{ acontecimento.descricao|safe }}</p>
                                     {% endif %}
                                 </div>
                         {% endfor %}
