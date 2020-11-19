@@ -67,6 +67,9 @@ class FormFaleConosco(forms.Form):
     sobrenome = forms.CharField(label='', max_length=100,
                                 widget=forms.TextInput(attrs={'placeholder': 'Barbosa'}))
     email = forms.EmailField(label='', widget=forms.TextInput(attrs={'placeholder': 'joao.barbosa@email.com'}))
+
+    assunto = forms.CharField(label='', max_length=100, widget=forms.TextInput(attrs= {'placeholder': 'Assunto', }))
+    
     mensagem = forms.CharField(label='', widget=forms.Textarea(attrs={'placeholder': 'Deixe aqui sua mensagem', 'id': 'exampleFormControlTextarea1', 'rows': '2'}))
 
     def enviarMensagem(self, instituicao):
