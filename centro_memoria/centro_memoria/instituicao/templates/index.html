@@ -15,7 +15,7 @@
 
                 <div class="texto">
                     <p class="text-justify">
-                        {{ instituicao.sobre|linebreaks }}</p>
+                        {{ instituicao.sobre|safe }}</p>
                     <img src="{{ foto_instituicao.imagem.url }}" class="rounded mx-auto d-block" alt="{{ instituicao.nome }}">
 
                 </div>
@@ -24,7 +24,7 @@
 
                 <div class="texto">
                     <p class="text-justify">
-                        {{ instituicao.patrono|linebreaks }} </p>
+                        {{ instituicao.patrono|safe }} </p>
 
                 </div>
 
@@ -32,7 +32,7 @@
 
                 <div class="texto">
                     <p class="text-justify">
-                        {{ instituicao.atividade|linebreaks }}
+                        {{ instituicao.atividade|safe }}
                     </p>
 
                 </div>
@@ -41,7 +41,7 @@
 
                 <div class="texto">
                     <p class="text-justify">
-                        {{ instituicao.policia_acervo|linebreaks }}
+                        {{ instituicao.policia_acervo|safe }}
                     </p>
 
                 </div>

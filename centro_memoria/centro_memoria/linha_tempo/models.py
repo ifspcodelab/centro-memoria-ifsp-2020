@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 class AcontecimentoManager(models.Manager):
     pass
@@ -6,7 +7,7 @@ class AcontecimentoManager(models.Manager):
 class Acontecimento(models.Model):
 
     titulo = models.CharField('Título', max_length=255)
-    descricao = models.TextField('Descrição')
+    descricao = RichTextField('Descrição')
     data = models.DateField('Data do acontecimento')
 
     ativo = models.BooleanField('Registro ativo?', 

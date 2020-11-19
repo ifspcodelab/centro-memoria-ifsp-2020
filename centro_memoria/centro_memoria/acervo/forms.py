@@ -1,4 +1,3 @@
-'''
 from django import forms
 from .models import CategoriaAcervo
 
@@ -37,4 +36,3 @@ class PesquisaAvancadaForm(forms.Form):
             'categoria': self.cleaned_data['categoria'] if self.cleaned_data['categoria'] else 'none',
             'data': self.cleaned_data['data'] if self.cleaned_data['data'] else 'none'
         }
-'''

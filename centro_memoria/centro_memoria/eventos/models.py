@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.db import models
+from ckeditor.fields import RichTextField
 
 class EventoManager(models.Manager):
     pass
@@ -8,8 +9,8 @@ class EventoManager(models.Manager):
 class Evento(models.Model):
 
     nome = models.CharField('Nome', max_length=100)
-    descricao = models.TextField('Descrição', max_length=250)
-    texto = models.TextField('Texto sobre evento')
+    descricao = RichTextField('Descrição', max_length=250)
+    texto = RichTextField('Texto sobre evento')
     destaque = models.BooleanField('Destaque')
 
     ativo = models.BooleanField('Registro ativo?', 
