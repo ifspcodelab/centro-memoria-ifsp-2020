@@ -71,7 +71,6 @@ class ItemAcervo(models.Model):
         verbose_name_plural = 'Itens do Acervo'
         ordering = ['nome']
 
-
 class FotoItemAcervoManager(models.Manager):
     pass
 
@@ -98,4 +97,52 @@ class FotoItemAcervo(models.Model):
     class Meta:
         verbose_name = 'Foto do Item do Acervo'
         verbose_name_plural = 'Fotos dos Itens do Acervo'
+        ordering = ['criado_em']
+
+class DimensaoManager(models.Manager):
+    pass
+
+class Dimensao(models.Model):
+
+    tipo = models.CharField('Tipo', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = DimensaoManager()
+
+    def __str__(self):
+        return self.tipo
+
+    class Meta:
+        verbose_name = 'Dimensão'
+        verbose_name_plural = 'Dimensões'
+        ordering = ['criado_em']
+
+class DimensaoItemAcervoManager(models.Manager):
+    pass
+
+class DimensaoItemAcervo(models.Model):
+
+    dimensao = models.ForeignKey(Dimensao, on_delete=models.PROTECT, 
+        verbose_name='Dimensão', related_name='dimensoes'
+    )
+
+    quantidade = models.CharField('Quantidade', max_length=50)
+
+    item_acervo = models.ForeignKey(ItemAcervo, on_delete=models.PROTECT, 
+        verbose_name='Item do Acervo', related_name='item_acervo'
+    )
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = DimensaoItemAcervoManager()
+
+    def __str__(self):
+        return self.dimensao.__str__()
+
+    class Meta:
+        verbose_name = 'Dimensão do Item'
+        verbose_name_plural = 'Dimensões do Item'
         ordering = ['criado_em']

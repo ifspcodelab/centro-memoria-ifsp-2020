@@ -11,7 +11,8 @@ class FotoEventoAdmin(admin.ModelAdmin):
 
     list_display = ['evento', 'destaque', 'criado_em', 'atualizado_em']
     search_fields = ['evento', 'destaque', 'criado_em', 'atualizado_em']
-    list_filter = ['evento', 'destaque']
+    list_filter = ['evento__nome', 'destaque']
+    autocomplete_fields = ['evento']
 
 
 admin.site.register(Evento, EventoAdmin)
