@@ -146,3 +146,103 @@ class DimensaoItemAcervo(models.Model):
         verbose_name = 'Dimensão do Item'
         verbose_name_plural = 'Dimensões do Item'
         ordering = ['criado_em']
+
+class FundoColecaoManager(models.Manager):
+    pass
+
+class FundoColecao(models.Model):
+
+    nome = models.CharField('Nome', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = FundoColecaoManager()
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name = 'Fundo/Coleção'
+        verbose_name_plural = 'Fundos/Coleções'
+        ordering = ['criado_em']
+
+class AbordagemManager(models.Manager):
+    pass
+
+class Abordagem(models.Model):
+
+    tipo = models.CharField('Tipo', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = AbordagemManager()
+
+    def __str__(self):
+        return self.tipo
+
+    class Meta:
+        verbose_name = 'Abordagem'
+        verbose_name_plural = 'Abordagens'
+        ordering = ['criado_em']
+
+class TecnicaRegistroManager(models.Manager):
+    pass
+
+class TecnicaRegistro(models.Model):
+
+    nome = models.CharField('Nome', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = TecnicaRegistroManager()
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name = 'Técnica de Registro'
+        verbose_name_plural = 'Técnicas de Registro'
+        ordering = ['criado_em']
+
+class TipoSuporteManager(models.Manager):
+    pass
+
+class TipoSuporte(models.Model):
+
+    nome = models.CharField('Nome', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = TipoSuporteManager()
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name = 'Tipo de Suporte'
+        verbose_name_plural = 'Tipos de Suporte'
+        ordering = ['criado_em']
+
+class TipoFormatoManager(models.Manager):
+    pass
+
+class TipoFormato(models.Model):
+
+    nome = models.CharField('Nome', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = TipoFormatoManager()
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name = 'Tipo de Formato'
+        verbose_name_plural = 'Tipos de Formato'
+        ordering = ['criado_em']

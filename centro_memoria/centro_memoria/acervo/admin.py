@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import ItemAcervo, FotoItemAcervo, CategoriaAcervo, Dimensao, DimensaoItemAcervo
+from .models import (ItemAcervo, FotoItemAcervo, CategoriaAcervo, Dimensao,
+                    DimensaoItemAcervo, Abordagem, TipoFormato, TipoSuporte,
+                    TecnicaRegistro, FundoColecao)
 
 class DimensaoItemAcervoAdmin(admin.TabularInline):
     model = DimensaoItemAcervo
@@ -36,8 +38,43 @@ class DimensaoAdmin(admin.ModelAdmin):
     search_fields = ['tipo']
     list_filter = ['tipo']
 
+class AbordagemAdmin(admin.ModelAdmin):
+
+    list_display = ['tipo']
+    search_fields = ['tipo']
+    list_filter = ['tipo']
+
+class TipoFormatoAdmin(admin.ModelAdmin):
+
+    list_display = ['nome']
+    search_fields = ['nome']
+    list_filter = ['nome']
+
+class TipoSuporteAdmin(admin.ModelAdmin):
+
+    list_display = ['nome']
+    search_fields = ['nome']
+    list_filter = ['nome']
+
+class TecnicaRegistroAdmin(admin.ModelAdmin):
+
+    list_display = ['nome']
+    search_fields = ['nome']
+    list_filter = ['nome']
+
+class FundoColecaoAdmin(admin.ModelAdmin):
+
+    list_display = ['nome']
+    search_fields = ['nome']
+    list_filter = ['nome']
+
 
 admin.site.register(ItemAcervo, ItemAcervoAdmin)
 admin.site.register(FotoItemAcervo, FotoItemAcervoAdmin)
 admin.site.register(CategoriaAcervo, CategoriaAcervoAdmin)
 admin.site.register(Dimensao, DimensaoAdmin)
+admin.site.register(Abordagem, AbordagemAdmin)
+admin.site.register(TipoFormato, TipoFormatoAdmin)
+admin.site.register(TipoSuporte, TipoSuporteAdmin)
+admin.site.register(TecnicaRegistro, TecnicaRegistroAdmin)
+admin.site.register(FundoColecao, FundoColecaoAdmin)
