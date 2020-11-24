@@ -1,7 +1,10 @@
 from django.contrib import admin
 from .models import (ItemAcervo, FotoItemAcervo, CategoriaAcervo, Dimensao,
                     DimensaoItemAcervo, Abordagem, TipoFormato, TipoSuporte,
-                    TecnicaRegistro, FundoColecao)
+                    TecnicaRegistro, FundoColecao, Idioma,
+                    FormaDocumento, Periodicidade, TipoReproducao,
+                    ProblemaConservacao, AtividadeEvento, Autor,
+                    ProdutorInstituicao, Editora)
 
 class DimensaoItemAcervoAdmin(admin.TabularInline):
     model = DimensaoItemAcervo
@@ -68,6 +71,59 @@ class FundoColecaoAdmin(admin.ModelAdmin):
     search_fields = ['nome']
     list_filter = ['nome']
 
+class IdiomaAdmin(admin.ModelAdmin):
+
+    list_display = ['idioma']
+    search_fields = ['idioma']
+    list_filter = ['idioma']
+
+class FormaDocumentoAdmin(admin.ModelAdmin):
+
+    list_display = ['forma']
+    search_fields = ['forma']
+    list_filter = ['forma']
+
+class PeriodicidadeAdmin(admin.ModelAdmin):
+
+    list_display = ['periodo']
+    search_fields = ['periodo']
+    list_filter = ['periodo']
+
+class TipoReproducaoAdmin(admin.ModelAdmin):
+
+    list_display = ['tipo']
+    search_fields = ['tipo']
+    list_filter = ['tipo']
+
+class ProblemaConservacaoAdmin(admin.ModelAdmin):
+
+    list_display = ['problema']
+    search_fields = ['problema']
+    list_filter = ['problema']
+
+class AtividadeEventoAdmin(admin.ModelAdmin):
+
+    list_display = ['atividade']
+    search_fields = ['atividade']
+    list_filter = ['atividade']
+
+class AutorAdmin(admin.ModelAdmin):
+
+    list_display = ['nome']
+    search_fields = ['nome']
+    list_filter = ['nome']
+
+class ProdutorInstituicaoAdmin(admin.ModelAdmin):
+
+    list_display = ['nome']
+    search_fields = ['nome']
+    list_filter = ['nome']
+
+class EditoraAdmin(admin.ModelAdmin):
+
+    list_display = ['nome']
+    search_fields = ['nome']
+    list_filter = ['nome']
 
 admin.site.register(ItemAcervo, ItemAcervoAdmin)
 admin.site.register(FotoItemAcervo, FotoItemAcervoAdmin)
@@ -78,3 +134,12 @@ admin.site.register(TipoFormato, TipoFormatoAdmin)
 admin.site.register(TipoSuporte, TipoSuporteAdmin)
 admin.site.register(TecnicaRegistro, TecnicaRegistroAdmin)
 admin.site.register(FundoColecao, FundoColecaoAdmin)
+admin.site.register(Idioma, IdiomaAdmin)
+admin.site.register(FormaDocumento, FormaDocumentoAdmin)
+admin.site.register(Periodicidade, PeriodicidadeAdmin)
+admin.site.register(TipoReproducao, TipoReproducaoAdmin)
+admin.site.register(ProblemaConservacao, ProblemaConservacaoAdmin)
+admin.site.register(AtividadeEvento, AtividadeEventoAdmin)
+admin.site.register(Autor, AutorAdmin)
+admin.site.register(ProdutorInstituicao, ProdutorInstituicaoAdmin)
+admin.site.register(Editora, EditoraAdmin)

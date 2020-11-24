@@ -246,3 +246,183 @@ class TipoFormato(models.Model):
         verbose_name = 'Tipo de Formato'
         verbose_name_plural = 'Tipos de Formato'
         ordering = ['criado_em']
+
+class IdiomaManager(models.Manager):
+    pass
+
+class Idioma(models.Model):
+
+    idioma = models.CharField('Idioma', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = IdiomaManager()
+
+    def __str__(self):
+        return self.idioma
+
+    class Meta:
+        verbose_name = 'Idioma'
+        verbose_name_plural = 'Idiomas'
+        ordering = ['criado_em']
+
+class FormaDocumentoManager(models.Manager):
+    pass
+
+class FormaDocumento(models.Model):
+
+    forma = models.CharField('Forma', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = FormaDocumentoManager()
+
+    def __str__(self):
+        return self.forma
+
+    class Meta:
+        verbose_name = 'Forma de Documento'
+        verbose_name_plural = 'Formas de Documento'
+        ordering = ['criado_em']
+
+class PeriodicidadeManager(models.Manager):
+    pass
+
+class Periodicidade(models.Model):
+
+    periodo = models.CharField('Período', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = PeriodicidadeManager()
+
+    def __str__(self):
+        return self.periodo
+
+    class Meta:
+        verbose_name = 'Periodicidade'
+        verbose_name_plural = 'Periodicidades'
+        ordering = ['criado_em']
+
+class TipoReproducaoManager(models.Manager):
+    pass
+
+class TipoReproducao(models.Model):
+
+    tipo = models.CharField('Tipo', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = TipoReproducaoManager()
+
+    def __str__(self):
+        return self.tipo
+
+    class Meta:
+        verbose_name = 'Tipo de Reprodução'
+        verbose_name_plural = 'Tipos de Reprodução'
+        ordering = ['criado_em']
+
+class ProblemaConservacaoManager(models.Manager):
+    pass
+
+class ProblemaConservacao(models.Model):
+
+    problema = models.CharField('Problema', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = ProblemaConservacaoManager()
+
+    def __str__(self):
+        return self.problema
+
+    class Meta:
+        verbose_name = 'Problema de Conservação'
+        verbose_name_plural = 'Problemas de Conservação'
+        ordering = ['criado_em']
+
+class AtividadeEventoManager(models.Manager):
+    pass
+
+class AtividadeEvento(models.Model):
+
+    atividade = models.CharField('Atividade/Evento', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = AtividadeEventoManager()
+
+    def __str__(self):
+        return self.atividade
+
+    class Meta:
+        verbose_name = 'Atividade/Evento'
+        verbose_name_plural = 'Atividades/Eventos'
+        ordering = ['criado_em']
+
+class AutorManager(models.Manager):
+    pass
+
+class Autor(models.Model):
+
+    nome = models.CharField('Nome do Autor', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = AutorManager()
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name = 'Autor'
+        verbose_name_plural = 'Autores'
+        ordering = ['criado_em']
+
+class ProdutorInstituicaoManager(models.Manager):
+    pass
+
+class ProdutorInstituicao(models.Model):
+
+    nome = models.CharField('Nome do Produtor/Instituição', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = ProdutorInstituicaoManager()
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name = 'Produtor/Instituição'
+        verbose_name_plural = 'Produtores/Instituições'
+        ordering = ['criado_em']
+
+class EditoraManager(models.Manager):
+    pass
+
+class Editora(models.Model):
+
+    nome = models.CharField('Nome da Editora', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = EditoraManager()
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name = 'Editora'
+        verbose_name_plural = 'Editoras'
+        ordering = ['criado_em']
