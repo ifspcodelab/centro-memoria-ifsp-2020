@@ -24,7 +24,7 @@
                         <div class="col-md-8">
                           <div class="card-body">
                             <h5 class="card-title"><b>{{ noticia.titulo }}</b></h5>
-                            <p class="card-text">{{ noticia.descricao|linebreaks }}</p>
+                            <p class="card-text">{{ noticia.descricao|safe }}</p>
                             <p class="card-text">
                                 <small class="text-muted">
                                     <a href="{{ noticia.get_absolute_url }}" class="btn btn-success">Leia mais</a>

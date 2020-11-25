@@ -11,7 +11,8 @@ class FotoAcontecimentoAdmin(admin.ModelAdmin):
 
     list_display = ['acontecimento', 'destaque', 'criado_em', 'atualizado_em']
     search_fields = ['acontecimento', 'destaque', 'criado_em', 'atualizado_em']
-    list_filter = ['acontecimento', 'destaque']
+    list_filter = ['acontecimento__titulo', 'destaque']
+    autocomplete_fields = ['acontecimento']
 
 
 admin.site.register(Acontecimento, AcontecimentoAdmin)

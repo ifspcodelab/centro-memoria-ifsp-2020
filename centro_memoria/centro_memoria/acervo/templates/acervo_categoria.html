@@ -42,7 +42,7 @@
                         <div class="col-md-8">
                           <div class="card-body">
                             <h5 class="card-title"><b>{{ categoria_filha.nome }}</b></h5>
-                            <p class="card-text">{{ categoria_filha.descricao|linebreaks }}</p>
+                            <p class="card-text">{{ categoria_filha.descricao|safe }}</p>
                             <p class="card-text">
                                 <small class="text-muted">
                                     <a href="{{ categoria_filha.get_absolute_url }}" class="btn btn-success">Acessar </a>
@@ -66,7 +66,7 @@
                         <div class="col-md-8">
                           <div class="card-body">
                             <h5 class="card-title"><b>{{ item.nome }}</b></h5>
-                            <p class="card-text">{{ item.descricao|linebreaks }}</p>
+                            <p class="card-text">{{ item.descricao|safe }}</p>
                             <p class="card-text">
                                 <small class="text-muted">
                                     <a href="{% url 'acervo:item_detalhe' nome_categoria=categoria.nome|lower nome_item=item.nome|lower %}" class="btn btn-success">Acessar</a>

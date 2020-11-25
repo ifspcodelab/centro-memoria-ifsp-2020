@@ -45,7 +45,7 @@
           <p class="text-justify">
             {{ personalidade.nome }} - {{ personalidade.funcao }} <br>
             {{ personalidade.inicio_servico }} - {{ personalidade.fim_servico }} <br>
-            {{ personalidade.sobre|linebreaks }}
+            {{ personalidade.sobre|safe }}
           </p>
         </div>
         </div>

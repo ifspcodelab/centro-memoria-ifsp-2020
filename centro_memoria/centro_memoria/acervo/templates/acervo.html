@@ -82,7 +82,7 @@
                         <div class="col-md-8">
                           <div class="card-body">
                             <h5 class="card-title"><b>{{ categoria.nome }}</b></h5>
-                            <p class="card-text">{{ categoria.descricao|linebreaks }}</p>
+                            <p class="card-text">{{ categoria.descricao|safe }}</p>
                             <p class="card-text">
                                 <small class="text-muted">
                                     <a href="{{ categoria.get_absolute_url }}" class="btn btn-success">Acessar </a>

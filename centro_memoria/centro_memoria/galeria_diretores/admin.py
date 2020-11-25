@@ -11,13 +11,15 @@ class PersonalidadeAdmin(admin.ModelAdmin):
 
     list_display = ['nome', 'ativo', 'funcao', 'sobre', 'inicio_servico', 'fim_servico', 'criado_em', 'atualizado_em']
     search_fields = ['nome', 'ativo', 'funcao', 'inicio_servico', 'fim_servico', 'criado_em', 'atualizado_em']
-    list_filter = ['nome', 'ativo', 'inicio_servico', 'fim_servico']
+    list_filter = ['nome', 'ativo', 'inicio_servico', 'fim_servico', 'galerias__nome']
+    autocomplete_fields = ['galerias']
 
 class FotoPersonalidadeAdmin(admin.ModelAdmin):
 
     list_display = ['personalidade', 'destaque', 'criado_em', 'atualizado_em']
     search_fields = ['personalidade', 'destaque', 'criado_em', 'atualizado_em']
-    list_filter = ['personalidade', 'destaque']
+    list_filter = ['personalidade__nome', 'destaque']
+    autocomplete_fields = ['personalidade']
 
 
 admin.site.register(Personalidade, PersonalidadeAdmin)
