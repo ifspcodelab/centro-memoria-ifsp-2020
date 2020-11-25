@@ -103,9 +103,9 @@ class ProblemaConservacaoAdmin(admin.ModelAdmin):
 
 class AtividadeEventoAdmin(admin.ModelAdmin):
 
-    list_display = ['atividade']
-    search_fields = ['atividade']
-    list_filter = ['atividade']
+    list_display = ['atividade', 'local', 'data_inicio', 'data_fim']
+    search_fields = ['atividade', 'local', 'data_inicio', 'data_fim']
+    list_filter = ['atividade', 'local', 'data_inicio', 'data_fim']
 
 class AutorAdmin(admin.ModelAdmin):
 

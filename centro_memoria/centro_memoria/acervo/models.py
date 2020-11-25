@@ -353,6 +353,10 @@ class AtividadeEventoManager(models.Manager):
 class AtividadeEvento(models.Model):
 
     atividade = models.CharField('Atividade/Evento', max_length=100)
+    especificacao = RichTextField('Especificação da Atividade/Evento')
+    local = models.CharField('Local do Evento', max_length=100)
+    data_inicio = models.DateField('Data de Início do Evento')
+    data_fim = models.DateField('Data de Fim do Evento', blank=True, null=True)
 
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
