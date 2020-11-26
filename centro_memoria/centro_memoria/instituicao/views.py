@@ -6,7 +6,10 @@ from centro_memoria.noticias.models import Noticia, FotoNoticia
 from centro_memoria.eventos.models import Evento, FotoEvento
 from centro_memoria.linha_tempo.models import Acontecimento, FotoAcontecimento
 from django.db.models import Q
-from .forms import FormVisita, FormFaleConosco, PesquisaAvancadaForm
+
+import sys
+if 'makemigrations' not in sys.argv and 'migrate' not in sys.argv:
+    from .forms import FormVisita, FormFaleConosco, PesquisaAvancadaForm
 
 def agendamento(request):
     instituicao = Instituicao.objects.get()

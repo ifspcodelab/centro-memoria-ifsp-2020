@@ -31,6 +31,7 @@ class Instituicao(models.Model):
     patrono = RichTextField('Informações sobre Patrono')
     atividade = RichTextField('Atividade')
     policia_acervo = RichTextField('Políticas de Acervo')
+    descricao_acervo = RichTextField('Descrição do Acervo')
     periodos_visita = models.CharField('Período de Visita (Separados por vírgula)', max_length=255, help_text='Exemplo: Manhã (das 09h às 12h);Tarde (das 14h às 17h)')
 
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)

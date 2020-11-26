@@ -13,9 +13,9 @@ class DimensaoItemAcervoAdmin(admin.TabularInline):
 
 class ItemAcervoAdmin(admin.ModelAdmin):
 
-    list_display = ['nome', 'ativo', 'descricao', 'data', 'fundo', 'id_acervo']
-    search_fields = ['nome', 'ativo', 'descricao', 'data', 'fundo', 'id_acervo', 'categorias__nome']
-    list_filter = ['nome', 'ativo', 'data', 'fundo', 'id_acervo']
+    list_display = ['nome', 'ativo', 'descricao_curta', 'data_inicio', 'fundo', 'id_acervo']
+    search_fields = ['nome', 'ativo', 'descricao_curta', 'data_inicio', 'fundo', 'id_acervo', 'categorias__nome']
+    list_filter = ['nome', 'ativo', 'data_inicio', 'fundo', 'id_acervo']
     autocomplete_fields = ['categorias']
     inlines = [DimensaoItemAcervoAdmin,]
 
@@ -30,8 +30,8 @@ class FotoItemAcervoAdmin(admin.ModelAdmin):
 
 class CategoriaAcervoAdmin(admin.ModelAdmin):
 
-    list_display = ['nome', 'ativo', 'descricao', 'categoria_pai']
-    search_fields = ['nome', 'ativo', 'descricao', 'categoria_pai__nome']
+    list_display = ['nome', 'ativo', 'descricao_curta', 'categoria_pai']
+    search_fields = ['nome', 'ativo', 'descricao_curta', 'categoria_pai__nome']
     list_filter = ['nome', 'ativo', 'categoria_pai']
     autocomplete_fields = ['categoria_pai']
 

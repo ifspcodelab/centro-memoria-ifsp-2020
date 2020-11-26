@@ -2,7 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from centro_memoria.instituicao.models import Instituicao
 from .models import ItemAcervo, CategoriaAcervo, FotoItemAcervo
 from django.db.models import Q
-from .forms import PesquisaForm, PesquisaAvancadaForm
+
+import sys
+if 'makemigrations' not in sys.argv and 'migrate' not in sys.argv:
+    from .forms import PesquisaForm, PesquisaAvancadaForm
 
 def generateBreadcrumb(categoria):
     breadcrumb = [categoria]

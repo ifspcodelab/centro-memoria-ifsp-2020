@@ -9,7 +9,8 @@ class CategoriaAcervoManager(models.Manager):
 class CategoriaAcervo(models.Model):
 
     nome = models.CharField('Nome da Categoria', max_length=100)
-    descricao = RichTextField('Descrição da Categoria')
+    descricao_curta = models.TextField('Descrição Curta da Categoria')
+    descricao_longa = RichTextField('Descrição Longa da Categoria')
 
     imagem = models.ImageField(
         verbose_name='Imagem da Categoria'
@@ -45,8 +46,14 @@ class ItemAcervoManager(models.Manager):
 class ItemAcervo(models.Model):
 
     nome = models.CharField('Nome', max_length=100)
-    descricao = RichTextField('Descrição')
-    data = models.DateField('Data do Item', blank=True, null=True)
+    descricao_curta = models.TextField('Descrição Curta')
+    descricao_longa = RichTextField('Descrição Longa')
+    origem = RichTextField('Origem')
+    tipo_documento = models.CharField('Tipo de Documento', max_length=100)
+    local = models.CharField('Local de Produção', max_length=100, blank=True, null=True)
+    data_inicio = models.DateField('Data de Produção do Item')
+    data_fim = models.DateField('Data do Fim da Produção do Item', blank=True, null=True)
+
     fundo = models.CharField('Fundo', blank=True, null=True, max_length=100)
     id_acervo = models.IntegerField('Identificador no Acervo', blank=True, null=True)
 
