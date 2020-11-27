@@ -45,6 +45,16 @@ class ItemAcervoManager(models.Manager):
 
 class ItemAcervo(models.Model):
 
+    CROMIA = (
+        ('1', 'Branco & Preto'),
+        ('2', 'Cores'),
+    )
+
+    ACESSO = (
+        ('1', 'Livre'),
+        ('2', 'Restrito'),
+    )
+
     nome = models.CharField('Nome', max_length=100)
     descricao_curta = models.TextField('Descrição Curta')
     descricao_longa = RichTextField('Descrição Longa')
@@ -53,6 +63,15 @@ class ItemAcervo(models.Model):
     local = models.CharField('Local de Produção', max_length=100, blank=True, null=True)
     data_inicio = models.DateField('Data de Produção do Item')
     data_fim = models.DateField('Data do Fim da Produção do Item', blank=True, null=True)
+    classificacao = models.CharField('Classificação', max_length=100, blank=True, null=True)
+    cromia = models.CharField('Cromia', max_length=2, blank=True, null=True, choices=CROMIA)
+    itens = models.IntegerField('Quantidade de itens')
+    exemplares = models.IntegerField('Quantidade de Exemplares')
+    acesso = models.CharField('Acesso', max_length=2, choices=ACESSO)
+    descritores = models.TextField('Descritores', help_text='Separar cada descritor usando ";"')
+    referencia = RichTextField('Referência')
+    local_custodia = models.TextField('Local de Custódia')
+    observacoes = RichTextField('Observações', blank=True, null=True)
 
     fundo = models.CharField('Fundo', blank=True, null=True, max_length=100)
     id_acervo = models.IntegerField('Identificador no Acervo', blank=True, null=True)
