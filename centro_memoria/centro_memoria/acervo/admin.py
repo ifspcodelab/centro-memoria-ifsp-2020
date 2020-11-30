@@ -14,9 +14,9 @@ class DimensaoItemAcervoAdmin(admin.TabularInline):
 class ItemAcervoAdmin(admin.ModelAdmin):
 
     list_display = ['nome', 'ativo', 'descricao', 'data', 'fundo', 'id_acervo']
-    search_fields = ['nome', 'ativo', 'descricao', 'data', 'fundo', 'id_acervo', 'categorias__nome']
+    search_fields = ['nome', 'ativo', 'descricao', 'data', 'fundo', 'id_acervo', 'categorias__nome', 'autores__nome']
     list_filter = ['nome', 'ativo', 'data', 'fundo', 'id_acervo']
-    autocomplete_fields = ['categorias']
+    autocomplete_fields = ['categorias','autores']
     inlines = [DimensaoItemAcervoAdmin,]
 
 
