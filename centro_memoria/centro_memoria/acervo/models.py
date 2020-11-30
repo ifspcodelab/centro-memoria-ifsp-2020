@@ -408,7 +408,6 @@ class ItemAcervo(models.Model):
     local_custodia = models.TextField('Local de Custódia')
     observacoes = RichTextField('Observações', blank=True, null=True)
 
-    fundo = models.CharField('Fundo', blank=True, null=True, max_length=100)
     id_acervo = models.IntegerField('Identificador no Acervo', blank=True, null=True)
 
     categorias = models.ManyToManyField(CategoriaAcervo)
