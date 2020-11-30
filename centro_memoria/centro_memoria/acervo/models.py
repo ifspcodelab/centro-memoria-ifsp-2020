@@ -39,140 +39,6 @@ class CategoriaAcervo(models.Model):
         verbose_name_plural = 'Categorias do Acervo'
         ordering = ['nome']
 
-
-class ItemAcervoManager(models.Manager):
-    pass
-
-class ItemAcervo(models.Model):
-
-    CROMIA = (
-        ('1', 'Branco & Preto'),
-        ('2', 'Cores'),
-    )
-
-    ACESSO = (
-        ('1', 'Livre'),
-        ('2', 'Restrito'),
-    )
-
-    nome = models.CharField('Nome', max_length=100)
-    descricao_curta = models.TextField('Descrição Curta')
-    descricao_longa = RichTextField('Descrição Longa')
-    origem = RichTextField('Origem')
-    tipo_documento = models.CharField('Tipo de Documento', max_length=100)
-    local = models.CharField('Local de Produção', max_length=100, blank=True, null=True)
-    data_inicio = models.DateField('Data de Produção do Item')
-    data_fim = models.DateField('Data do Fim da Produção do Item', blank=True, null=True)
-    classificacao = models.CharField('Classificação', max_length=100, blank=True, null=True)
-    cromia = models.CharField('Cromia', max_length=2, blank=True, null=True, choices=CROMIA)
-    itens = models.IntegerField('Quantidade de itens')
-    exemplares = models.IntegerField('Quantidade de Exemplares')
-    acesso = models.CharField('Acesso', max_length=2, choices=ACESSO)
-    descritores = models.TextField('Descritores', help_text='Separar cada descritor usando ";"')
-    referencia = RichTextField('Referência')
-    local_custodia = models.TextField('Local de Custódia')
-    observacoes = RichTextField('Observações', blank=True, null=True)
-
-    fundo = models.CharField('Fundo', blank=True, null=True, max_length=100)
-    id_acervo = models.IntegerField('Identificador no Acervo', blank=True, null=True)
-
-    categorias = models.ManyToManyField(CategoriaAcervo)
-
-    ativo = models.BooleanField('Registro ativo?', 
-        help_text='Este campo indica se este registro já está pronto para aparecer no site publicamente')
-
-    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
-    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
-
-    objects = ItemAcervoManager()
-
-    def get_absolute_url(self):
-        return reverse('acervo:item_detalhe', args=[str(self.nome).lower()])
-
-    def __str__(self):
-        return self.nome
-
-    class Meta:
-        verbose_name = 'Item do Acervo'
-        verbose_name_plural = 'Itens do Acervo'
-        ordering = ['nome']
-
-class FotoItemAcervoManager(models.Manager):
-    pass
-
-class FotoItemAcervo(models.Model):
-
-    destaque = models.BooleanField('Destaque')
-
-    imagem = models.ImageField(
-        verbose_name='Imagem do Item do Acervo'
-    )
-
-    item_acervo = models.ForeignKey(ItemAcervo, on_delete=models.PROTECT, 
-        verbose_name='Item do Acervo', related_name='fotos'
-    )
-
-    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
-    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
-
-    objects = FotoItemAcervoManager()
-
-    def __str__(self):
-        return self.item_acervo.__str__()
-
-    class Meta:
-        verbose_name = 'Foto do Item do Acervo'
-        verbose_name_plural = 'Fotos dos Itens do Acervo'
-        ordering = ['criado_em']
-
-class DimensaoManager(models.Manager):
-    pass
-
-class Dimensao(models.Model):
-
-    tipo = models.CharField('Tipo', max_length=100)
-
-    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
-    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
-
-    objects = DimensaoManager()
-
-    def __str__(self):
-        return self.tipo
-
-    class Meta:
-        verbose_name = 'Dimensão'
-        verbose_name_plural = 'Dimensões'
-        ordering = ['criado_em']
-
-class DimensaoItemAcervoManager(models.Manager):
-    pass
-
-class DimensaoItemAcervo(models.Model):
-
-    dimensao = models.ForeignKey(Dimensao, on_delete=models.PROTECT, 
-        verbose_name='Dimensão', related_name='dimensoes'
-    )
-
-    quantidade = models.CharField('Quantidade', max_length=50)
-
-    item_acervo = models.ForeignKey(ItemAcervo, on_delete=models.PROTECT, 
-        verbose_name='Item do Acervo', related_name='item_acervo'
-    )
-
-    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
-    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
-
-    objects = DimensaoItemAcervoManager()
-
-    def __str__(self):
-        return self.dimensao.__str__()
-
-    class Meta:
-        verbose_name = 'Dimensão do Item'
-        verbose_name_plural = 'Dimensões do Item'
-        ordering = ['criado_em']
-
 class FundoColecaoManager(models.Manager):
     pass
 
@@ -455,4 +321,189 @@ class Editora(models.Model):
     class Meta:
         verbose_name = 'Editora'
         verbose_name_plural = 'Editoras'
+        ordering = ['criado_em']
+
+class ItemAcervoManager(models.Manager):
+    pass
+
+class ItemAcervo(models.Model):
+
+    CROMIA = (
+        ('1', 'Branco & Preto'),
+        ('2', 'Cores'),
+    )
+
+    ACESSO = (
+        ('1', 'Livre'),
+        ('2', 'Restrito'),
+    )
+
+    nome = models.CharField('Nome', max_length=100)
+    descricao_curta = models.TextField('Descrição Curta')
+    descricao_longa = RichTextField('Descrição Longa')
+    fundo_colecao = models.ForeignKey(FundoColecao, on_delete=models.PROTECT, 
+        verbose_name='Fundo/Coleção', related_name='itens',
+        null=True, blank=True
+    )
+    origem = RichTextField('Origem')
+    abordagem = models.ForeignKey(Abordagem, on_delete=models.PROTECT, 
+        verbose_name='Abordagem', related_name='itens',
+        null=True, blank=True
+    )
+    tipo_documento = models.CharField('Tipo de Documento', max_length=100)
+    local = models.CharField('Local de Produção', max_length=100, blank=True, null=True)
+    data_inicio = models.DateField('Data de Produção do Item')
+    data_fim = models.DateField('Data do Fim da Produção do Item', blank=True, null=True)
+    produtor_instituicao = models.ForeignKey(ProdutorInstituicao, on_delete=models.PROTECT, 
+        verbose_name='Produtor/Instituição', related_name='itens',
+        null=True, blank=True
+    )
+    classificacao = models.CharField('Classificação', max_length=100, blank=True, null=True)
+    tecnica_registro = models.ForeignKey(TecnicaRegistro, on_delete=models.PROTECT, 
+        verbose_name='Técnica de Registro', related_name='itens',
+        null=True, blank=True
+    )
+    suporte = models.ForeignKey(TipoSuporte, on_delete=models.PROTECT, 
+        verbose_name='Suporte', related_name='itens',
+        null=True, blank=True
+    )
+    formato = models.ForeignKey(TipoFormato, on_delete=models.PROTECT, 
+        verbose_name='Formato', related_name='itens',
+        null=True, blank=True
+    )
+    idiomas = models.ManyToManyField(Idioma, 
+        verbose_name='Idioma', related_name='itens',
+        blank=True
+    )
+    forma = models.ForeignKey(FormaDocumento, on_delete=models.PROTECT, 
+        verbose_name='Forma do Documento', related_name='itens',
+        null=True, blank=True
+    )
+    cromia = models.CharField('Cromia', max_length=2, blank=True, null=True, choices=CROMIA)
+    periodicidade = models.ForeignKey(Periodicidade, on_delete=models.PROTECT, 
+        verbose_name='Periodicidade', related_name='itens',
+        null=True, blank=True
+    )
+    itens = models.IntegerField('Quantidade de itens')
+    exemplares = models.IntegerField('Quantidade de Exemplares')
+    reproducao = models.ForeignKey(TipoReproducao, on_delete=models.PROTECT, 
+        verbose_name='Reprodução', related_name='itens',
+        null=True, blank=True
+    )
+    problemas_conservacao = models.ManyToManyField(ProblemaConservacao, 
+        verbose_name='Problema de Conservação', related_name='itens',
+        blank=True
+    )
+    acesso = models.CharField('Acesso', max_length=2, choices=ACESSO)
+    atividades_eventos = models.ManyToManyField(AtividadeEvento,
+        verbose_name='Atividade/Evento', related_name='itens',
+        blank=True
+    )
+    descritores = models.TextField('Descritores', help_text='Separar cada descritor usando ";"')
+    referencia = RichTextField('Referência')
+    editora = models.ForeignKey(Editora, on_delete=models.PROTECT, 
+        verbose_name='Editora', related_name='itens',
+        null=True, blank=True
+    )
+    local_custodia = models.TextField('Local de Custódia')
+    observacoes = RichTextField('Observações', blank=True, null=True)
+
+    fundo = models.CharField('Fundo', blank=True, null=True, max_length=100)
+    id_acervo = models.IntegerField('Identificador no Acervo', blank=True, null=True)
+
+    categorias = models.ManyToManyField(CategoriaAcervo)
+
+    ativo = models.BooleanField('Registro ativo?', 
+        help_text='Este campo indica se este registro já está pronto para aparecer no site publicamente')
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = ItemAcervoManager()
+
+    def get_absolute_url(self):
+        return reverse('acervo:item_detalhe', args=[str(self.nome).lower()])
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name = 'Item do Acervo'
+        verbose_name_plural = 'Itens do Acervo'
+        ordering = ['nome']
+
+class FotoItemAcervoManager(models.Manager):
+    pass
+
+class FotoItemAcervo(models.Model):
+
+    destaque = models.BooleanField('Destaque')
+
+    imagem = models.ImageField(
+        verbose_name='Imagem do Item do Acervo'
+    )
+
+    item_acervo = models.ForeignKey(ItemAcervo, on_delete=models.PROTECT, 
+        verbose_name='Item do Acervo', related_name='fotos'
+    )
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = FotoItemAcervoManager()
+
+    def __str__(self):
+        return self.item_acervo.__str__()
+
+    class Meta:
+        verbose_name = 'Foto do Item do Acervo'
+        verbose_name_plural = 'Fotos dos Itens do Acervo'
+        ordering = ['criado_em']
+
+class DimensaoManager(models.Manager):
+    pass
+
+class Dimensao(models.Model):
+
+    tipo = models.CharField('Tipo', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = DimensaoManager()
+
+    def __str__(self):
+        return self.tipo
+
+    class Meta:
+        verbose_name = 'Dimensão'
+        verbose_name_plural = 'Dimensões'
+        ordering = ['criado_em']
+
+class DimensaoItemAcervoManager(models.Manager):
+    pass
+
+class DimensaoItemAcervo(models.Model):
+
+    dimensao = models.ForeignKey(Dimensao, on_delete=models.PROTECT, 
+        verbose_name='Dimensão', related_name='dimensoes'
+    )
+
+    quantidade = models.CharField('Quantidade', max_length=50)
+
+    item_acervo = models.ForeignKey(ItemAcervo, on_delete=models.PROTECT, 
+        verbose_name='Item do Acervo', related_name='item_acervo'
+    )
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = DimensaoItemAcervoManager()
+
+    def __str__(self):
+        return self.dimensao.__str__()
+
+    class Meta:
+        verbose_name = 'Dimensão do Item'
+        verbose_name_plural = 'Dimensões do Item'
         ordering = ['criado_em']
