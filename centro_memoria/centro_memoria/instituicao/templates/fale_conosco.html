@@ -5,44 +5,38 @@
 {% endblock %}
 
 {% block content %}
+
 <section>
     <div class="container">
-
+        
         <div class="row">
-            <div class="col esquerda col-sm-12 col-md-6"   >
+               <div class="col esquerda">
+            
                 <h2>FALE CONOSCO</h2>
-                <form method="post">
+                <form method="POST">
                     {% csrf_token %}
-                    
-      
-                        <fieldset>
-                            
+                    <fieldset>
+                        <div class=esq>
                             {% for field in form %}
-                                
-                                <div class="form-group row mb-0">
-                                    <h4 class="text-capitalize text-secondary col-sm-3 col-form-label mr-4"> {{ field.name }}: </h4>
-                                    <div class="{{field.name}}"></div>
-                                    <div class="col-sm-5 pl-3">{{ field }}</div>
-                                            
-                                    {% if field.errors %}
-                                    <ul class="errorlist">
-                                        {% for error in field.errors %}
-                                        <li>{{ error }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                    {% endif %}
+                                <div class="{{field.name}}">
+                                    <h4 class="text-capitalize {{field.name}}"> {{ field.name }}: </h4>
+                                    {{ field }}
                                 </div>
+                                {% if field.errors %}
+                                <ul class="errorlist">
+                                    {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
                             {% endfor %}
-                            
-                            <div class="botao float-right">
+                            <div class="botao">
                                 <button type="submit" class="btn btn-success">Enviar</button>
                             </div>
-                        </fieldset>
-                   
-                    
+                    </fieldset>
                 </form>
-            </div> 
-            <div class="col-sm-12 col-md-6 float-right">
+            </div>
+            <div class="col direita">
                 <fieldset>
                     <h2>MAIS INFORMAÇÕES </h2>
 
@@ -50,8 +44,10 @@
                         <p class="text-left">
                             Para pedir informações ou tirar suas dúvidas, preencha corretamente <br/>todos os campos do formulário e clique em enviar. Em breve nossa<br/>equipe lhe enviará uma resposta.
                         </p>
+                    </div>
                 </fieldset>
-            </div>  
+            </div>
         </div>
     </div>
+</section>			
 {% endblock %}

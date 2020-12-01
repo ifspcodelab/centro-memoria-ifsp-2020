@@ -36,7 +36,7 @@ class FormVisita(forms.Form):
     instituicao = forms.CharField(label='Instituição', max_length=150,
                                 widget=forms.TextInput(attrs={'placeholder': 'Colégio Nossa Senhora das Graças'}))
     periodo = forms.ChoiceField(label='Período', choices=PERIODOS, widget=forms.RadioSelect)
-    total_visitantes = forms.IntegerField(label='Total de visitantes')
+    total_visitantes = forms.IntegerField(label='Total de visitantes', min_value=1)
     motivo = forms.CharField(label='Motivo da visita',
                             widget=forms.Textarea(attrs={'placeholder': 'Coloque aqui porque você gostaria de visitar o Instituito Federal'}))
 
