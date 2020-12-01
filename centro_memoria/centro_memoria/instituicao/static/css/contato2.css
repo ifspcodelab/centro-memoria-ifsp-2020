@@ -77,16 +77,20 @@ input{
   padding-left: 5px;
 }
 
+.assunto input{
+  width: 350px;
+}
+
 .nome input{
-  width: 250px;
+  width: 350px;
 }
 
 .sobrenome input{
-  width: 250px;
+  width: 350px;
 }
 
 .email input{
-  width: 250px;
+  width: 350px;
 }
 
 textarea{
