@@ -11,19 +11,23 @@
             <div class="col esquerda">
                 <h2>NOTÍCIAS </h2>
                 <div class="texto">
+
                     {% for noticia in noticias %}
+
                     <div class="card mb-3" style="max-width: 100%;">
                       <div class="row no-gutters">
                         <div class="col-md-4">
                             {% for foto in fotos_noticias_destaque %}
-                            {% if foto.noticia == noticia %}
-                            <img class="card-img-top imagem-noticia" src="{{ foto.imagem.url }}" alt="{{ noticia.titulo }}">
-                            {% endif %}
+                              {% if foto.noticia == noticia%}
+                              <img class="card-img-top imagem-noticia" src="{{ foto.imagem.url }}" alt="{{ noticia.titulo }}">
+                              {% endif %}
                             {% endfor %}
                         </div>
+
                         <div class="col-md-8">
                           <div class="card-body">
-                            <h5 class="card-title"><b>{{ noticia.titulo }}</b></h5>
+                            <div class="card-header">{{ noticia.atualizado_em|date:"d/m/Y à\s G:i"  }}</div>
+                            <h5 class="card-title mt-3"><b>{{ noticia.titulo }}</b></h5>
                             <p class="card-text">{{ noticia.descricao|safe }}</p>
                             <p class="card-text">
                                 <small class="text-muted">
