@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.core.validators import MinValueValidator
 
 class CategoriaAcervoManager(models.Manager):
     pass
@@ -354,6 +355,10 @@ class ItemAcervo(models.Model):
     local = models.CharField('Local de Produção', max_length=100, blank=True, null=True)
     data_inicio = models.DateField('Data de Produção do Item')
     data_fim = models.DateField('Data do Fim da Produção do Item', blank=True, null=True)
+    autores = models.ManyToManyField(Autor, 
+        verbose_name='Autores', related_name='itens',
+        blank=True
+    )
     produtor_instituicao = models.ForeignKey(ProdutorInstituicao, on_delete=models.PROTECT, 
         verbose_name='Produtor/Instituição', related_name='itens',
         null=True, blank=True
@@ -384,8 +389,8 @@ class ItemAcervo(models.Model):
         verbose_name='Periodicidade', related_name='itens',
         null=True, blank=True
     )
-    itens = models.IntegerField('Quantidade de itens')
-    exemplares = models.IntegerField('Quantidade de Exemplares')
+    itens = models.PositiveIntegerField('Quantidade de itens', validators=[MinValueValidator(1)])
+    exemplares = models.PositiveIntegerField('Quantidade de Exemplares', validators=[MinValueValidator(0)])
     reproducao = models.ForeignKey(TipoReproducao, on_delete=models.PROTECT, 
         verbose_name='Reprodução', related_name='itens',
         null=True, blank=True
