@@ -346,5 +346,10 @@ footer h4 {
     }
 }
 
+.descricao-longa p {
+    background-color: #d3d3d3;
+    text-align: justify;
+    padding: 10px 5px 10px 5px;
+}
 
 /*# sourceMappingURL=style.css.map */

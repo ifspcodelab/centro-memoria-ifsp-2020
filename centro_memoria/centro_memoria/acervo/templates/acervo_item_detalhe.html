@@ -23,16 +23,52 @@
                     <li class="breadcrumb-item active" aria-current="page">{{ item.nome }}</li>
                   </ol>
                 </nav>
-                <img class="img-fluid rounded imagem-item-detalhe" src="{{ foto_destaque.imagem.url }}" alt="{{ item.nome }}" align="left">
+                <h2>{{ item.nome }}</h2>
+                <h3 class="text-center mb-5">
+                    {% for autor in item.autores.all %}
+                        {{ autor.nome }}{% if not forloop.last %},{%endif%}
+                    {% endfor %}
+                </h3>
+                {% for foto in foto_destaque %}
+                <img class="img-fluid rounded imagem-item-detalhe" src="{{ foto.imagem.url }}" alt="{{ item.nome }}" align="left">
+                {% endfor %}
                 <div class="texto-noticia text-justify">
-                    <p>{{ item.descricao|safe }} 
-                        Fundo: {{ item.fundo }}
-                        <br>
-                        Data: {{ item.data }}
-                        </p>                       
+                    <p></p>
+                    <p>{{ item.descricao_longa|safe }}</p>
+                    <p><b>Fundo/Coleção:</b> {{ item.fundo_colecao }}</p>
+                    <p>
+                        <b>Data Inicial:</b> {{ item.data_inicio }}
+                    </p>
+                    <p><b>Data Final:</b> {{ item.data_fim }}</p>
+                    <p><b>&lt;&lt;Demais metadados:&gt;&gt;</b> ...</p>
+                    <p></p>                   
                 </div>
             </div>
         </div>
     </div>
+    <div class="container my-5" >
+        {% for foto in fotos_item %}
+        <div class="d-inline-block mr-3" style="width:18%;">
+           <img  data-toggle="modal" data-target="#modalImage-{{ foto.pk }}" src="{{ foto.imagem.url }}" class="rounded float-left" alt="{{ item.nome }}" style="width: 100%;">
+        </div>
+        {% endfor %}
+     </div>
+     <!-- Modal Imagem-->
+     {% for foto in fotos_item %}
+     <div class="modal fade" id="modalImage-{{ foto.pk }}" tabindex="-1" role="dialog" aria-labelledby="modalImageLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+           <div class="modal-content">
+              <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>
+              </div>
+              <div class="modal-body">
+                 <img src="{{ foto.imagem.url }}" class="rounded float-left" alt="{{ item.nome }}" style="width: 100%;">
+              </div>
+           </div>
+        </div>
+     </div>
+     {% endfor %}
 </section>
 {% endblock %}
