@@ -31,7 +31,11 @@
                   </ol>
                 </nav>   
                 <h2>{{ categoria.nome }}</h2>
-                <div class="descricao-longa"> {{ categoria.descricao_longa|safe }}</div><p></p>
+                <p style="
+                            background-color: #d3d3d3;
+                            text-align: justify;
+                            padding: 10px 5px 10px 5px;
+                                  "> {{ categoria.descricao_longa|safe }}</p><p></p>
                                         <hr>    
                 <div class="texto">
                     {% for categoria_filha in categorias_filhas %}

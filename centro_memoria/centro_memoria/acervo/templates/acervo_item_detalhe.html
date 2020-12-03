@@ -39,8 +39,85 @@
                     <p>
                         <b>Data Inicial:</b> {{ item.data_inicio }}
                     </p>
-                    <p><b>Data Final:</b> {{ item.data_fim }}</p>
-                    <p><b>&lt;&lt;Demais metadados:&gt;&gt;</b> ...</p>
+                    {% if item.data_fim %}
+                        <p><b>Data Final:</b> {{ item.data_fim }}</p>
+                    {% endif %}
+                    <p><b>Categorias:</b> 
+                        {% for categoria in item.categorias.all %}
+                            {{ categoria.nome }}{% if not forloop.last %},{%endif%}
+                        {% endfor %}
+                    </p>
+                    <p><b>Origem:</b> {{ item.origem|safe }}</p>
+                    <p><b>Notacação:</b> {{ item.id_acervo }}</p>
+                    <p><b>Abordagem:</b> {{ item.abordagem.tipo }}</p>
+                    <p><b>Tipo do Documento:</b> {{ item.tipo_documento }}</p>
+                    {% if item.local %}
+                        <p><b>Local de Produção:</b> {{ item.local }}</p>
+                    {% endif %}
+                    <p><b>Produtor/Instituição:</b> {{ item.produtor_instituicao.nome }}</p>
+                    {% if item.classificacao %}
+                        <p><b>Classificação:</b> {{ item.classificacao }}</p>
+                    {% endif %}
+                    {% if item.tecnica_registro %}
+                        <p><b>Técnica de Registro:</b> {{ item.tecnica_registro.nome }}</p>
+                    {% endif %}
+                    {% if item.suporte %} 
+                        <p><b>Suporte:</b> {{ item.suporte.nome }}</p>
+                    {% endif %}
+                    {% if item.formato %}
+                        <p><b>Formato:</b> {{ item.formato.nome }}</p>
+                    {% endif %}
+                    {% if item.idiomas.all %}
+                        <p><b>Idioma:</b> 
+                            {% for idioma in item.idiomas.all %}
+                                {{ idioma.idioma }}{% if not forloop.last %},{%endif%}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {% if item.formato %}
+                        <p><b>Formato:</b> {{ item.formato.nome }}</p>
+                    {% endif %}
+                    {% if item.cromia %}
+                        <p><b>Cromia:</b> {{ item.get_cromia_display }}</p>
+                    {% endif %}
+                    {% if item.periodicidade %}
+                        <p><b>Periodicidade:</b> {{ item.periodicidade.periodo }}</p>
+                    {% endif %}
+                    <p><b>Itens:</b> {{ item.itens }}</p>
+                    <p><b>Exemplares:</b> {{ item.exemplares }}</p>
+                    {% if item.reproducao %}
+                        <p><b>Reprodução:</b> {{ item.reproducao.tipo }}</p>
+                    {% endif %}
+                    {% if item.problemas_conservacao.all %}
+                        <p><b>Problemas de Conservação:</b> 
+                            {% for problema in item.problemas_conservacao.all %}
+                                {{ problema.problema }}{% if not forloop.last %},{%endif%}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {% if item.acesso %}
+                        <p><b>Acesso:</b> {{ item.get_acesso_display }}</p>
+                    {% endif %}
+                    {% if item.atividades_eventos.all %}
+                        <p><b>Atividade/Evento:</b> 
+                            {% for atividade in item.atividades_eventos.all %}
+                                {{ atividade.atividade }}{% if not forloop.last %},{%endif%}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    <p><b>Descritores:</b> {{ item.descritores }}</p>
+                    {% if item.referencia %}
+                        <p><b>Referência:</b> {{ item.referencia|safe }}</p>
+                    {% endif %}
+                    {% if item.editora %}
+                        <p><b>Editora:</b> {{ item.editora.nome }}</p>
+                    {% endif %}
+                    {% if item.local_custodia %}
+                        <p><b>Local de Custódia:</b> {{ item.local_custodia }}</p>
+                    {% endif %}
+                    {% if item.observacoes %}
+                        <p><b>Observações:</b> {{ item.observacoes|safe }}</p>
+                    {% endif %}
                     <p></p>                   
                 </div>
             </div>

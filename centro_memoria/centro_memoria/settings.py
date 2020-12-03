@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'centro_memoria.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -96,17 +96,7 @@ DATABASES = {
         'PORT': '5432'
     }
 }
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'centro_memoria_db',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
-}
+
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -221,6 +211,7 @@ CKEDITOR_CONFIGS = {
 '''
 CKEDITOR_CONFIGS = {
    'default': {
+       'autoParagraph': False,
        'toolbar_Full': [
             ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
             ['Link', 'Unlink', 'Anchor'],
@@ -237,7 +228,7 @@ CKEDITOR_CONFIGS = {
 }
 
 
-'''
+
 django_heroku.settings(locals())
 
 
@@ -248,4 +239,3 @@ CLOUDINARY_STORAGE = {
             }
 
 DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
-'''
