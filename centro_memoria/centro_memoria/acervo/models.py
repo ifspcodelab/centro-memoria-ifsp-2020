@@ -290,6 +290,11 @@ class ProdutorInstituicaoManager(models.Manager):
 class ProdutorInstituicao(models.Model):
 
     nome = models.CharField('Nome do Produtor/Instituição', max_length=100)
+    sigla = models.CharField('Nome do Produtor/Instituição', max_length=5)
+    fundo_colecao = models.ForeignKey(FundoColecao, on_delete=models.PROTECT, 
+        verbose_name='Fundo/Coleção', related_name='produtores',
+        null=True, blank=True
+    )
 
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)

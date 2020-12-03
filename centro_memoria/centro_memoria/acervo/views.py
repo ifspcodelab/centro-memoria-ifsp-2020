@@ -59,7 +59,7 @@ def acervo_categoria(request, nome_categoria):
     categoria = get_object_or_404(CategoriaAcervo, nome__iexact=nome_categoria, ativo=True)
     categorias_filhas = CategoriaAcervo.objects.all().filter(categoria_pai=categoria, ativo=True)
     itens_acervo = ItemAcervo.objects.all().filter(categorias=categoria, ativo=True)
-    fotos_itens_destaque = FotoItemAcervo.objects.all().filter(item_acervo__in=itens_acervo, destaque=True)
+    fotos_itens_destaque = FotoItemAcervo.objects.order_by('item_acervo__pk').filter(item_acervo__in=itens_acervo, destaque=True).distinct('item_acervo')
 
     breadcrumb = generateBreadcrumb(categoria)
 
@@ -78,7 +78,7 @@ def item_detalhe(request, nome_categoria, nome_item):
     instituicao = get_object_or_404(Instituicao)
     categoria = get_object_or_404(CategoriaAcervo, nome__iexact=nome_categoria)
     item = get_object_or_404(ItemAcervo, nome__iexact=nome_item, categorias=categoria, ativo=True)
-    foto_destaque = get_object_or_404(FotoItemAcervo, item_acervo=item, destaque=True)
+    foto_destaque = FotoItemAcervo.objects.order_by('item_acervo__pk').filter(item_acervo=item, destaque=True).distinct('item_acervo')
     fotos_item = FotoItemAcervo.objects.all().filter(item_acervo=item)
 
     breadcrumb = generateBreadcrumb(categoria)
