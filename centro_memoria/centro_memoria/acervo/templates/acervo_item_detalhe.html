@@ -112,7 +112,11 @@
                         <p><b>Observações:</b> {{ item.observacoes|safe }}</p>
                     {% endif %}
                     {% if dimensoes %}
-                    <p><b>Dimensões:</b> 
+                    {% if dimensoes|length > 1 %}
+                        <p><b>Dimensões:</b> 
+                    {% else %}
+                        <p><b>Dimensão:</b> 
+                    {% endif %}
                         {% for dimensao in dimensoes %}
                             {{ dimensao.quantidade }} {{ dimensao.dimensao.tipo }}{% if not forloop.last %};{%endif%}
                         {% endfor %}
