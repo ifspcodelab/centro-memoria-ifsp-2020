@@ -54,7 +54,7 @@
                     {% if item.local %}
                         <p><b>Local de Produção:</b> {{ item.local }}</p>
                     {% endif %}
-                    <p><b>Produtor/Instituição:</b> {{ item.produtor_instituicao.nome }}</p>
+                    <p><b>Produtor/Instituição:</b> {{ item.produtor_instituicao.nome }} - {{ item.produtor_instituicao.sigla }}{% if item.produtor_instituicao.fundo_colecao %} - {{ item.produtor_instituicao.fundo_colecao.nome }}{% endif %}</p>
                     {% if item.classificacao %}
                         <p><b>Classificação:</b> {{ item.classificacao }}</p>
                     {% endif %}
@@ -98,13 +98,6 @@
                     {% if item.acesso %}
                         <p><b>Acesso:</b> {{ item.get_acesso_display }}</p>
                     {% endif %}
-                    {% if item.atividades_eventos.all %}
-                        <p><b>Atividade/Evento:</b> 
-                            {% for atividade in item.atividades_eventos.all %}
-                                {{ atividade.atividade }}{% if not forloop.last %},{%endif%}
-                            {% endfor %}
-                        </p>
-                    {% endif %}
                     <p><b>Descritores:</b> {{ item.descritores }}</p>
                     {% if item.referencia %}
                         <p><b>Referência:</b> {{ item.referencia|safe }}</p>
@@ -118,7 +111,28 @@
                     {% if item.observacoes %}
                         <p><b>Observações:</b> {{ item.observacoes|safe }}</p>
                     {% endif %}
-                    <p></p>                   
+                    {% if dimensoes %}
+                    <p><b>Dimensões:</b> 
+                        {% for dimensao in dimensoes %}
+                            {{ dimensao.quantidade }} {{ dimensao.dimensao.tipo }}{% if not forloop.last %};{%endif%}
+                        {% endfor %}
+                    </p>
+                    {% endif %}
+                    {% if item.atividades_eventos.all %}
+                    <b>Atividades/Eventos:</b>
+                        <div style="display: table-row;">
+                            <br>
+                            {% for atividade in item.atividades_eventos.all %}
+                            <p style="display: table-cell; padding-right:2rem; padding-top: .5rem;">
+                                <b>Título:</b> {{ atividade.atividade }} <br>
+                                <b>Especificação:</b> {{ atividade.especificacao|safe }} <br>
+                                <b>Local:</b> {{ atividade.local }} <br>
+                                <b>Data:</b> {{ atividade.data_inicio|date:"d/m/Y" }}{% if atividade.data_fim %} - {{ atividade.data_fim|date:"d/m/Y" }}{%endif%} <br>
+                            </p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <p></p>                
                 </div>
             </div>
         </div>
