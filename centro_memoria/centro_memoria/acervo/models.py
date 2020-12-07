@@ -334,6 +334,12 @@ class ItemAcervoManager(models.Manager):
 
 class ItemAcervo(models.Model):
 
+    DATA_FORMATO = (
+        ('C', 'Data completa'),
+        ('MA', 'Mês/Ano'),
+        ('A', 'Apenas ano'),
+    )
+
     CROMIA = (
         ('1', 'Branco & Preto'),
         ('2', 'Cores'),
@@ -343,7 +349,7 @@ class ItemAcervo(models.Model):
         ('1', 'Livre'),
         ('2', 'Restrito'),
     )
-
+ 
     nome = models.CharField('Nome', max_length=100)
     descricao_curta = models.TextField('Descrição Curta')
     descricao_longa = RichTextField('Descrição Longa')
@@ -359,7 +365,9 @@ class ItemAcervo(models.Model):
     tipo_documento = models.CharField('Tipo de Documento', max_length=100)
     local = models.CharField('Local de Produção', max_length=100, blank=True, null=True)
     data_inicio = models.DateField('Data de Produção do Item')
+    data_inicio_formato = models.CharField('Formato da Data Inicial', max_length=2, choices=DATA_FORMATO)
     data_fim = models.DateField('Data do Fim da Produção do Item', blank=True, null=True)
+    data_fim_formato = models.CharField('Formato da Data Final', max_length=2, blank=True, null=True, choices=DATA_FORMATO)
     titulo = models.CharField('Título', max_length=100)
     autores = models.ManyToManyField(Autor, 
         verbose_name='Autores', related_name='itens',
