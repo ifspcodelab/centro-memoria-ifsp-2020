@@ -46,6 +46,7 @@
                         {% endif %}
                     </p>
                     {% if item.data_fim %}
+                    <p>
                         {% if item.data_fim_formato == 'C' %}
                         <b>Data Final:</b> {{ item.data_fim }}
                         {% elif item.data_fim_formato == 'MA' %}
@@ -53,6 +54,7 @@
                         {% else %}
                         <b>Data Final:</b> {{ item.data_fim|date:"Y" }}
                         {% endif %}
+                    </p>
                     {% endif %}
                     <p><b>Categorias:</b> 
                         {% for categoria in item.categorias.all %}
