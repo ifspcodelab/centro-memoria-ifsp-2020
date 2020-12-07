@@ -29,7 +29,7 @@ def getCategoriasPai(itens_acervo):
 
 def acervo(request):
     instituicao = get_object_or_404(Instituicao)
-    categorias = CategoriaAcervo.objects.all().filter(categoria_pai__isnull=True, ativo=True)
+    categorias = CategoriaAcervo.objects.all().filter(categoria_pai__isnull=True, ativo=True).order_by('nome')
     template_name = 'acervo.html'
     if request.method == 'POST':
         if 'simples' in request.POST:
@@ -42,7 +42,9 @@ def acervo(request):
             if form.is_valid():
                 pesquisa = form.save()
                 return redirect('acervo:pesquisa_avancada', categoria=pesquisa['categoria'].lower(),
-                                item=pesquisa['item'].lower(), desc=pesquisa['descricao'].lower(), data=pesquisa['data'])
+                                fundo_colecao=pesquisa['fundo_colecao'].lower(), autor=pesquisa['autor'].lower(),
+                                titulo=pesquisa['titulo'].lower(), item=pesquisa['item'].lower(),
+                                data=pesquisa['data'], periodo_inicio=pesquisa['periodo_inicio'], periodo_fim=pesquisa['periodo_fim'])
     else:
         form = PesquisaForm()
         formAvancado = PesquisaAvancadaForm()
@@ -57,8 +59,8 @@ def acervo(request):
 def acervo_categoria(request, nome_categoria):
     instituicao = get_object_or_404(Instituicao)
     categoria = get_object_or_404(CategoriaAcervo, nome__iexact=nome_categoria, ativo=True)
-    categorias_filhas = CategoriaAcervo.objects.all().filter(categoria_pai=categoria, ativo=True)
-    itens_acervo = ItemAcervo.objects.all().filter(categorias=categoria, ativo=True)
+    categorias_filhas = CategoriaAcervo.objects.all().filter(categoria_pai=categoria, ativo=True).order_by('nome')
+    itens_acervo = ItemAcervo.objects.all().filter(categorias=categoria, ativo=True).order_by('tipo_documento', 'data_inicio')
     fotos_itens_destaque = FotoItemAcervo.objects.order_by('item_acervo__pk').filter(item_acervo__in=itens_acervo, destaque=True).distinct('item_acervo')
 
     breadcrumb = generateBreadcrumb(categoria)
@@ -103,11 +105,11 @@ def acervo_pesquisa(request, parametro):
         for cat in categorias:
             itens_acervo += ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
                     Q(descricao__unaccent__icontains=parametro) | Q(fundo__unaccent__icontains=parametro) |
-                    Q(data__icontains=parametro) | Q(categorias=cat), ativo=True)
+                    Q(data_inicio__icontains=parametro) | Q(categorias=cat), ativo=True)
     else:
         itens_acervo = ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
                         Q(descricao__unaccent__icontains=parametro) | Q(fundo__unaccent__icontains=parametro) |
-                        Q(data__icontains=parametro), ativo=True)
+                        Q(data_inicio__icontains=parametro), ativo=True)
     if request.method == 'POST':
         if 'simples' in request.POST:
             form = PesquisaForm(request.POST)
@@ -119,7 +121,9 @@ def acervo_pesquisa(request, parametro):
             if form.is_valid():
                 pesquisa = form.save()
                 return redirect('acervo:pesquisa_avancada', categoria=pesquisa['categoria'].lower(),
-                                item=pesquisa['item'].lower(), desc=pesquisa['descricao'].lower(), data=pesquisa['data'])
+                                fundo_colecao=pesquisa['fundo_colecao'].lower(), autor=pesquisa['autor'].lower(),
+                                titulo=pesquisa['titulo'].lower(), item=pesquisa['item'].lower(),
+                                data=pesquisa['data'], periodo_inicio=pesquisa['periodo_inicio'], periodo_fim=pesquisa['periodo_fim'])
     else:
         form = PesquisaForm()
         formAvancado = PesquisaAvancadaForm()
@@ -141,19 +145,22 @@ def acervo_pesquisa(request, parametro):
     template_name = 'acervo_resultado_busca.html'
     return render(request, template_name, context)
 
-def acervo_pesquisa_avancada(request, categoria, item, desc, data):
+def acervo_pesquisa_avancada(request, categoria, fundo_colecao, autor, titulo, item, data, periodo_inicio, periodo_fim):
     instituicao = Instituicao.objects.get()
     itens_acervo = []
     if categoria != 'none':
         categoria = CategoriaAcervo.objects.all().filter(nome__unaccent__icontains=categoria, ativo=True)
         if len(categoria) > 0:
             itens_acervo = ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=item) |
-                            Q(descricao__unaccent__icontains=desc) | Q(fundo__unaccent__icontains=item) |
-                            Q(data__icontains=data) | Q(ativo=True), categorias=categoria[0], ativo=True)
+                            Q(titulo__unaccent__icontains=titulo) | Q(autor__nome__unaccent__icontains=autor) |
+                            Q(fundo_colecao__nome__unaccent__icontains=fundo_colecao) |
+                            Q(data_inicio__icontains=data) | Q(data_inicio__icontains=periodo_inicio) |
+                            Q(data_fim__icontains=periodo_fim) | Q(ativo=True), categorias=categoria[0], ativo=True)
     else:
         itens_acervo = ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=item) |
-                        Q(descricao__unaccent__icontains=desc) | Q(fundo__unaccent__icontains=item) |
-                        Q(data__icontains=data), ativo=True)
+                        Q(titulo__unaccent__icontains=titulo) | Q(autor__nome__unaccent__icontains=autor) |
+                        Q(fundo_colecao__nome__unaccent__icontains=fundo_colecao) | Q(data_inicio__icontains=data) |
+                        Q(data_inicio__icontains=periodo_inicio) | Q(data_fim__icontains=periodo_fim), ativo=True)
     if request.method == 'POST':
         if 'simples' in request.POST:
             form = PesquisaForm(request.POST)
@@ -165,7 +172,9 @@ def acervo_pesquisa_avancada(request, categoria, item, desc, data):
             if form.is_valid():
                 pesquisa = form.save()
                 return redirect('acervo:pesquisa_avancada', categoria=pesquisa['categoria'].lower(),
-                                item=pesquisa['item'].lower(), desc=pesquisa['descricao'].lower(), data=pesquisa['data'])
+                                fundo_colecao=pesquisa['fundo_colecao'].lower(), autor=pesquisa['autor'].lower(),
+                                titulo=pesquisa['titulo'].lower(), item=pesquisa['item'].lower(),
+                                data=pesquisa['data'], periodo_inicio=pesquisa['periodo_inicio'], periodo_fim=pesquisa['periodo_fim'])
     else:
         form = PesquisaForm()
         formAvancado = PesquisaAvancadaForm()
@@ -179,6 +188,7 @@ def acervo_pesquisa_avancada(request, categoria, item, desc, data):
     context = {
         'instituicao': instituicao,
         'itens_acervo': itens_acervo,
+        'categoria': categoria,
         'form': form,
         'formAvancado': formAvancado,
         'categorias_pai': categorias_pai,

@@ -360,6 +360,7 @@ class ItemAcervo(models.Model):
     local = models.CharField('Local de Produção', max_length=100, blank=True, null=True)
     data_inicio = models.DateField('Data de Produção do Item')
     data_fim = models.DateField('Data do Fim da Produção do Item', blank=True, null=True)
+    titulo = models.CharField('Título', max_length=100)
     autores = models.ManyToManyField(Autor, 
         verbose_name='Autores', related_name='itens',
         blank=True
