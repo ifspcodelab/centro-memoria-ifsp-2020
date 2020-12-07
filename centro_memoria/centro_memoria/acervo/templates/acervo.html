@@ -70,7 +70,13 @@
                     </div>
 
                 </div>
-                <hr>
+                <br>
+                <p style="
+                            background-color: #d3d3d3;
+                            text-align: justify;
+                            padding: 10px 5px 10px 5px;
+                                  "> {{ instituicao.descricao_acervo|safe }}</p><p></p>
+                                        <hr>  
                 <h5>Navegue pelas categorias</h5>
                 <div class="texto">
                     {% for categoria in categorias %}
@@ -82,7 +88,7 @@
                         <div class="col-md-8">
                           <div class="card-body">
                             <h5 class="card-title"><b>{{ categoria.nome }}</b></h5>
-                            <p class="card-text">{{ categoria.descricao|safe }}</p>
+                            <p class="card-text">{{ categoria.descricao_curta }}</p>
                             <p class="card-text">
                                 <small class="text-muted">
                                     <a href="{{ categoria.get_absolute_url }}" class="btn btn-success">Acessar </a>
