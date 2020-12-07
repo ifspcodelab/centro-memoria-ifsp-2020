@@ -17,7 +17,8 @@
                           <a href="{{ galeria.get_absolute_url }}">
                               <img class="card-img-top" src="{{ galeria.imagem.url }}" alt="{{ galeria.nome }}">
                               <div class="card-body">
-                                <p class="card-text">{{ galeria.nome }}: {{ galeria.descricao|safe }}</p>
+                                <p class="card-text">{{ galeria.nome }}</p>
+                                <p  class="card-text">{{ galeria.descricao | safe | truncatechars:95 }}</p>
                               </div>
                           </a>
                         </div>
