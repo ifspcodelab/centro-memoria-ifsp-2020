@@ -2,15 +2,30 @@
 {% load static %}
 {% block style %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/timeline.css' %}">
-<link href="{% static 'css/style.css' %}" rel="stylesheet">
+<link href="{% static 'css/acervo-item-detalhe.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 <section>
     <div class="container">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+               <li class="breadcrumb-item">
+                   <a href="{% url 'linha_tempo:linhas_do_tempo' %}">Linhas do tempo</a>
+                </li>
+               <li class="breadcrumb-item active" aria-current="page">{{ linha_do_tempo.titulo }}</li>
+            </ol>
+         </nav>
+
         <div class="row">
             <div class="col esquerda">
-            <h2>Linha do Tempo IFSP</h2>
+            <h2>{{ linha_do_tempo.titulo }} - ( {{linha_do_tempo.inicio_periodo|date:"Y"}} - {{linha_do_tempo.fim_periodo|date:"Y"}} )</h2>
+                <div class="conteiner">
+                    <p>{{ linha_do_tempo.descricao_longa|safe }}</p>
+                </div>
+            
+
                 <div class="timeline">
                     <ul>
                         {% for data, lista in marcos.items %}
@@ -26,6 +41,7 @@
                                         <p>{{ acontecimento.descricao|safe }}</p>
                                     {% endif %}
                                 </div>
+                                <a href="{{ acontecimento.get_absolute_url}}" class="btn btn-outline-success">Saiba mais</a>
                         {% endfor %}
                             {% if forloop.counter0 == 0 %}
                                 <div class="data">
@@ -34,6 +50,7 @@
                             {% endif %}
                             </li>
                         {% endfor %}
+                        
                         {% endfor %}
                         <div style="clear: both;">
                         </div>						
