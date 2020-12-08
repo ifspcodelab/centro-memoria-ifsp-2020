@@ -12,32 +12,28 @@
                 <h2>NOTÍCIAS </h2>
                 <div class="texto">
 
-                    {% for noticia in noticias %}
-
+                    {% for noticia_conteudo in noticias %}
                     <div class="card mb-3" style="max-width: 100%;">
                       <div class="row no-gutters">
                         <div class="col-md-4">
-                            {% for foto in fotos_noticias_destaque %}
-                              {% if foto.noticia == noticia%}
-                              <img class="card-img-top imagem-noticia" src="{{ foto.imagem.url }}" alt="{{ noticia.titulo }}">
-                              {% endif %}
-                            {% endfor %}
+                              <img class="card-img-top imagem-noticia" src="{{noticia_conteudo.foto.imagem.url }}" alt="{{ noticia.titulo }}">
                         </div>
-
+                        
                         <div class="col-md-8">
                           <div class="card-body">
-                            <div class="card-header">{{ noticia.atualizado_em|date:"d/m/Y à\s G:i"  }}</div>
-                            <h5 class="card-title mt-3"><b>{{ noticia.titulo }}</b></h5>
-                            <p class="card-text">{{ noticia.descricao|safe }}</p>
+                            <div class="card-header">{{ noticia_conteudo.noticia.atualizado_em|date:"d/m/Y à\s G:i"  }}</div>
+                            <h5 class="card-title mt-3"><b>{{ noticia_conteudo.noticia.titulo }}</b></h5>
+                            <p class="card-text">{{ noticia_conteudo.noticia.descricao|safe }}</p>
                             <p class="card-text">
                                 <small class="text-muted">
-                                    <a href="{{ noticia.get_absolute_url }}" class="btn btn-success">Leia mais</a>
+                                    <a href="{{ noticia_conteudo.noticia.get_absolute_url }}" class="btn btn-success">Leia mais</a>
                                 </small>
                             </p>
                           </div>
                         </div>
                       </div>
                     </div>
+                     
                     {% endfor %}     
                 </div> 
             </div> 
