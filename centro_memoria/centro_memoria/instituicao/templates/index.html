@@ -72,15 +72,13 @@
 
                 {% for noticia in noticias %}
                 <div class="card mb-3">
-                    {% for foto in fotos_noticias_destaque %}
-                    {% if foto.noticia == noticia %}
-                    <img class="card-img-top" src="{{ foto.imagem.url }}" alt="{{ noticia.titulo }}">
+                    {% if noticia.foto != None %}
+                        <img class="card-img-top" src="{{ noticia.foto.imagem.url }}" alt="{{ noticia.noticia.titulo }}">
                     {% endif %}
-                    {% endfor %}
                     <div class="card-body">
-                        <p class="card-text">{{ noticia.titulo }}</p>
-                        <p class="card-subtitle text-muted mb-2">{{ noticia.atualizado_em|date:"d/m/Y"}}</p>
-                        <a href="{{ noticia.get_absolute_url }}" class="btn btn-success">Leia mais</a>
+                        <p class="card-text">{{ noticia.noticia.titulo }}</p>
+                        <p class="card-subtitle text-muted mb-2">{{ noticia.noticia.atualizado_em|date:"d/m/Y"}}</p>
+                        <a href="{{ noticia.noticia.get_absolute_url }}" class="btn btn-success">Leia mais</a>
                     </div>
                 </div>
                 {% endfor %}
