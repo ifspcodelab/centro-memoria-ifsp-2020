@@ -60,7 +60,7 @@ class Personalidade(models.Model):
     class Meta:
         verbose_name = 'Personalidade'
         verbose_name_plural = 'Personalidades'
-        ordering = ['nome']
+        ordering = ['inicio_servico']
 
 
 class FotoPersonalidadeManager(models.Manager):

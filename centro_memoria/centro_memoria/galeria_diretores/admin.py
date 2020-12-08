@@ -9,7 +9,7 @@ class GaleriaAdmin(admin.ModelAdmin):
 
 class PersonalidadeAdmin(admin.ModelAdmin):
 
-    list_display = ['nome', 'ativo', 'funcao', 'sobre', 'inicio_servico', 'fim_servico', 'criado_em', 'atualizado_em']
+    list_display = ['nome', 'ativo', 'funcao', 'inicio_servico', 'fim_servico', 'criado_em', 'atualizado_em']
     search_fields = ['nome', 'ativo', 'funcao', 'inicio_servico', 'fim_servico', 'criado_em', 'atualizado_em']
     list_filter = ['nome', 'ativo', 'inicio_servico', 'fim_servico', 'galerias__nome']
     autocomplete_fields = ['galerias']
