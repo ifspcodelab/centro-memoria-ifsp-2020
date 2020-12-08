@@ -47,21 +47,52 @@
                       <form method="post">
                         {% csrf_token %}
                         {% for field in formAvancado %}
+                        {% if 'periodo' not in field.name %}
                         <div class="form-row">
-                        <div class="form-group col">
-                        {{ field.label_tag }}
-                        {{ field }}
-                        {% if field.errors %}
-                        <ul class="errorlist">
-                            {% for error in field.errors %}
-                            <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
+                          <div class="form-group col">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.errors %}
+                            <ul class="errorlist">
+                                {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                          </div>
+                        </div>
+                        {% else %}
+                        {% if field.name == 'periodo_inicio' %}
+                        <label>Período</label>
+                        <div class="form-row">
+                          <div class="form-group col">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.errors %}
+                            <ul class="errorlist">
+                                {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                          </div>
+                          {% else %}
+                          <div class="form-group col">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.errors %}
+                            <ul class="errorlist">
+                                {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                          </div>
+                        </div>
                         {% endif %}
-                        </div>
-                        </div>
+                        {% endif %}
                         {% endfor %}                                                                                              
-                        <button type="submit" class="btn btn-primary" name="avancado"><i class="fa fa-search"></i> Buscar</button>
+                        <button type="submit" class="btn btn-primary" name="avancado"><i class="fa fa-search"></i> Consultar acervo</button>
                       </form>
                     
                     </div>
