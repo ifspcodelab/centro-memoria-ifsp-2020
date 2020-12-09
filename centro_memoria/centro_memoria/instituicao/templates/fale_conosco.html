@@ -10,13 +10,13 @@
     <div class="container">
         
         <div class="row">
-               <div class="col esquerda">
+               <div class="col-sm-12 col-md-6 ">
             
                 <h2>FALE CONOSCO</h2>
                 <form method="POST">
                     {% csrf_token %}
                     <fieldset>
-                        <div class=esq>
+                        <div class="pl-2">
                             {% for field in form %}
                                 <div class="{{field.name}}">
                                     <h4 class="text-capitalize {{field.name}}"> {{ field.name }}: </h4>
@@ -30,13 +30,13 @@
                                 </ul>
                                 {% endif %}
                             {% endfor %}
-                            <div class="botao">
+                            <div class="botao float-right">
                                 <button type="submit" class="btn btn-success">Enviar</button>
                             </div>
                     </fieldset>
                 </form>
             </div>
-            <div class="col direita">
+            <div class="col-sm-12 col-md-6 direita p-sm-0 pl-md-5">
                 <fieldset>
                     <h2>MAIS INFORMAÇÕES </h2>
 

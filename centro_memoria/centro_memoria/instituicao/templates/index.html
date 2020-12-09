@@ -52,7 +52,7 @@
 
                 <div class="row">
                     {% for membro in membros %}
-                    <div class="col-sm-3">
+                    <div class="col-sm-4 col-md-3">
                         <div class="texto">
                             <div class="text-center">
                                 <img src="{{ membro.imagem.url }}" class="avatar img-circle img-thumbnail" alt="{{ membro.nome }}">
@@ -66,12 +66,13 @@
                 {% endif %}
 
             </div>
-            <div class="col-3 shadow texto text-center">
+            <div class="col-sm-12 col-md-3 shadow texto text-center">
                 <h3>Últimas Noticias</h3>
 
-
+                <div class="row "></div>
                 {% for noticia in noticias %}
-                <div class="card mb-3">
+                <div class="col-sm-12">
+                <div class="card mb-3 ">
                     {% if noticia.foto != None %}
                         <img class="card-img-top" src="{{ noticia.foto.imagem.url }}" alt="{{ noticia.noticia.titulo }}">
                     {% endif %}
@@ -80,6 +81,7 @@
                         <p class="card-subtitle text-muted mb-2">{{ noticia.noticia.atualizado_em|date:"d/m/Y"}}</p>
                         <a href="{{ noticia.noticia.get_absolute_url }}" class="btn btn-success">Leia mais</a>
                     </div>
+                </div>
                 </div>
                 {% endfor %}
 

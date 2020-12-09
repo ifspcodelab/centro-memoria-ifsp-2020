@@ -113,10 +113,10 @@
                     {% for categoria in categorias %}
                     <div class="card mb-3" style="max-width: 100%;">
                       <div class="row no-gutters">
-                        <div class="col-md-4">
-                          <img class="card-img-top imagem-noticia" src="{{ categoria.imagem.url }}" alt="{{ categoria.nome }}">
+                        <div class="col-sm-12 col-md-6 col-lg-4 p-md-3 p-sm-5">
+                          <img class="card-img-top imagem-noticia w-100" src="{{ categoria.imagem.url }}" alt="{{ categoria.nome }}">
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-sm-12 col-md-6 col-lg-8">
                           <div class="card-body">
                             <h5 class="card-title"><b>{{ categoria.nome }}</b></h5>
                             <p class="card-text">{{ categoria.descricao_curta }}</p>
