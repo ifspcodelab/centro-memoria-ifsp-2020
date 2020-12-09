@@ -9,7 +9,7 @@ class NoticiaManager(models.Manager):
 class Noticia(models.Model):
 
     titulo = models.CharField('Título', max_length=100)
-    descricao = RichTextField('Descrição', max_length=250)
+    descricao = RichTextField('Descrição', max_length=350)
     corpo = RichTextField('Corpo')
     destaque = models.BooleanField('Destaque')
     periodo_destaque = models.IntegerField('Tempo em Destaque', null=True, blank=True)

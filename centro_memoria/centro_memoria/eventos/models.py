@@ -9,7 +9,7 @@ class EventoManager(models.Manager):
 class Evento(models.Model):
 
     nome = models.CharField('Nome', max_length=100)
-    descricao = RichTextField('Descrição', max_length=250)
+    descricao = RichTextField('Descrição', max_length=450)
     texto = RichTextField('Texto sobre evento')
     destaque = models.BooleanField('Destaque')
 
