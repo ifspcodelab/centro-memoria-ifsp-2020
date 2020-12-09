@@ -25,6 +25,7 @@ class Instituicao(models.Model):
     email = models.CharField('E-mail', max_length=100)
     facebook = models.CharField('Link Facebook', max_length=255, null=True, blank=True)
     instagram = models.CharField('Link Instagram', max_length=255, null=True, blank=True)
+    youtube = models.CharField('Youtube', max_length=255, null=True, blank=True)
     email_agendamento = models.CharField('E-mail para envio de Agendamento', max_length=100)
     email_faleconosco = models.CharField('E-mail para envio de Fale Conosco', max_length=100)
     telefone = models.CharField('Telefone', max_length=100)

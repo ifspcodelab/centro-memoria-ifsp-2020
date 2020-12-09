@@ -45,10 +45,13 @@ def faleconosco(request):
 
 def index(request):
     instituicao = get_object_or_404(Instituicao)
-    foto_instituicao = FotoInstituicao.objects.all()
+    foto_instituicao = FotoInstituicao.objects.all().filter(instituicao=instituicao)
     if len(foto_instituicao) > 0:
         foto_instituicao = foto_instituicao[0]
     membros = Membro.objects.all().filter(instituicao=instituicao)
+    if len(membros) == 0:
+        membros = None
+
     noticias_total = Noticia.objects.all().filter(ativo=True, destaque=True).order_by('-criado_em')
 
     noticias = []

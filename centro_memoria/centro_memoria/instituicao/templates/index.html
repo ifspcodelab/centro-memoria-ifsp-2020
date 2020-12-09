@@ -16,8 +16,10 @@
                 <div class="texto">
                     <p class="text-justify">
                         {{ instituicao.sobre|safe }}</p>
-                    <img src="{{ foto_instituicao.imagem.url }}" class="rounded mx-auto d-block" alt="{{ instituicao.nome }}">
 
+                    {% if foto_instituicao != None  %}
+                    <img src="{{ foto_instituicao.imagem.url }}" class="rounded mx-auto d-block" alt="{{ instituicao.nome }}">
+                    {% endif %}
                 </div>
 
                 <h2>Patrono Prof. Benedito Ananias da Silva </h2>
@@ -45,7 +47,7 @@
                     </p>
 
                 </div>
-
+                {% if membros != None %}
                 <h2>NOSSA EQUIPE </h2>
 
                 <div class="row">
@@ -58,13 +60,11 @@
                             </div>
                         </div>
                     </div>
-
-                    {% empty %}
-                        <div class="col-sm-12 my-3">
-                            <p>Nenhum membro cadastrado no momento </p>
-                        </div>
+                    
                     {% endfor %}
                 </div>
+                {% endif %}
+
             </div>
             <div class="col-3 shadow texto text-center">
                 <h3>Últimas Noticias</h3>
