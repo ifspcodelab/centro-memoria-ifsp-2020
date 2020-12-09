@@ -180,7 +180,6 @@ def acervo_pesquisa_avancada(request, categoria, fundo_colecao, autor, titulo, i
     context = {
         'instituicao': instituicao,
         'itens_acervo': itens_acervo,
-        'categoria': categoria,
         'form': form,
         'formAvancado': formAvancado,
         'categorias_pai': categorias_pai,

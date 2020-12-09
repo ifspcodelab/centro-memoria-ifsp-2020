@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block style %}
-<link href="{% static '/css/acervo-resultado-busca.css' %}" rel="stylesheet">
+<link href="{% static '/css/resultado_busca 2.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -102,35 +102,58 @@
                 </div>
                 <hr>
                 <h4>Resultado da busca:</h4>
-                <div class="texto">
-                    {% for item in itens_acervo %}
-                    <div class="card mb-3" style="max-width: 100%;">
-                      <div class="row no-gutters">
-                        <div class="col-md-8">
-                          <div class="card-body resultado-busca">
-                            {% load index %}
-                            <a href="{% url 'acervo:item_detalhe' nome_categoria=categorias_pai|index:forloop.counter0|lower nome_item=item.nome|lower %}" class="">
-                                {{ item.nome }}
-                                <br>
-                                <small>
-                                  {% for crumb in breadcrumbs|index:forloop.counter0 %}
-                                    {% if forloop.last %}
-                                    {{ crumb.nome }}
-                                    {% else %}
-                                      {{ crumb.nome }} > 
-                                    {% endif %}
-                                  {% endfor %}
-                                </small>
-                            </a>
-                            <p class="card-text">{{ item.descricao|safe }} </p>   
-                          </div>
-                        </div>
-                      </div>
+                {% for item in itens_acervo %}
+                {% load index %}
+                <a href="{% url 'acervo:item_detalhe' nome_categoria=categorias_pai|index:forloop.counter0|lower nome_item=item.nome|lower %}">
+                <div class="well search-result">
+                  <div class="row">
+                    <div class="col-lg-12 title">
+                        <h3>{{ item.nome }}</h3>
+                        <p class="result_busca">
+                          Categoria: {% for categoria in item.categorias.all %}
+                          {{ categoria.nome }}{% if not forloop.last %}, {%endif%}
+                        {% endfor %}
+                        </p>
+                        <p class="result_busca">Fundo/Coleção: {{ item.fundo_colecao }}</p>
+                        <p class="result_busca">Autor: {% for autor in item.autores.all %}
+                          {{ autor.nome }}{% if not forloop.last %}, {%endif%}
+                        {% endfor %}
+                        </p>
+                        <p class="result_busca">Título: {{ item.titulo }}</p>
+                        <p class="result_busca">Descritores: {{ item.descritores }}</p>
+                        <p class="result_busca">Data ou período: 
+                          {% if item.data_inicio_formato == 'C' %}
+                            {{ item.data_inicio }}
+                          {% elif item.data_inicio_formato == 'MA' %}
+                            {{ item.data_inicio|date:"M/Y" }}
+                          {% else %}
+                            {{ item.data_inicio|date:"Y" }}
+                          {% endif %}
+                          {% if item.data_fim %}
+                          - 
+                              {% if item.data_fim_formato == 'C' %}
+                              {{ item.data_fim }}
+                              {% elif item.data_fim_formato == 'MA' %}
+                              {{ item.data_fim|date:"M/Y" }}
+                              {% else %}
+                              {{ item.data_fim|date:"Y" }}
+                              {% endif %}
+                          {% endif %}
+                        </p>
+                        <p class="result_busca">Tipo de documento: {{ item.tipo_documento }}</p>
+                        <p class="result_busca">Suporte: {{ item.suporte }}</p>
+                        {% if item.atividades_eventos.all %}
+                        <p class="result_busca">Atividade/evento: {% for atividade in item.atividades_eventos.all %}
+                          {{ atividade.atividade }}{% if not forloop.last %}, {%endif%}
+                        {% endfor %}</p>
+                        {% endif %}
                     </div>
-                    {% empty %}
-                    <h2>Nenhum item foi encontrado</h2>
-                    {% endfor %}
-                </div>   
+                  </div>
+                </div>
+                </a>
+                {% empty %}
+                  <h2>Nenhum item foi encontrado</h2>
+                {% endfor %} 
             </div>
         </div>
     </div>
