@@ -19,13 +19,14 @@
          </nav>
 
         <div class="row">
-            <div class="col esquerda">
+            <div class="col-12 esquerda">
             <h2>{{ linha_do_tempo.titulo }} - ( {{linha_do_tempo.inicio_periodo|date:"Y"}} - {{linha_do_tempo.fim_periodo|date:"Y"}} )</h2>
                 <div class="conteiner">
                     <p>{{ linha_do_tempo.descricao_longa|safe }}</p>
                 </div>
+            </div>
             
-
+            <div class="col-12 "></div>
                 <div class="timeline">
                     <ul>
                         {% for data, lista in marcos.items %}

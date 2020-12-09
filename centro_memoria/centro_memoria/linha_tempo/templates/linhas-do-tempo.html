@@ -18,12 +18,13 @@
         <div class="texto">
           <div class="card mb-3" style="max-width: 100%;">
             <div class="row no-gutters">
-              <div class="col-md-4">
-                <img class="card-img-top imagem-noticia" src="{{ linha.image.url }}">
+              <div class="col-sm-12 col-md-6 col-lg-4">
+                <img class="card-img-top mt-lg-0 mt-md-5 imagem-noticia w-100" src="{{ linha.image.url }}">
               </div>
-              <div class="col-md-8">
+              <div class="col-sm-12 col-md-6 col-lg-8">
                 <div class="card-body">
-                  <h5 class="card-title"><b>{{ linha.titulo }}</b> ({{linha.inicio_periodo|date:"Y"}} - {{linha.fim_periodo|date:"Y"}})</h5>
+                  <h5 class="card-title"><b>{{ linha.titulo }}</b> </h5>
+                  <p class="card-text text-secundary">({{linha.inicio_periodo|date:"d/M/Y"}} - {{linha.fim_periodo|date:"d/M/Y"}})</p>
                   <p class="card-text">{{ linha.descricao|safe }}</p>
                   <p class="card-text">
                     <small class="text-muted">

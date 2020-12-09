@@ -9,7 +9,7 @@ class AcontecimentoAdmin(admin.ModelAdmin):
 
 class FotoAcontecimentoAdmin(admin.ModelAdmin):
 
-    list_display = ['acontecimento', 'destaque', 'criado_em', 'atualizado_em']
+    list_display = ['nome', 'acontecimento', 'destaque', 'criado_em', 'atualizado_em']
     search_fields = ['acontecimento', 'destaque', 'criado_em', 'atualizado_em']
     list_filter = ['acontecimento__titulo', 'destaque']
     autocomplete_fields = ['acontecimento']

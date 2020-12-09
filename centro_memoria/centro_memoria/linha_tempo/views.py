@@ -47,8 +47,11 @@ def acontecimento_detalhes(request, titulo_linha_do_tempo, titulo_acontecimento)
     images = FotoAcontecimento.objects.all().filter(acontecimento=acontecimento)
     fotoDestaque = FotoAcontecimento
     if len(images) > 0:
-        fotoDestaque = images[0] 
-    
+        fotoDestaque = images[0]
+    else:
+        images = None
+        fotoDestaque = None
+
     context = {
         'instituicao': instituicao,
         'linhaDoTempo': linhaDoTempo,

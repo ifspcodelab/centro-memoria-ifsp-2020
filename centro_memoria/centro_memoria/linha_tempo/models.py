@@ -6,8 +6,8 @@ class LinhaDoTempoManage(models.Manager):
     pass
 
 class LinhaDoTempo(models.Model):
-    titulo = models.CharField('Título da linha do tempo', max_length=255)
-    descricao = RichTextField('Descrição curta')
+    titulo = models.CharField('Título da linha do tempo', max_length=100)
+    descricao = RichTextField('Descrição curta', max_length=200)
     descricao_longa = RichTextField('Descrição longa')
     inicio_periodo = models.DateField('Inicío dessa linha do tempo')
     fim_periodo = models.DateField('Fim dessa linha do tempo')
@@ -38,8 +38,8 @@ class AcontecimentoManager(models.Manager):
 
 class Acontecimento(models.Model):
 
-    titulo = models.CharField('Título do acontecimento', max_length=255)
-    descricao = RichTextField('Descrição')
+    titulo = models.CharField('Título do acontecimento', max_length=100)
+    descricao = RichTextField('Descrição ', max_length=200)
     sobre = RichTextField('Descrição longa')
     data = models.DateField('Data do acontecimento')
 
@@ -70,7 +70,7 @@ class FotoAcontecimentoManager(models.Manager):
     pass
 
 class FotoAcontecimento(models.Model):
-
+    nome = models.CharField('nome da imagem', max_length=100)
     destaque = models.BooleanField('Destaque')
 
     imagem = models.ImageField(
@@ -92,4 +92,4 @@ class FotoAcontecimento(models.Model):
     class Meta:
         verbose_name = 'Foto do Acontecimento'
         verbose_name_plural = 'Fotos dos Acontecimentos'
-        ordering = ['criado_em']
+        ordering = ['nome']
