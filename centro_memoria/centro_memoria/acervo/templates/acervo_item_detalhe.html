@@ -37,10 +37,24 @@
                     <p>{{ item.descricao_longa|safe }}</p>
                     <p><b>Fundo/Coleção:</b> {{ item.fundo_colecao }}</p>
                     <p>
+                        {% if item.data_inicio_formato == 'C' %}
                         <b>Data Inicial:</b> {{ item.data_inicio }}
+                        {% elif item.data_inicio_formato == 'MA' %}
+                        <b>Data Inicial:</b> {{ item.data_inicio|date:"M/Y" }}
+                        {% else %}
+                        <b>Data Inicial:</b> {{ item.data_inicio|date:"Y" }}
+                        {% endif %}
                     </p>
                     {% if item.data_fim %}
-                        <p><b>Data Final:</b> {{ item.data_fim }}</p>
+                    <p>
+                        {% if item.data_fim_formato == 'C' %}
+                        <b>Data Final:</b> {{ item.data_fim }}
+                        {% elif item.data_fim_formato == 'MA' %}
+                        <b>Data Final:</b> {{ item.data_fim|date:"M/Y" }}
+                        {% else %}
+                        <b>Data Final:</b> {{ item.data_fim|date:"Y" }}
+                        {% endif %}
+                    </p>
                     {% endif %}
                     <p><b>Categorias:</b> 
                         {% for categoria in item.categorias.all %}
