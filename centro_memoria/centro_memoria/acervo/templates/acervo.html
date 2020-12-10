@@ -95,7 +95,21 @@
                           {% endfor %}                                                                                              
                           <button type="submit" class="btn btn-primary" name="avancado"><i class="fa fa-search"></i> Consultar acervo</button>
                         </form>
-                      
+                        <datalist id="categoriaDataList">
+                          {% for categoria in categoriasBusca %}
+                          <option>{{categoria.nome}}</option>
+                          {% endfor %}
+                        </datalist>
+                        <datalist id="autorDataList">
+                          {% for autor in autoresBusca %}
+                          <option>{{autor.nome}}</option>
+                          {% endfor %}
+                        </datalist>
+                        <datalist id="fundoDataList">
+                          {% for fundo in fundosBusca %}
+                          <option>{{fundo.nome}}</option>
+                          {% endfor %}
+                        </datalist>
                       </div>
                       
                     </div>

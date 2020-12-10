@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from centro_memoria.instituicao.models import Instituicao
-from .models import ItemAcervo, CategoriaAcervo, FotoItemAcervo, DimensaoItemAcervo, Autor
+from .models import ItemAcervo, CategoriaAcervo, FotoItemAcervo, DimensaoItemAcervo, Autor, FundoColecao
 from django.db.models import Q
 
 import sys
@@ -52,7 +52,15 @@ def acervo(request):
 
     form = PesquisaForm()
     formAvancado = PesquisaAvancadaForm()
+
+    categoriasBusca = CategoriaAcervo.objects.all().filter(ativo=True)
+    autoresBusca = Autor.objects.all()
+    fundosBusca = FundoColecao.objects.all()
+
     context = {
+        'categoriasBusca': categoriasBusca,
+        'autoresBusca': autoresBusca,
+        'fundosBusca': fundosBusca,
         'categorias': categorias,
         'form': form,
         'formAvancado': formAvancado,
@@ -108,6 +116,9 @@ def acervo_pesquisa(request, parametro):
     form = PesquisaForm()
     formAvancado = PesquisaAvancadaForm()
     instituicao = Instituicao.objects.get()
+    categoriasBusca = CategoriaAcervo.objects.all().filter(ativo=True)
+    autoresBusca = Autor.objects.all()
+    fundosBusca = FundoColecao.objects.all()
     categorias = CategoriaAcervo.objects.all().filter(nome__unaccent__icontains=parametro, ativo=True)
     itens_acervo = []
     if len(categorias) > 0:
@@ -129,6 +140,9 @@ def acervo_pesquisa(request, parametro):
         breadcrumbs.append(generateBreadcrumb(categoria))
 
     context = {
+        'categoriasBusca': categoriasBusca,
+        'autoresBusca': autoresBusca,
+        'fundosBusca': fundosBusca,
         'instituicao': instituicao,
         'itens_acervo': itens_acervo,
         'form': form,
@@ -146,6 +160,9 @@ def acervo_pesquisa_avancada(request, categoria, fundo_colecao, autor, titulo, i
     form = PesquisaForm()
     formAvancado = PesquisaAvancadaForm()
     instituicao = Instituicao.objects.get()
+    categoriasBusca = CategoriaAcervo.objects.all().filter(ativo=True)
+    autoresBusca = Autor.objects.all()
+    fundosBusca = FundoColecao.objects.all()
     if ((categoria == 'none' and autor == 'none' and fundo_colecao == 'none'and titulo == 'none') and
             (item == 'none' and data == 'none' and periodo_inicio == 'none' and periodo_fim == 'none')):
         itens_acervo = []
@@ -180,6 +197,9 @@ def acervo_pesquisa_avancada(request, categoria, fundo_colecao, autor, titulo, i
         breadcrumbs.append(generateBreadcrumb(categoria))
 
     context = {
+        'categoriasBusca': categoriasBusca,
+        'autoresBusca': autoresBusca,
+        'fundosBusca': fundosBusca,
         'instituicao': instituicao,
         'itens_acervo': itens_acervo,
         'form': form,

@@ -38,9 +38,9 @@ class PesquisaAvancadaForm(forms.Form):
     for autor in Autor.objects.all():
         AUTORES += ((autor.nome, autor.nome),)
 
-    categoria = forms.CharField(required=False, label='Categoria do acervo', widget=forms.Select(choices=CATEGORIAS, attrs={'class': 'form-control'}))
-    fundo_colecao = forms.CharField(required=False, label='Fundo/Coleção', widget=forms.Select(choices=FUNDOS_COLECOES, attrs={'class': 'form-control'}))
-    autor = forms.CharField(required=False, label='Autor', widget=forms.Select(choices=AUTORES, attrs={'class': 'form-control'}))
+    categoria = forms.CharField(required=False, label='Categoria do acervo', widget=forms.TextInput(attrs={'class': 'form-control', 'list': 'categoriaDataList'}))
+    fundo_colecao = forms.CharField(required=False, label='Fundo/Coleção', widget=forms.TextInput(attrs={'class': 'form-control', 'list': 'fundoDataList'}))
+    autor = forms.CharField(required=False, label='Autor', widget=forms.TextInput(attrs={'class': 'form-control', 'list': 'autorDataList'}))
     titulo = forms.CharField(required=False, label='Título', widget=forms.TextInput(attrs={'class': 'form-control'}))
     item = forms.CharField(required=False, label='Item do acervo', widget=forms.TextInput(attrs={'class': 'form-control'}))
     data = forms.DateField(required=False, label='Data', widget=DateInput(attrs={'class': 'form-control'}))
