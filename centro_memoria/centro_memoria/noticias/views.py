@@ -31,7 +31,7 @@ def noticia_detalhes(request, titulo):
     noticia = get_object_or_404(Noticia, titulo__iexact=titulo)
     foto_noticia = FotoNoticia.objects.all().filter(noticia=noticia, destaque=True)
     outras_noticias = Noticia.objects.all().filter(ativo=True, destaque=True).exclude(pk=noticia.pk).order_by('-criado_em')
-
+    foto_noticias = FotoNoticia.objects.all().filter(noticia=noticia)
     if (len(foto_noticia) > 0 ):
         foto_noticia = foto_noticia[0]
     else:
@@ -58,6 +58,7 @@ def noticia_detalhes(request, titulo):
     context = {
         'noticia': noticia,
         'foto_noticia': foto_noticia,
+        'outras_fotos': foto_noticias,
         'instituicao': instituicao,
         'outras_noticias': outras_noticas
     }

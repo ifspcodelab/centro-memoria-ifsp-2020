@@ -34,13 +34,13 @@
                         {% for acontecimento, foto in item.items %}  
                             <li>
                                 <div class="conteudo">
+                                
+                                     <h3>{{ acontecimento.titulo }}</h3>
                                     {% if foto %}
                                         <img src="{{ foto.imagem.url }}">
-                                        <p><i>{{ acontecimento.descricao|safe }}</i></p>
-                                    {% else %}
-                                        <h3>{{ acontecimento.titulo }}</h3>
-                                        <p>{{ acontecimento.descricao|safe }}</p>
-                                    {% endif %}
+                                    {% endif %}                                         
+                                    <p>{{ acontecimento.descricao|safe }}</p>
+                                    
                                 </div>
                                 <a href="{{ acontecimento.get_absolute_url}}" class="btn btn-outline-success">Saiba mais</a>
                         {% endfor %}
