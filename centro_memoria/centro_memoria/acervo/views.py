@@ -39,8 +39,8 @@ def redirectPesquisa(request):
             pesquisa = form.save()
             return redirect('acervo:pesquisa_avancada', categoria=pesquisa['categoria'].lower(),
                             fundo_colecao=pesquisa['fundo_colecao'].lower(), autor=pesquisa['autor'].lower(),
-                            titulo=pesquisa['titulo'].lower(), item=pesquisa['item'].lower(),
-                            data=pesquisa['data'], periodo_inicio=pesquisa['periodo_inicio'], periodo_fim=pesquisa['periodo_fim'])
+                            titulo=pesquisa['titulo'].lower(), data=pesquisa['data'],
+                            periodo_inicio=pesquisa['periodo_inicio'], periodo_fim=pesquisa['periodo_fim'])
 
 
 def acervo(request):
@@ -72,7 +72,7 @@ def acervo_categoria(request, nome_categoria):
     instituicao = get_object_or_404(Instituicao)
     categoria = get_object_or_404(CategoriaAcervo, nome__iexact=nome_categoria, ativo=True)
     categorias_filhas = CategoriaAcervo.objects.all().filter(categoria_pai=categoria, ativo=True).order_by('nome')
-    itens_acervo = ItemAcervo.objects.all().filter(categorias=categoria, ativo=True).order_by('tipo_documento', 'data_inicio', 'nome')
+    itens_acervo = ItemAcervo.objects.all().filter(categorias=categoria, ativo=True).order_by('tipo_documento', 'data_inicio', 'titulo')
     fotos_itens_destaque = FotoItemAcervo.objects.order_by('item_acervo__pk').filter(item_acervo__in=itens_acervo, destaque=True).distinct('item_acervo')
 
     breadcrumb = generateBreadcrumb(categoria)
@@ -91,7 +91,7 @@ def acervo_categoria(request, nome_categoria):
 def item_detalhe(request, nome_categoria, nome_item):
     instituicao = get_object_or_404(Instituicao)
     categoria = get_object_or_404(CategoriaAcervo, nome__iexact=nome_categoria)
-    item = get_object_or_404(ItemAcervo, nome__iexact=nome_item, categorias=categoria, ativo=True)
+    item = get_object_or_404(ItemAcervo, titulo__iexact=nome_item, categorias=categoria, ativo=True)
     foto_destaque = FotoItemAcervo.objects.order_by('item_acervo__pk').filter(item_acervo=item, destaque=True).distinct('item_acervo')
     fotos_item = FotoItemAcervo.objects.all().filter(item_acervo=item)
     dimensoes = DimensaoItemAcervo.objects.all().filter(item_acervo=item)
@@ -122,16 +122,16 @@ def acervo_pesquisa(request, parametro):
     categorias = CategoriaAcervo.objects.all().filter(nome__unaccent__icontains=parametro, ativo=True)
     itens_acervo = []
     if len(categorias) > 0:
-        itens_acervo += ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
+        itens_acervo += ItemAcervo.objects.all().filter(Q(titulo__unaccent__icontains=parametro) |
                 Q(descricao_curta__unaccent__icontains=parametro) | Q(descricao_longa__unaccent__icontains=parametro) |
                 Q(titulo__unaccent__icontains=parametro) | Q(fundo_colecao__nome__unaccent__icontains=parametro) |
                 Q(data_inicio__icontains=parametro) | Q(categorias__in=categorias), ativo=True)
     else:
-        itens_acervo = ItemAcervo.objects.all().filter(Q(nome__unaccent__icontains=parametro) |
+        itens_acervo = ItemAcervo.objects.all().filter(Q(titulo__unaccent__icontains=parametro) |
                         Q(descricao_curta__unaccent__icontains=parametro) | Q(descricao_longa__unaccent__icontains=parametro) |
                         Q(titulo__unaccent__icontains=parametro) | Q(fundo_colecao__nome__unaccent__icontains=parametro) |
                         Q(data_inicio__icontains=parametro), ativo=True)
-        itens_acervo = itens_acervo.order_by('tipo_documento', 'data_inicio', 'nome')
+        itens_acervo = itens_acervo.order_by('tipo_documento', 'data_inicio', 'titulo')
 
     categorias_pai = getCategoriasPai(itens_acervo)
 
@@ -153,7 +153,7 @@ def acervo_pesquisa(request, parametro):
     template_name = 'acervo_resultado_busca.html'
     return render(request, template_name, context)
 
-def acervo_pesquisa_avancada(request, categoria, fundo_colecao, autor, titulo, item, data, periodo_inicio, periodo_fim):
+def acervo_pesquisa_avancada(request, categoria, fundo_colecao, autor, titulo, data, periodo_inicio, periodo_fim):
     if request.method == 'POST':
         return redirectPesquisa(request)
 
@@ -164,7 +164,7 @@ def acervo_pesquisa_avancada(request, categoria, fundo_colecao, autor, titulo, i
     autoresBusca = Autor.objects.all()
     fundosBusca = FundoColecao.objects.all()
     if ((categoria == 'none' and autor == 'none' and fundo_colecao == 'none'and titulo == 'none') and
-            (item == 'none' and data == 'none' and periodo_inicio == 'none' and periodo_fim == 'none')):
+            (data == 'none' and periodo_inicio == 'none' and periodo_fim == 'none')):
         itens_acervo = []
     else:
         itens_acervo = ItemAcervo.objects.all().filter(ativo=True)
@@ -180,15 +180,13 @@ def acervo_pesquisa_avancada(request, categoria, fundo_colecao, autor, titulo, i
             itens_acervo = itens_acervo.filter(fundo_colecao__nome__unaccent__icontains = fundo_colecao)
         if titulo != 'none':
             itens_acervo = itens_acervo.filter(titulo__unaccent__icontains = titulo)
-        if item != 'none':
-            itens_acervo = itens_acervo.filter(nome__unaccent__icontains = item)
         if data != 'none':
             itens_acervo = itens_acervo.filter(data_inicio__icontains = data)
         if periodo_inicio != 'none':
             itens_acervo = itens_acervo.filter(data_inicio__range = [periodo_inicio, '9999-12-31'])
         if periodo_fim != 'none':
             itens_acervo = itens_acervo.filter(data_inicio__range = ['0001-01-01', periodo_fim])
-        itens_acervo = itens_acervo.order_by('tipo_documento', 'data_inicio', 'nome')
+        itens_acervo = itens_acervo.order_by('tipo_documento', 'data_inicio', 'titulo')
 
     categorias_pai = getCategoriasPai(itens_acervo)
 

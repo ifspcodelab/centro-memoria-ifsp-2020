@@ -4,7 +4,7 @@ from .models import (ItemAcervo, FotoItemAcervo, CategoriaAcervo, Dimensao,
                     TecnicaRegistro, FundoColecao, Idioma,
                     FormaDocumento, Periodicidade, TipoReproducao,
                     ProblemaConservacao, AtividadeEvento, Autor,
-                    ProdutorInstituicao, Editora)
+                    ProdutorInstituicao, Editora, TipoDocumento)
 
 class DimensaoItemAcervoAdmin(admin.TabularInline):
     model = DimensaoItemAcervo
@@ -13,17 +13,17 @@ class DimensaoItemAcervoAdmin(admin.TabularInline):
 
 class ItemAcervoAdmin(admin.ModelAdmin):
 
-    list_display = ['nome', 'ativo', 'descricao_curta', 'data_inicio', 'id_acervo']
-    search_fields = ['nome', 'ativo', 'descricao_curta', 'data_inicio',
-                    'id_acervo', 'categorias__nome', 'fundo_colecao__nome', 'abordagem__tipo',
+    list_display = ['titulo', 'ativo', 'descricao_curta', 'data_inicio', 'notacao']
+    search_fields = ['titulo', 'ativo', 'descricao_curta', 'data_inicio',
+                    'notacao', 'categorias__nome', 'fundo_colecao__nome', 'abordagem__tipo',
                     'autores__nome', 'produtor_instituicao__nome', 'tecnica_registro__nome',
                     'suporte__nome', 'formato__nome', 'idiomas__idioma', 'forma__forma',
                     'periodicidade__periodo', 'reproducao__tipo', 'problemas_conservacao__problema',
-                    'atividades_eventos__atividade', 'editora__nome']
-    list_filter = ['nome', 'ativo', 'data_inicio', 'id_acervo']
+                    'atividades_eventos__atividade', 'editora__nome', 'tipo_documento__tipo']
+    list_filter = ['titulo', 'ativo', 'data_inicio', 'notacao']
     autocomplete_fields = ['categorias', 'fundo_colecao', 'abordagem', 'produtor_instituicao', 'autores',
                             'tecnica_registro', 'suporte', 'formato', 'idiomas', 'forma', 'periodicidade',
-                            'reproducao', 'problemas_conservacao', 'atividades_eventos', 'editora']
+                            'reproducao', 'problemas_conservacao', 'atividades_eventos', 'editora', 'tipo_documento']
     inlines = [DimensaoItemAcervoAdmin,]
 
 
@@ -49,6 +49,12 @@ class DimensaoAdmin(admin.ModelAdmin):
     list_filter = ['tipo']
 
 class AbordagemAdmin(admin.ModelAdmin):
+
+    list_display = ['tipo']
+    search_fields = ['tipo']
+    list_filter = ['tipo']
+
+class TipoDocumentoAdmin(admin.ModelAdmin):
 
     list_display = ['tipo']
     search_fields = ['tipo']
@@ -137,6 +143,7 @@ admin.site.register(FotoItemAcervo, FotoItemAcervoAdmin)
 admin.site.register(CategoriaAcervo, CategoriaAcervoAdmin)
 admin.site.register(Dimensao, DimensaoAdmin)
 admin.site.register(Abordagem, AbordagemAdmin)
+admin.site.register(TipoDocumento, TipoDocumentoAdmin)
 admin.site.register(TipoFormato, TipoFormatoAdmin)
 admin.site.register(TipoSuporte, TipoSuporteAdmin)
 admin.site.register(TecnicaRegistro, TecnicaRegistroAdmin)

@@ -42,12 +42,11 @@ class PesquisaAvancadaForm(forms.Form):
     fundo_colecao = forms.CharField(required=False, label='Fundo/Coleção', widget=forms.TextInput(attrs={'class': 'form-control', 'list': 'fundoDataList'}))
     autor = forms.CharField(required=False, label='Autor', widget=forms.TextInput(attrs={'class': 'form-control', 'list': 'autorDataList'}))
     titulo = forms.CharField(required=False, label='Título', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    item = forms.CharField(required=False, label='Item do acervo', widget=forms.TextInput(attrs={'class': 'form-control'}))
     data = forms.DateField(required=False, label='Data', widget=DateInput(attrs={'class': 'form-control'}))
     periodo_inicio = forms.DateField(required=False, label='De', widget=DateInput(attrs={'class': 'form-control'}))
     periodo_fim = forms.DateField(required=False, label='até', widget=DateInput(attrs={'class': 'form-control'}))
 
-    field_order = ['categoria', 'fundo_colecao', 'autor', 'titulo', 'item', 'data', 'periodo_inicio', 'periodo_fim']
+    field_order = ['categoria', 'fundo_colecao', 'autor', 'titulo', 'data', 'periodo_inicio', 'periodo_fim']
     
     def save(self, commit=True):
         return {
@@ -55,7 +54,6 @@ class PesquisaAvancadaForm(forms.Form):
             'fundo_colecao': self.cleaned_data['fundo_colecao'] if self.cleaned_data['fundo_colecao'] else 'none',
             'autor': self.cleaned_data['autor'] if self.cleaned_data['autor'] else 'none',
             'titulo': self.cleaned_data['titulo'] if self.cleaned_data['titulo'] else 'none',
-            'item': self.cleaned_data['item'] if self.cleaned_data['item'] else 'none',
             'data': self.cleaned_data['data'] if self.cleaned_data['data'] else 'none',
             'periodo_inicio': self.cleaned_data['periodo_inicio'] if self.cleaned_data['periodo_inicio'] else 'none',
             'periodo_fim': self.cleaned_data['periodo_fim'] if self.cleaned_data['periodo_fim'] else 'none'

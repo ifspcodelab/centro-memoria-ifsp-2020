@@ -80,6 +80,25 @@ class Abordagem(models.Model):
         verbose_name_plural = 'Abordagens'
         ordering = ['criado_em']
 
+class TipoDocumentoManager(models.Manager):
+    pass
+
+class TipoDocumento(models.Model):
+    tipo = models.CharField('Tipo', max_length=100)
+
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
+
+    objects = TipoDocumentoManager()
+
+    def __str__(self):
+        return self.tipo
+
+    class Meta:
+        verbose_name = 'Tipo de Documento'
+        verbose_name_plural = 'Tipo de Documento'
+        ordering = ['criado_em']
+
 class TecnicaRegistroManager(models.Manager):
     pass
 
@@ -290,7 +309,7 @@ class ProdutorInstituicaoManager(models.Manager):
 class ProdutorInstituicao(models.Model):
 
     nome = models.CharField('Nome do Produtor/Instituição', max_length=100)
-    sigla = models.CharField('Nome do Produtor/Instituição', max_length=5)
+    sigla = models.CharField('Sigla do Produtor/Instituição', max_length=5)
     fundo_colecao = models.ForeignKey(FundoColecao, on_delete=models.PROTECT, 
         verbose_name='Fundo/Coleção', related_name='produtores',
         null=True, blank=True
@@ -350,7 +369,7 @@ class ItemAcervo(models.Model):
         ('2', 'Restrito'),
     )
  
-    nome = models.CharField('Nome', max_length=100)
+    titulo = models.CharField('Título do item', max_length=100, help_text='Não utilizar o caractere "/".')
     descricao_curta = models.TextField('Descrição Curta')
     descricao_longa = RichTextField('Descrição Longa')
     fundo_colecao = models.ForeignKey(FundoColecao, on_delete=models.PROTECT, 
@@ -358,17 +377,20 @@ class ItemAcervo(models.Model):
         null=True, blank=True
     )
     origem = RichTextField('Origem')
+    notacao = models.IntegerField('Notação', blank=True, null=True)
     abordagem = models.ForeignKey(Abordagem, on_delete=models.PROTECT, 
         verbose_name='Abordagem', related_name='itens',
         null=True, blank=True
     )
-    tipo_documento = models.CharField('Tipo de Documento', max_length=100)
+    tipo_documento = models.ForeignKey(TipoDocumento, on_delete=models.PROTECT, 
+        verbose_name='Tipo de Documento', related_name='itens',
+        null=True, blank=True
+    )
     local = models.CharField('Local de Produção', max_length=100, blank=True, null=True)
     data_inicio = models.DateField('Data de Produção do Item')
     data_inicio_formato = models.CharField('Formato da Data Inicial', max_length=2, choices=DATA_FORMATO)
     data_fim = models.DateField('Data do Fim da Produção do Item', blank=True, null=True)
     data_fim_formato = models.CharField('Formato da Data Final', max_length=2, blank=True, null=True, choices=DATA_FORMATO)
-    titulo = models.CharField('Título', max_length=100)
     autores = models.ManyToManyField(Autor, 
         verbose_name='Autores', related_name='itens',
         blank=True
@@ -419,15 +441,13 @@ class ItemAcervo(models.Model):
         blank=True
     )
     descritores = models.TextField('Descritores', help_text='Separar cada descritor usando ";"')
-    referencia = RichTextField('Referência')
+    referencia = RichTextField('Referência', null=True, blank=True)
     editora = models.ForeignKey(Editora, on_delete=models.PROTECT, 
         verbose_name='Editora', related_name='itens',
         null=True, blank=True
     )
     local_custodia = models.TextField('Local de Custódia')
     observacoes = RichTextField('Observações', blank=True, null=True)
-
-    id_acervo = models.IntegerField('Identificador no Acervo', blank=True, null=True)
 
     categorias = models.ManyToManyField(CategoriaAcervo)
 
@@ -440,15 +460,15 @@ class ItemAcervo(models.Model):
     objects = ItemAcervoManager()
 
     def get_absolute_url(self):
-        return reverse('acervo:item_detalhe', args=[str(self.nome).lower()])
+        return reverse('acervo:item_detalhe', args=[str(self.titulo).lower()])
 
     def __str__(self):
-        return self.nome
+        return self.titulo
 
     class Meta:
         verbose_name = 'Item do Acervo'
         verbose_name_plural = 'Itens do Acervo'
-        ordering = ['nome']
+        ordering = ['titulo']
 
 class FotoItemAcervoManager(models.Manager):
     pass
