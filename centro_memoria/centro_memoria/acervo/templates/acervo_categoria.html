@@ -31,11 +31,7 @@
                   </ol>
                 </nav>   
                 <h2>{{ categoria.nome }}</h2>
-                <p style="
-                            background-color: #d3d3d3;
-                            text-align: justify;
-                            padding: 10px 5px 10px 5px;
-                                  "> {{ categoria.descricao_longa|safe }}</p><p></p>
+                <p> {{ categoria.descricao_longa|safe }}</p><p></p>
                                         <hr>    
                 <div class="texto">
                     {% for categoria_filha in categorias_filhas %}
@@ -64,17 +60,17 @@
                         <div class="col-md-4">
                             {% for foto in fotos_itens_destaque %}
                             {% if foto.item_acervo == item%}
-                            <img class="card-img-top imagem-noticia" src="{{ foto.imagem.url }}" alt="{{ item.nome }}">
+                            <img class="card-img-top imagem-noticia" src="{{ foto.imagem.url }}" alt="{{ item.titulo }}">
                             {% endif %}
                             {% endfor %} 
                         </div>
                         <div class="col-md-8">
                           <div class="card-body">
-                            <h5 class="card-title"><b>{{ item.nome }}</b></h5>
+                            <h5 class="card-title"><b>{{ item.titulo }}</b></h5>
                             <p class="card-text">{{ item.descricao_curta }}</p>
                             <p class="card-text">
                                 <small class="text-muted">
-                                    <a href="{% url 'acervo:item_detalhe' nome_categoria=categoria.nome|lower nome_item=item.nome|lower %}" class="btn btn-success">Acessar</a>
+                                    <a href="{% url 'acervo:item_detalhe' nome_categoria=categoria.nome|lower nome_item=item.titulo|lower %}" class="btn btn-success">Acessar</a>
                                 </small>
                             </p>
                           </div>
