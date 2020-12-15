@@ -49,8 +49,12 @@
           {% endfor %}
         </div>
         <div class="col-6">
-          <p class="text-justify">
-            {{ personalidade.nome }} - {{ personalidade.funcao }} <br>
+          <p class="text-justify ">
+            <span class="font-weight-bold text-capitalize">{{ personalidade.nome }} </span>
+            {% if personalidade.funcao != None %}
+            - {{ personalidade.funcao }}
+            {% endif %} 
+            <br>
             {{ personalidade.inicio_servico }} - {{ personalidade.fim_servico }} <br>
             {{ personalidade.sobre|safe }}
           </p>

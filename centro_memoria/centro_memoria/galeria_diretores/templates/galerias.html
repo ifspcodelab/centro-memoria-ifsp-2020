@@ -11,11 +11,12 @@
             <div class="col esquerda">
                 <h2>GALERIA </h2>
                 <div class="texto">
-                    <div class="card-columns">
+                    <div class="card-group">
+                      <div class="row"> 
                         {% for galeria in galerias %}
-                        <div class="card" style="width: 18rem;">
+                        <div class="card col-sm-6 col-md-4" >
                           <a href="{{ galeria.get_absolute_url }}">
-                              <img class="card-img-top" src="{{ galeria.imagem.url }}" alt="{{ galeria.nome }}">
+                              <img class="card-img-top w-100" src="{{ galeria.imagem.url }}" alt="{{ galeria.nome }}">
                               <div class="card-body">
                                 <p class="card-text text-capitalize font-weight-bold">{{ galeria.nome }}</p>
                                 <p  class="card-text">{{ galeria.descricao | safe | truncatechars:95 }}</p>
@@ -23,6 +24,7 @@
                           </a>
                         </div>
                         {% endfor %}
+                        </div>
                     </div>	
                 </div> 
             </div>

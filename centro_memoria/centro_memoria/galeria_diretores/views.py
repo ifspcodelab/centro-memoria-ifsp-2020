@@ -4,7 +4,7 @@ from .models import Personalidade, Galeria, FotoPersonalidade
 
 def galerias(request):
     instituicao = get_object_or_404(Instituicao)
-    galerias = Galeria.objects.all().filter(ativo=True)
+    galerias = Galeria.objects.all().filter(ativo=True).order_by("nome")
     context = {
         'galerias': galerias,
         'instituicao': instituicao
