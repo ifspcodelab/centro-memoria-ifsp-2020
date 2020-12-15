@@ -73,12 +73,13 @@
                 {% for noticia in noticias %}
                 <div class="col-sm-12">
                 <div class="card mb-3 ">
+                    <p class="card-subtitle text-muted mt-2 mb-1">{{ noticia.noticia.atualizado_em|date:"d/m/Y"}}</p>
                     {% if noticia.foto != None %}
                         <img class="card-img-top" src="{{ noticia.foto.imagem.url }}" alt="{{ noticia.noticia.titulo }}">
                     {% endif %}
                     <div class="card-body">
                         <p class="card-text">{{ noticia.noticia.titulo }}</p>
-                        <p class="card-subtitle text-muted mb-2">{{ noticia.noticia.atualizado_em|date:"d/m/Y"}}</p>
+                        
                         <a href="{{ noticia.noticia.get_absolute_url }}" class="btn btn-success">Leia mais</a>
                     </div>
                 </div>
