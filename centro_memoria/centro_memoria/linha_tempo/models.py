@@ -10,7 +10,7 @@ class LinhaDoTempo(models.Model):
     descricao = RichTextField('Descrição curta', max_length=500)
     descricao_longa = RichTextField('Descrição longa')
     inicio_periodo = models.DateField('Inicío dessa linha do tempo')
-    fim_periodo = models.DateField('Fim dessa linha do tempo')
+    fim_periodo = models.DateField('Fim dessa linha do tempo', null=True, blank=True)
 
     image = models.ImageField(verbose_name='Imagem capa')
 
