@@ -109,6 +109,21 @@
                         <option>{{fundo.nome}}</option>
                         {% endfor %}
                       </datalist>
+                      <datalist id="documentoDataList">
+                        {% for tipo in documentosBusca %}
+                        <option>{{tipo.tipo}}</option>
+                        {% endfor %}
+                      </datalist>
+                      <datalist id="atividadeDataList">
+                        {% for atividade in atividadesBusca %}
+                        <option>{{atividade.atividade}}</option>
+                        {% endfor %}
+                      </datalist>
+                      <datalist id="suporteDataList">
+                        {% for suporte in suportesBusca %}
+                        <option>{{suporte.nome}}</option>
+                        {% endfor %}
+                      </datalist>
                     </div>
                     
                   </div>
