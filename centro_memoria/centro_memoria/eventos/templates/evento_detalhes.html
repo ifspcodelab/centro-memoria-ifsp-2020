@@ -8,8 +8,14 @@
 <section>
     <div class="container">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-8 col-md-8 col-sm-12">
                 <h2>{{ evento.nome }}</h2>
+                <hr>
+                <p class="mb-0 text-muted">{{ evento.data_inicio|date:"d \d\e F \d\e Y" }}
+                    {% if evento.data_fim|date:"Y-m-d" != '1111-11-11' %}
+                    a {{ evento.data_fim|date:"d \d\e F \d\e Y" }}
+                    {% endif %}
+                </p>
                 <hr>
                 {% if foto_evento != None %}
                 <img class="img-fluid rounded imagem-cabecalho-noticia" src="{{ foto_evento.imagem.url }}" alt="{{ evento.nome }}">
@@ -32,7 +38,7 @@
                 <!-- Modal Imagem-->
                 {% for foto in fotos %}
                 <div class="modal fade" id="modalImage-{{ foto.pk }}" tabindex="-1" role="dialog" aria-labelledby="modalImageLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-lg" role="document"> 
                         <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">{{ evento.nome }}</h5>
@@ -50,18 +56,16 @@
                 {% endif %}             
             </div>
             
-            <div class="col-3 shadow texto text-center">
+            <div class="col-md-4 shadow texto text-center">
                 <h3>Outros Eventos</h3>
-                {% for evento in outros_eventos %}
+                {% for eventos in outros_eventos %}
                 <div class="card mb-3">
-                    {% for foto in fotos_outros_eventos %}
-                    {% if foto.evento == evento %}
-                    <img class="card-img-top" src="{{ foto.imagem.url }}" alt="{{ evento.nome }}">
-                    {% endif %}
-                    {% endfor %}
+                    
+                    <img class="card-img-top" src="{{ eventos.foto.imagem.url }}" alt="{{ eventos.evento.nome }}">
+                   
                     <div class="card-body">
-                        <p class="card-text">{{ evento.nome }}</p>
-                        <a href="{{ evento.get_absolute_url }}" class="btn btn-success">Leia mais</a>
+                        <p class="card-text">{{ eventos.outros_eventos.nome }}</p>
+                        <a href="{{ eventos.outros_eventos.get_absolute_url }}" class="btn btn-success">Leia mais</a>
                     </div>
                 </div>
                 {% endfor %}

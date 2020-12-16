@@ -37,18 +37,30 @@ def evento_detalhes(request, titulo):
 
     outras_fotos = FotoEvento.objects.all().filter(evento=evento)
 
-    outros_eventos = Evento.objects.all().filter(ativo=True, destaque=True).exclude(pk=evento.pk).order_by('-criado_em')
-    if len(outros_eventos) > 0:
-        outros_eventos = outros_eventos[:6]
-    fotos_outros_eventos = FotoEvento.objects.all().filter(evento__in=outros_eventos, destaque=True)
+    outros_eventos_detalhes= []
+    for eventos in Evento.objects.all().filter(ativo=True, destaque=True).exclude(pk=evento.pk).order_by('-criado_em'):
+        fotos_outros_eventos = FotoEvento.objects.all().filter(evento=eventos, destaque=True)
 
+        if len(fotos_outros_eventos) > 0:
+            fotos_outros_eventos = fotos_outros_eventos[0]
+        else:
+            fotos_outros_eventos = None
+        
+        outros_eventos_dicionario= {
+            'foto':fotos_outros_eventos,
+            'outros_eventos': eventos
+        }
+        outros_eventos_detalhes.append(outros_eventos_dicionario.copy())
+
+    if len(outros_eventos_detalhes) > 0:
+        outros_eventos_detalhes = outros_eventos_detalhes[:6]
+    
     template_name = 'evento_detalhes.html'
     context = {
         'evento': evento,
         'fotos': outras_fotos,
         'foto_evento': foto_evento,
         'instituicao': instituicao,
-        'outros_eventos': outros_eventos,
-        'fotos_outros_eventos': fotos_outros_eventos
+        'outros_eventos': outros_eventos_detalhes,
     }
     return render(request, template_name, context)

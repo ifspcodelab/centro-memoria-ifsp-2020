@@ -12,6 +12,8 @@ class Evento(models.Model):
     descricao = RichTextField('Descrição', max_length=450)
     texto = RichTextField('Texto sobre evento')
     destaque = models.BooleanField('Destaque')
+    data_inicio = models.DateField('Data de início do evento', default='1111-11-11')
+    data_fim = models.DateField('Data do fim do evento', default='1111-11-11')
 
     ativo = models.BooleanField('Registro ativo?', 
         help_text='Este campo indica se este registro já está pronto para aparecer no site publicamente')
@@ -30,8 +32,7 @@ class Evento(models.Model):
     class Meta:
         verbose_name = 'Evento'
         verbose_name_plural = 'Eventos'
-        ordering = ['nome']
-
+        ordering = ['data_inicio']
 
 class FotoEventoManager(models.Manager):
     pass
