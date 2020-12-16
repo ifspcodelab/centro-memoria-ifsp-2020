@@ -24,7 +24,7 @@
                   </ol>
                 </nav>
                 <h2>{{ item.titulo }}</h2>
-                <h3 class="text-center mb-5">
+                <h3 class="text-center mb-5 autores">
                     {% for autor in item.autores.all %}
                         {{ autor.nome }}{% if not forloop.last %},{%endif%}
                     {% endfor %}
