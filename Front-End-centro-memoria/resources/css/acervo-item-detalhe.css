@@ -358,5 +358,14 @@ footer h4 {
     font-size: 16pt!important;
 }
 
+.botao-avancado {
+    margin-top: 6.5%!important;
+    margin-left: 40%!important;
+}
+
+.null-label {
+    margin-bottom: 26px;
+}
+
 
 /*# sourceMappingURL=style.css.map */

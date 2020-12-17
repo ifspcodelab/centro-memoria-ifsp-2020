@@ -22,16 +22,16 @@ class PesquisaAvancadaForm(forms.Form):
     autor = forms.CharField(required=False, label='Autor', widget=forms.TextInput(attrs={'class': 'form-control', 'list': 'autorDataList'}))
     titulo = forms.CharField(required=False, label='Título', widget=forms.TextInput(attrs={'class': 'form-control'}))
     descritores = forms.CharField(required=False, label='Descritores', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    ano_inicio = forms.DateField(required=False, widget=DateInput(attrs={'class': 'form-control'}))
-    ano_fim = forms.DateField(required=False, widget=DateInput(attrs={'class': 'form-control'}))
-    periodo_inicio = forms.DateField(required=False, widget=DateInput(attrs={'class': 'form-control'}))
+    ano_inicio = forms.IntegerField(required=False, label='Ano de edição', widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    ano_fim = forms.IntegerField(required=False, widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    periodo_inicio = forms.DateField(required=False, label='Data ou período', widget=DateInput(attrs={'class': 'form-control'}))
     periodo_fim = forms.DateField(required=False, widget=DateInput(attrs={'class': 'form-control'}))
     tipo_documento = forms.CharField(required=False, label='Tipo de Documento', widget=forms.TextInput(attrs={'class': 'form-control', 'list': 'documentoDataList'}))
     atividade = forms.CharField(required=False, label='Atividade/Evento', widget=forms.TextInput(attrs={'class': 'form-control', 'list': 'atividadeDataList'}))
     suporte = forms.CharField(required=False, label='Suporte', widget=forms.TextInput(attrs={'class': 'form-control', 'list': 'suporteDataList'}))
 
-    field_order = ['categoria', 'fundo_colecao', 'autor', 'titulo', 'descritores', 'ano_inicio', 'ano_fim',
-                    'periodo_inicio', 'periodo_fim', 'tipo_documento', 'atividade', 'suporte']
+    field_order = ['categoria', 'fundo_colecao', 'autor', 'titulo', 'descritores', 'periodo_inicio', 'periodo_fim',
+                    'ano_inicio', 'ano_fim', 'tipo_documento', 'atividade', 'suporte']
     
     def save(self, commit=True):
         return {

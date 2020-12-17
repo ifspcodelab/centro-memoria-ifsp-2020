@@ -47,10 +47,17 @@
                       <form method="post">
                         {% csrf_token %}
                         {% for field in formAvancado %}
-                        {% if 'periodo' not in field.name %}
+                        {% if 'categoria' == field.name or 'autor' == field.name or 'titulo' == field.name or 'descritores' == field.name or 'periodo_inicio' == field.name or 'tipo_documento' == field.name or 'suporte' == field.name %}
                         <div class="form-row">
+                        {% endif %}
                           <div class="form-group col">
+                            {% if 'periodo' not in field.name and 'ano' not in field.name %}
                             {{ field.label_tag }}
+                            {% elif field.name == 'periodo_inicio' or field.name == 'ano_inicio' %}
+                            {{ field.label_tag }}
+                            {% else %}
+                            <label class="null-label"></label>
+                            {% endif %}
                             {{ field }}
                             {% if field.errors %}
                             <ul class="errorlist">
@@ -60,39 +67,16 @@
                             </ul>
                             {% endif %}
                           </div>
-                        </div>
-                        {% else %}
-                        {% if field.name == 'periodo_inicio' %}
-                        <label>Período</label>
-                        <div class="form-row">
-                          <div class="form-group col">
-                            {{ field.label_tag }}
-                            {{ field }}
-                            {% if field.errors %}
-                            <ul class="errorlist">
-                                {% for error in field.errors %}
-                                <li>{{ error }}</li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                          </div>
-                          {% else %}
-                          <div class="form-group col">
-                            {{ field.label_tag }}
-                            {{ field }}
-                            {% if field.errors %}
-                            <ul class="errorlist">
-                                {% for error in field.errors %}
-                                <li>{{ error }}</li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                          </div>
+                        {% if 'fundo_colecao' == field.name or 'autor' == field.name or 'titulo' == field.name or 'descritores' == field.name or 'ano_fim' == field.name or 'atividade' == field.name %}
                         </div>
                         {% endif %}
+                        {% if forloop.last %}
+                        <div class="form-group col">
+                          <button type="submit" class="btn btn-primary botao-avancado" name="avancado"><i class="fa fa-search"></i> Consultar acervo</button>
+                        </div>
+                        </div>
                         {% endif %}
-                        {% endfor %}                                                                                              
-                        <button type="submit" class="btn btn-primary" name="avancado"><i class="fa fa-search"></i> Consultar acervo</button>
+                        {% endfor %}                                                                                         
                       </form>
                       <datalist id="categoriaDataList">
                         {% for categoria in categoriasBusca %}
