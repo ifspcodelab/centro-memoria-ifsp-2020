@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from django.db import models
+from ckeditor.fields import RichTextField
 
 class GaleriaManager(models.Manager):
     pass
@@ -8,7 +8,7 @@ class GaleriaManager(models.Manager):
 class Galeria(models.Model):
 
     nome = models.CharField('Nome da Galeria', max_length=100)
-    descricao = models.TextField('Descrição da Galeria')
+    descricao = RichTextField('Descrição da Galeria')
 
     imagem = models.ImageField(
         verbose_name='Imagem da Galeria'
@@ -40,7 +40,7 @@ class Personalidade(models.Model):
 
     nome = models.CharField('Nome', max_length=100)
     funcao = models.CharField('Função', max_length=100, blank=True, null=True)
-    sobre = models.TextField('Sobre')
+    sobre = RichTextField('Sobre')
     inicio_servico = models.DateField('Início dos serviços prestados')
     fim_servico = models.DateField('Fim dos serviços prestados')
 
@@ -60,7 +60,7 @@ class Personalidade(models.Model):
     class Meta:
         verbose_name = 'Personalidade'
         verbose_name_plural = 'Personalidades'
-        ordering = ['nome']
+        ordering = ['inicio_servico']
 
 
 class FotoPersonalidadeManager(models.Manager):

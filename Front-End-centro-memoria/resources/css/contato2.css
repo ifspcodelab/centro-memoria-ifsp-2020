@@ -71,32 +71,40 @@ h3{
 input{
   margin-top: 0px;
   margin-bottom: 30px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  border-radius: 6%;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
   border-style: hidden;
   padding-left: 5px;
 }
 
+.assunto input{
+  width: 350px;
+}
+
 .nome input{
-  width: 250px;
+  width: 350px;
 }
 
 .sobrenome input{
-  width: 250px;
+  width: 350px;
 }
 
 .email input{
-  width: 250px;
+  width: 350px;
 }
 
 textarea{
   margin-top: 0px;
   margin-bottom: 20px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  border-radius: 6%;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
   border-style: hidden;
-  width: 280px;
+  width: 350px;
   height: 250px;
+}
+
+::placeholder{
+  color: #6e6e6c;
 }
 
 .botao{
@@ -531,32 +539,32 @@ textarea {
       font-size: 22px;
       text-transform: uppercase;
   }
-#menu, .dropdown-menu {
-  background: #009D4C;
-width: 100%;
+  #menu, .dropdown-menu {
+    background: #009D4C;
+  width: 100%;
+  }
+
+
+  header nav a, .dropdown-item {
+    display: inline-block;
+    margin-left: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #FFF;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0;
+  }
+
+  header nav a:hover, .dropdown a:hover{
+    font-weight: bold;
+    color: #FFF;
+    background: #818479;
+    -moz-transform: scale(1.03);
+    -webkit-transform: scale(1.03);
+    -o-transform: scale(1.03);
+    -ms-transform: scale(1.03);
+    transform: scale(1.03);
+  }
 }
-
-
-header nav a, .dropdown-item {
-  display: inline-block;
-  margin-left: 25px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  color: #FFF;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin: 0;
-}
-
-header nav a:hover, .dropdown a:hover{
-  font-weight: bold;
-  color: #FFF;
-  background: #818479;
-  -moz-transform: scale(1.03);
-  -webkit-transform: scale(1.03);
-  -o-transform: scale(1.03);
-  -ms-transform: scale(1.03);
-  transform: scale(1.03);
-}
-

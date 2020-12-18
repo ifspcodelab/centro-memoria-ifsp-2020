@@ -36,7 +36,7 @@ class FormVisita(forms.Form):
     instituicao = forms.CharField(label='Instituição', max_length=150,
                                 widget=forms.TextInput(attrs={'placeholder': 'Colégio Nossa Senhora das Graças'}))
     periodo = forms.ChoiceField(label='Período', choices=PERIODOS, widget=forms.RadioSelect)
-    total_visitantes = forms.IntegerField(label='Total de visitantes')
+    total_visitantes = forms.IntegerField(label='Total de visitantes', min_value=1)
     motivo = forms.CharField(label='Motivo da visita',
                             widget=forms.Textarea(attrs={'placeholder': 'Coloque aqui porque você gostaria de visitar o Instituito Federal'}))
 
@@ -67,6 +67,9 @@ class FormFaleConosco(forms.Form):
     sobrenome = forms.CharField(label='', max_length=100,
                                 widget=forms.TextInput(attrs={'placeholder': 'Barbosa'}))
     email = forms.EmailField(label='', widget=forms.TextInput(attrs={'placeholder': 'joao.barbosa@email.com'}))
+
+    assunto = forms.CharField(label='', max_length=100, widget=forms.TextInput(attrs= {'placeholder': 'Assunto', }))
+    
     mensagem = forms.CharField(label='', widget=forms.Textarea(attrs={'placeholder': 'Deixe aqui sua mensagem', 'id': 'exampleFormControlTextarea1', 'rows': '2'}))
 
     def enviarMensagem(self, instituicao):

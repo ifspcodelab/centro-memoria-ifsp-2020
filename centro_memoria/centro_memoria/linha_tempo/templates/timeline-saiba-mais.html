@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+<link href="{% static 'css/acervo-item-detalhe.css' %}" rel="stylesheet">
+<link href="resources/css/acervo-principal.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section>
+   <div class="container">
+      <div class="row">
+         <div class="col esquerda">
+            <nav aria-label="breadcrumb">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{% url 'linha_tempo:linhas_do_tempo' %}">Linhas do tempo</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                     <a href="{{ linhaDoTempo.get_absolute_url }}">
+                        {{ linhaDoTempo.titulo }}
+                     </a>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page"> {{ acontecimento.titulo }}</li>
+               </ol>
+            </nav>
+
+            <h2>{{ acontecimento.titulo }}</h2>
+            {% if fotoDestaque != None %}
+            <img class="img-fluid rounded imagem-item-detalhe" src="{{ fotoDestaque.imagem.url }} " alt="acontecimento.titulo" align="left">
+            {% endif %}
+            <div class="texto-noticia text-justify">
+               <p class="font-weight-bold">{{ acontecimento.data|date:"d \d\e F \d\e Y "}}</p>
+               <p>{{ acontecimento.sobre|safe }}</p>
+            </div>
+         </div>
+      </div>
+   </div>
+   {% if fotos != None %}
+   <div class="container my-5" >
+      {% for foto in fotos %}
+      <div class="d-inline-block mr-3" style="width:18%;">
+         <img  data-toggle="modal" data-target="#modalImage-{{ foto.pk }}" src= "{{ foto.imagem.url }}" class="rounded float-left" alt="..." style="width: 100%;">
+      </div>
+      {% endfor %}
+   </div>
+   <!-- Modal Imagem-->
+   {% for foto in fotos %}
+   <div class="modal fade" id="modalImage-{{ foto.pk }}" tabindex="-1" role="dialog" aria-labelledby="modalImageLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title">{{foto.nome}}</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <img src="{{ foto.imagem.url }}" class="rounded float-left" alt="..." style="width: 100%;">
+            </div>
+         </div>
+      </div> 
+   </div>
+   {% endfor %}
+   {% endif %}
+</section>
+{% endblock %}

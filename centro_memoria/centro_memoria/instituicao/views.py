@@ -6,7 +6,10 @@ from centro_memoria.noticias.models import Noticia, FotoNoticia
 from centro_memoria.eventos.models import Evento, FotoEvento
 from centro_memoria.linha_tempo.models import Acontecimento, FotoAcontecimento
 from django.db.models import Q
-from .forms import FormVisita, FormFaleConosco, PesquisaAvancadaForm
+
+import sys
+if 'makemigrations' not in sys.argv and 'migrate' not in sys.argv:
+    from .forms import FormVisita, FormFaleConosco, PesquisaAvancadaForm
 
 def agendamento(request):
     instituicao = Instituicao.objects.get()
@@ -42,21 +45,42 @@ def faleconosco(request):
 
 def index(request):
     instituicao = get_object_or_404(Instituicao)
-    foto_instituicao = FotoInstituicao.objects.all()
+    foto_instituicao = FotoInstituicao.objects.all().filter(instituicao=instituicao)
+    membros = Membro.objects.all().filter(instituicao=instituicao)
+    
+    if len(membros) == 0:
+        membros = None
+
     if len(foto_instituicao) > 0:
         foto_instituicao = foto_instituicao[0]
-    membros = Membro.objects.all().filter(instituicao=instituicao)
-    noticias = Noticia.objects.all().filter(ativo=True, destaque=True).order_by('-criado_em')
+    else:
+        foto_instituicao = None
+
+    noticias_total = Noticia.objects.all().filter(ativo=True, destaque=True).order_by('-criado_em')
+
+    noticias = []
+    for noticia in noticias_total:
+        fotos_noticias_destaque = FotoNoticia.objects.all().filter(noticia=noticia, destaque=True)
+        if len(fotos_noticias_destaque) > 0:
+            fotos_noticias_destaque = fotos_noticias_destaque[0]
+        else:
+            fotos_noticias_destaque = None
+
+        noticia_detalhes = {
+            'noticia': noticia,
+            'foto': fotos_noticias_destaque
+        }
+        noticias.append(noticia_detalhes.copy())
+
     if len(noticias) > 0:
         noticias = noticias[:5]
-    fotos_noticias_destaque = FotoNoticia.objects.all().filter(noticia__in=noticias, destaque=True)
+    
     template_name = 'index.html'
     context = {
         'instituicao': instituicao,
         'foto_instituicao': foto_instituicao,
         'membros': membros,
-        'noticias': noticias,
-        'fotos_noticias_destaque': fotos_noticias_destaque
+        'noticias': noticias
     }
     return render(request, template_name, context)
 

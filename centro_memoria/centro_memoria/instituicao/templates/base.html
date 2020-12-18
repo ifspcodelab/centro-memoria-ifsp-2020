@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
   <meta content="CENTRO DE MEMÓRIA IFSP." name="description">
-  <title> Centro de Memória IFSP </title>
+  <title> Centro de Memória do IFSP </title>
   <link href="{% static 'vendors/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/menu.css' %}" rel="stylesheet">
@@ -38,6 +38,9 @@
                   <a href="{{ instituicao.instagram }}" target="_blank">
                     <img class="img-fluid" src="{% static 'img/img-instagram.png' %}" title="">
                   </a>
+                  <a href="{{instituicao.youtube}}" target="_blank">
+                    <img class="img-fluid" src="{% static 'img/img-youtube.png'%}" title="">
+                  </a>
                 </div>
             </div>
             <div class="row bottom">
@@ -56,7 +59,7 @@
 						  <a class="nav-link" href="{% url 'acervo:acervo' %}">ACERVO</a>
 						</li>
 						<li class="nav-item">
-						  <a class="nav-link" href="{% url 'linha_tempo:timeline' %}">LINHA DO TEMPO</a>
+						  <a class="nav-link" href="{% url 'linha_tempo:linhas_do_tempo' %}">LINHAS DO TEMPO</a>
 						</li>
 						<li class="nav-item">
 						  <a class="nav-link" href="{% url 'galeria:galerias' %}">GALERIA</a>
@@ -111,7 +114,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-5">
-                        Centro de Memória IFSP © 2020 - Todos os direitos reservados
+                        Centro de Memória do IFSP © 2020 - Todos os direitos reservados
                     </div>
 
                 </div>

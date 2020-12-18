@@ -8,38 +8,67 @@
 <section>
     <div class="container">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-8 col-md-8">
                 <h2>{{ noticia.titulo }}</h2>
+                <p class="text-secondary">{{ noticia.atualizado_em|date:"d/m/Y à\s G \h\o\r\a\s \e i \m\i\n\u\t\o\s"}}</p> 
                 <hr>
-                {% for foto in foto_noticia %}
-                {% if foto.noticia == noticia %}
-                <img class="img-fluid rounded imagem-cabecalho-noticia" src="{{ foto.imagem.url }}" alt="{{ noticia.titulo }}">
+                {% if foto_noticia != None %}
+                <img class="img-fluid rounded w-100" src="{{ foto_noticia.imagem.url }}" alt="{{ noticia.titulo }}">
+                <hr>
                 {% endif %}
-                {% endfor %}
-                <hr>
                 
                 <div class="texto-noticia text-justify">
-                    <p>{{ noticia.corpo|linebreaks }}</p>                                         
-                </div>             
+                    <p>{{ noticia.corpo|safe }}</p>                                         
+                </div>
+                
+                {% if outras_fotos != None %}
+                <div class="container my-5" >
+                    {% for foto in outras_fotos %}
+                    <div class="d-inline-block mr-3" style="width:18%;">
+                        <img data-toggle="modal" data-target="#modalImage-{{ foto.pk }}" src= "{{ foto.imagem.url }}" class="rounded float-left" alt="..." style="width: 100%;">
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Modal Imagem-->
+                {% for foto in outras_fotos %}
+                <div class="modal fade" id="modalImage-{{ foto.pk }}" tabindex="-1" role="dialog" aria-labelledby="modalImageLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{foto.noticia.titulo}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{{ foto.imagem.url }}" class="rounded float-left" alt="..." style="width: 100%;">
+                        </div>
+                        </div>
+                    </div> 
+                </div>
+                {% endfor %}
+                {% endif %}
+            
             </div>
             
-            <div class="col-3 shadow texto text-center">
+            <div class="col-md-4 shadow texto text-center">
                 <h3>Outras Notícias</h3>
                 {% for noticia in outras_noticias %}
                 <div class="card mb-3">
-                    {% for foto in fotos_outras_noticias %}
-                    {% if foto.noticia == noticia %}
-                    <img class="card-img-top" src="{{ foto.imagem.url }}" alt="{{ noticia.titulo }}">
+                    {% if  noticia.foto != None%}
+                    <img class="card-img-top" src="{{ noticia.foto.imagem.url }}" alt="{{ noticia.noticia.titulo }}">
                     {% endif %}
-                    {% endfor %}
                     <div class="card-body">
-                        <p class="card-text">{{ noticia.titulo }}</p>
-                        <a href="{{ noticia.get_absolute_url }}" class="btn btn-success">Leia mais</a>
+                        <p class="card-text">{{ noticia.noticia.titulo }}</p>
+                        <p class="card-subtitle text-muted mb-2">{{ noticia.noticia.atualizado_em|date:"d/m/Y"}}</p>
+                        <a href="{{ noticia.noticia.get_absolute_url }}" class="btn btn-success">Leia mais</a>
                     </div>
                 </div>
                 {% endfor %}
             </div>      
         </div>
+
+        
     </div>
 </section>
 {% endblock %}

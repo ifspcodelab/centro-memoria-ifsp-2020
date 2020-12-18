@@ -48,41 +48,87 @@
                         <form method="post">
                           {% csrf_token %}
                           {% for field in formAvancado %}
+                          {% if 'categoria' == field.name or 'autor' == field.name or 'titulo' == field.name or 'descritores' == field.name or 'periodo_inicio' == field.name or 'tipo_documento' == field.name or 'suporte' == field.name %}
                           <div class="form-row">
-                          <div class="form-group col">
-                          {{ field.label_tag }}
-                          {{ field }}
-                          {% if field.errors %}
-                          <ul class="errorlist">
-                              {% for error in field.errors %}
-                              <li>{{ error }}</li>
-                              {% endfor %}
-                          </ul>
                           {% endif %}
+                            <div class="form-group col">
+                              {% if 'periodo' not in field.name and 'ano' not in field.name %}
+                              {{ field.label_tag }}
+                              {% elif field.name == 'periodo_inicio' or field.name == 'ano_inicio' %}
+                              {{ field.label_tag }}
+                              {% else %}
+                              <label class="null-label"></label>
+                              {% endif %}
+                              {{ field }}
+                              {% if field.errors %}
+                              <ul class="errorlist">
+                                  {% for error in field.errors %}
+                                  <li>{{ error }}</li>
+                                  {% endfor %}
+                              </ul>
+                              {% endif %}
+                            </div>
+                          {% if 'fundo_colecao' == field.name or 'autor' == field.name or 'titulo' == field.name or 'descritores' == field.name or 'ano_fim' == field.name or 'atividade' == field.name %}
+                          </div>
+                          {% endif %}
+                          {% if forloop.last %}
+                          <div class="form-group col">
+                            <button type="submit" class="btn btn-primary botao-avancado" name="avancado"><i class="fa fa-search"></i> Consultar acervo</button>
                           </div>
                           </div>
-                          {% endfor %}                                                                                              
-                          <button type="submit" class="btn btn-primary" name="avancado"><i class="fa fa-search"></i> Buscar</button>
+                          {% endif %}
+                          {% endfor %}                                                                                         
                         </form>
-                      
+                        <datalist id="categoriaDataList">
+                          {% for categoria in categoriasBusca %}
+                          <option>{{categoria.nome}}</option>
+                          {% endfor %}
+                        </datalist>
+                        <datalist id="autorDataList">
+                          {% for autor in autoresBusca %}
+                          <option>{{autor.nome}}</option>
+                          {% endfor %}
+                        </datalist>
+                        <datalist id="fundoDataList">
+                          {% for fundo in fundosBusca %}
+                          <option>{{fundo.nome}}</option>
+                          {% endfor %}
+                        </datalist>
+                        <datalist id="documentoDataList">
+                          {% for tipo in documentosBusca %}
+                          <option>{{tipo.tipo}}</option>
+                          {% endfor %}
+                        </datalist>
+                        <datalist id="atividadeDataList">
+                          {% for atividade in atividadesBusca %}
+                          <option>{{atividade.atividade}}</option>
+                          {% endfor %}
+                        </datalist>
+                        <datalist id="suporteDataList">
+                          {% for suporte in suportesBusca %}
+                          <option>{{suporte.nome}}</option>
+                          {% endfor %}
+                        </datalist>
                       </div>
                       
                     </div>
 
                 </div>
-                <hr>
+                <br>
+                <p> {{ instituicao.descricao_acervo|safe }}</p><p></p>
+                                        <hr>  
                 <h5>Navegue pelas categorias</h5>
                 <div class="texto">
                     {% for categoria in categorias %}
                     <div class="card mb-3" style="max-width: 100%;">
                       <div class="row no-gutters">
-                        <div class="col-md-4">
-                          <img class="card-img-top imagem-noticia" src="{{ categoria.imagem.url }}" alt="{{ categoria.nome }}">
+                        <div class="col-sm-12 col-md-6 col-lg-4 p-md-3 p-sm-5">
+                          <img class="card-img-top imagem-noticia w-100" src="{{ categoria.imagem.url }}" alt="{{ categoria.nome }}">
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-sm-12 col-md-6 col-lg-8">
                           <div class="card-body">
                             <h5 class="card-title"><b>{{ categoria.nome }}</b></h5>
-                            <p class="card-text">{{ categoria.descricao|linebreaks }}</p>
+                            <p class="card-text">{{ categoria.descricao_curta }}</p>
                             <p class="card-text">
                                 <small class="text-muted">
                                     <a href="{{ categoria.get_absolute_url }}" class="btn btn-success">Acessar </a>

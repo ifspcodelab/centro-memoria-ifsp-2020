@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.db import models
+from ckeditor.fields import RichTextField
 
 class NoticiaManager(models.Manager):
     pass
@@ -8,8 +9,8 @@ class NoticiaManager(models.Manager):
 class Noticia(models.Model):
 
     titulo = models.CharField('Título', max_length=100)
-    descricao = models.TextField('Descrição', max_length=250)
-    corpo = models.TextField('Corpo da Notícia')
+    descricao = RichTextField('Descrição', max_length=350)
+    corpo = RichTextField('Corpo')
     destaque = models.BooleanField('Destaque')
     periodo_destaque = models.IntegerField('Tempo em Destaque', null=True, blank=True)
 

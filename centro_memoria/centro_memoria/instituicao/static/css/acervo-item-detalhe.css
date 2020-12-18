@@ -19,8 +19,7 @@ img {
 }
 
 .card{
-	height: 250px;
-
+	
 }
 a {
     color: initial;
@@ -107,7 +106,6 @@ h2 {
 
 .imagem-item-detalhe{
 	width : 40%;
-	height: 300px;
 	padding-right: 10px;
 }
 
@@ -356,5 +354,17 @@ footer h4 {
     }
 }
 
+.autores {
+    font-size: 16pt!important;
+}
+
+.botao-avancado {
+    margin-top: 6.5%!important;
+    margin-left: 40%!important;
+}
+
+.null-label {
+    margin-bottom: 26px;
+}
 
 /*# sourceMappingURL=style.css.map */

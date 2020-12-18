@@ -14,25 +14,38 @@
                     {% for evento in eventos %}
                     <div class="card mb-3" style="max-width: 100%;">
                       <div class="row no-gutters">
-                        <div class="col-md-4">
-                            {% for foto in fotos_eventos_destaque %}
-                            {% if foto.evento == evento %}
-                            <img class="card-img-top imagem-noticia" src="{{ foto.imagem.url }}" alt="{{ evento.nome }}">
-                            {% endif %}
-                            {% endfor %}
+                        {% if evento.foto != None %}
+                        <div class="col-md-6 col-lg-4">
+                            
+                            <img class="card-img-top imagem-noticia w-100 px-sm-5 px-md-0" src="{{ evento.foto.imagem.url }}" alt="{{ evento.nome }}">
+                            
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-6 col-lg-8">
                           <div class="card-body">
-                            <h5 class="card-title"><b>{{ evento.nome }}</b></h5>
-                            <p class="card-text">{{ evento.descricao|linebreaks }}</p>
+                            <h5 class="card-title"><b>{{ evento.evento.nome }}</b></h5>
+                            <p class="card-text">{{ evento.evento.descricao|safe }}</p>
                             <p class="card-text">
-                                <small class="text-muted">
-                                    <a href="{{ evento.get_absolute_url }}" class="btn btn-success">Leia mais</a>
+                                <small class="text-muted float-right mb-2">
+                                    <a href="{{ evento.evento.get_absolute_url }}" class="btn btn-success">Leia mais</a>
                                 </small>
                             </p>
                           </div>
                         </div>
                       </div>
+                      {% else %}
+                      <div class="col-md-12">
+                          <div class="card-body">
+                            <h5 class="card-title"><b>{{ evento.evento.nome }}</b></h5>
+                            <p class="card-text">{{ evento.evento.descricao|safe }}</p>
+                            <p class="card-text">
+                                <small class="text-muted float-right mb-2">
+                                    <a href="{{ evento.evento.get_absolute_url }}" class="btn btn-success">Leia mais</a>
+                                </small>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      {% endif %}
                     </div>
                     {% endfor %}     
                 </div> 

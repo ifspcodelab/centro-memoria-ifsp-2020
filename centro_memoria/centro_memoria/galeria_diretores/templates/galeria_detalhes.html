@@ -11,7 +11,14 @@
 {% block content %}
 <section id="demos">
 
-  <h3>{{ galeria.nome }}</h3>
+  <div class="container">
+    <h3>{{ galeria.nome }}</h3>
+    <div class="text-center">
+      <p>{{ galeria.descricao|safe}}</p>
+    </div>
+    
+  </div>
+  
 
   <div class="row">
   <div class="large-12 columns">
@@ -42,24 +49,27 @@
           {% endfor %}
         </div>
         <div class="col-6">
-          <p class="text-justify">
-            {{ personalidade.nome }} - {{ personalidade.funcao }} <br>
+          <p class="text-justify ">
+            <span class="font-weight-bold text-capitalize">{{ personalidade.nome }} </span>
+            {% if personalidade.funcao != None %}
+            - {{ personalidade.funcao }}
+            {% endif %} 
+            <br>
             {{ personalidade.inicio_servico }} - {{ personalidade.fim_servico }} <br>
-            {{ personalidade.sobre|linebreaks }}
+            {{ personalidade.sobre|safe }}
           </p>
         </div>
-        </div>
-        <div class="row outras-imagens">
-          {% for foto in fotos_personalidade %}
-          {% if foto.personalidade == personalidade %}
-          <div class="col-3">
-           <!-- <img id="myImg" src="resources/img/ifsp.jpg"> -->
-            <a data-fancybox="gallery" href="{{ foto.imagem.url }}"><img src="{{ foto.imagem.url }}"></a>
-          </div>
-          {% endif %}
-          {% endfor %}
-        </div>
       </div>
+      <div class="row outras-imagens mt-5">
+        {% for foto in fotos_personalidade %}
+        {% if foto.personalidade == personalidade %}
+        <div class="col-3">
+          <a data-fancybox="gallery" href="{{ foto.imagem.url }}"><img src="{{ foto.imagem.url }}"></a>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
       {% endfor %}
     </div>
   </div>

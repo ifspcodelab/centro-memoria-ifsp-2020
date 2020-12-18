@@ -20,19 +20,168 @@
                         </a>
                     </li>
                     {% endfor %}
-                    <li class="breadcrumb-item active" aria-current="page">{{ item.nome }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ item.titulo }}</li>
                   </ol>
                 </nav>
-                <img class="img-fluid rounded imagem-item-detalhe" src="{{ foto_destaque.imagem.url }}" alt="{{ item.nome }}" align="left">
+                <h2>{{ item.titulo }}</h2>
+                <h3 class="text-center mb-5 autores">
+                    {% for autor in item.autores.all %}
+                        {{ autor.nome }}{% if not forloop.last %},{%endif%}
+                    {% endfor %}
+                </h3>
+                {% for foto in foto_destaque %}
+                <img class="img-fluid rounded imagem-item-detalhe" src="{{ foto.imagem.url }}" alt="{{ item.titulo }}" align="left">
+                {% endfor %}
                 <div class="texto-noticia text-justify">
-                    <p>{{ item.descricao|linebreaks }} 
-                        Fundo: {{ item.fundo }}
-                        <br>
-                        Data: {{ item.data }}
-                        </p>                       
+                    <p></p>
+                    <p>{{ item.descricao_longa|safe }}</p>
+                    <p><b>Fundo/Coleção:</b> {{ item.fundo_colecao }}</p>
+                    <p>
+                        {% if item.data_inicio_formato == 'C' %}
+                        <b>Data Inicial:</b> {{ item.data_inicio }}
+                        {% elif item.data_inicio_formato == 'MA' %}
+                        <b>Data Inicial:</b> {{ item.data_inicio|date:"M/Y" }}
+                        {% else %}
+                        <b>Data Inicial:</b> {{ item.data_inicio|date:"Y" }}
+                        {% endif %}
+                    </p>
+                    {% if item.data_fim %}
+                    <p>
+                        {% if item.data_fim_formato == 'C' %}
+                        <b>Data Final:</b> {{ item.data_fim }}
+                        {% elif item.data_fim_formato == 'MA' %}
+                        <b>Data Final:</b> {{ item.data_fim|date:"M/Y" }}
+                        {% else %}
+                        <b>Data Final:</b> {{ item.data_fim|date:"Y" }}
+                        {% endif %}
+                    </p>
+                    {% endif %}
+                    <p><b>Categorias:</b> 
+                        {% for categoria in item.categorias.all %}
+                            {{ categoria.nome }}{% if not forloop.last %},{%endif%}
+                        {% endfor %}
+                    </p>
+                    <p><b>Origem:</b> {{ item.origem|safe }}</p>
+                    {% if item.notacao %}
+                        <p><b>Notação:</b> {{ item.notacao }}</p>
+                    {% endif %}
+                    <p><b>Abordagem:</b> {{ item.abordagem.tipo }}</p>
+                    {% if item.tipo_documento %}
+                        <p><b>Tipo do Documento:</b> {{ item.tipo_documento.tipo }}</p>
+                    {% endif %}
+                    {% if item.local %}
+                        <p><b>Local de Produção:</b> {{ item.local }}</p>
+                    {% endif %}
+                    <p><b>Produtor/Instituição:</b> {{ item.produtor_instituicao.nome }} - {{ item.produtor_instituicao.sigla }}{% if item.produtor_instituicao.fundo_colecao %} - {{ item.produtor_instituicao.fundo_colecao.nome }}{% endif %}</p>
+                    {% if item.classificacao %}
+                        <p><b>Classificação:</b> {{ item.classificacao }}</p>
+                    {% endif %}
+                    {% if item.tecnica_registro %}
+                        <p><b>Técnica de Registro:</b> {{ item.tecnica_registro.nome }}</p>
+                    {% endif %}
+                    {% if item.suporte %} 
+                        <p><b>Suporte:</b> {{ item.suporte.nome }}</p>
+                    {% endif %}
+                    {% if item.formato %}
+                        <p><b>Formato:</b> {{ item.formato.nome }}</p>
+                    {% endif %}
+                    {% if item.idiomas.all %}
+                        <p><b>Idioma:</b> 
+                            {% for idioma in item.idiomas.all %}
+                                {{ idioma.idioma }}{% if not forloop.last %},{%endif%}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {% if item.formato %}
+                        <p><b>Formato:</b> {{ item.formato.nome }}</p>
+                    {% endif %}
+                    {% if item.cromia %}
+                        <p><b>Cromia:</b> {{ item.get_cromia_display }}</p>
+                    {% endif %}
+                    {% if item.periodicidade %}
+                        <p><b>Periodicidade:</b> {{ item.periodicidade.periodo }}</p>
+                    {% endif %}
+                    <p><b>Itens:</b> {{ item.itens }}</p>
+                    <p><b>Exemplares:</b> {{ item.exemplares }}</p>
+                    {% if item.reproducao %}
+                        <p><b>Reprodução:</b> {{ item.reproducao.tipo }}</p>
+                    {% endif %}
+                    {% if item.problemas_conservacao.all %}
+                        <p><b>Problemas de Conservação:</b> 
+                            {% for problema in item.problemas_conservacao.all %}
+                                {{ problema.problema }}{% if not forloop.last %},{%endif%}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {% if item.acesso %}
+                        <p><b>Acesso:</b> {{ item.get_acesso_display }}</p>
+                    {% endif %}
+                    <p><b>Descritores:</b> {{ item.descritores }}</p>
+                    {% if item.referencia %}
+                        <p><b>Referência:</b> {{ item.referencia|safe }}</p>
+                    {% endif %}
+                    {% if item.editora %}
+                        <p><b>Editora:</b> {{ item.editora.nome }}</p>
+                    {% endif %}
+                    {% if item.local_custodia %}
+                        <p><b>Local de Custódia:</b> {{ item.local_custodia }}</p>
+                    {% endif %}
+                    {% if item.observacoes %}
+                        <p><b>Observações:</b> {{ item.observacoes|safe }}</p>
+                    {% endif %}
+                    {% if dimensoes %}
+                    {% if dimensoes|length > 1 %}
+                        <p><b>Dimensões:</b> 
+                    {% else %}
+                        <p><b>Dimensão:</b> 
+                    {% endif %}
+                        {% for dimensao in dimensoes %}
+                            {{ dimensao.dimensao.tipo }}: {{ dimensao.quantidade }}{% if not forloop.last %};{%endif%}
+                        {% endfor %}
+                    </p>
+                    {% endif %}
+                    {% if item.atividades_eventos.all %}
+                    <b>Atividades/Eventos:</b>
+                        <div style="display: table-row;">
+                            <br>
+                            {% for atividade in item.atividades_eventos.all %}
+                            <p style="display: table-cell; padding-right:2rem; padding-top: .5rem;">
+                                <b>Título:</b> {{ atividade.atividade }} <br>
+                                <b>Especificação:</b> {{ atividade.especificacao|safe }} <br>
+                                <b>Local:</b> {{ atividade.local }} <br>
+                                <b>Data:</b> {{ atividade.data_inicio|date:"d/m/Y" }}{% if atividade.data_fim %} - {{ atividade.data_fim|date:"d/m/Y" }}{%endif%} <br>
+                            </p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <p></p>                
                 </div>
             </div>
         </div>
     </div>
+    <div class="container my-5" >
+        {% for foto in fotos_item %}
+        <div class="d-inline-block mr-3" style="width:18%;">
+           <img  data-toggle="modal" data-target="#modalImage-{{ foto.pk }}" src="{{ foto.imagem.url }}" class="rounded float-left" alt="{{ item.titulo }}" style="width: 100%;">
+        </div>
+        {% endfor %}
+     </div>
+     <!-- Modal Imagem-->
+     {% for foto in fotos_item %}
+     <div class="modal fade" id="modalImage-{{ foto.pk }}" tabindex="-1" role="dialog" aria-labelledby="modalImageLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+           <div class="modal-content">
+              <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>
+              </div>
+              <div class="modal-body">
+                 <img src="{{ foto.imagem.url }}" class="rounded float-left" alt="{{ item.titulo }}" style="width: 100%;">
+              </div>
+           </div>
+        </div>
+     </div>
+     {% endfor %}
 </section>
 {% endblock %}

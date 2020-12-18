@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+<link href="{% static 'css/galeria.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col esquerda">
+        <h2 class="text-uppercase" >Linhas do tempo</h2>
+
+        
+        
+        {% for linha in linhasDoTempo %}
+        <div class="texto">
+          <div class="card mb-3" style="max-width: 100%;">
+            <div class="row no-gutters">
+              <div class="col-sm-12 col-md-6 col-lg-4 mt-lg-3 pl-md-2 pl-sm-0">
+                <img class="card-img-top mt-lg-0 mt-md-5 imagem-noticia w-100" src="{{ linha.image.url }}">
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-8">
+                <div class="card-body">
+                  <h5 class="card-title"><b>{{ linha.titulo }}</b> </h5>
+                  <p class="card-text text-secundary">({{linha.inicio_periodo|date:"d/m/Y"}} a {{linha.fim_periodo|date:"d/m/Y"}})</p>
+                  <p class="card-text">{{ linha.descricao|safe }}</p>
+                  <p class="card-text">
+                    <small class="text-muted">
+                        <a href="{{ linha.get_absolute_url }}" class="btn btn-success">Acessar a Linha do Tempo</a>
+                    </small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+
+      </div>
+    </div>
+  </div>            
+        
+</section>
+{% endblock %}
+
